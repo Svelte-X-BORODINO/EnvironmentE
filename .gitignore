@@ -1,0 +1,6 @@
+emu.log
+gdt.txt
+kernel.elf
+kernel.bin
+
+*.o
