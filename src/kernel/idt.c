@@ -1,9 +1,9 @@
 #include <idt.h>
-
+#include <macro.h>
 struct IDTGate IDT[0xFF];
 struct IDTp    Ip;
 
-
+#define LIDT(p) VASM ("lidt %0" : : "m"(*p) : "memory")
 
 void IDTCreateGate(int vector, Unsig32 handler_addr, Unsig16 sel, Unsig8 flags) {
     struct IDTGate *gate = &IDT[vector]; 
@@ -16,5 +16,5 @@ void IDTCreateGate(int vector, Unsig32 handler_addr, Unsig16 sel, Unsig8 flags) 
 }
 
 void IDTLoad() {
-
+    
 }

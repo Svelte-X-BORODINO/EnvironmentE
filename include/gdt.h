@@ -4,6 +4,8 @@
 
 #define GR (1 << 7)
 #define DB (1 << 6)
+#define READ (1 << 3)
+#define WRITE (1 << 1)
 
 __attribute__((packed, aligned(1))) struct GDTp {
     Unsig16  size;

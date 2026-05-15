@@ -2,19 +2,20 @@
 #include <gdt.h>
 #include <type.h>
 #include <serial.h>
+#include <macro.h>
 #define SIZE 3
 struct GDTEntry GDT[SIZE];
 struct GDTp     Gp;
 
 __attribute__((noinline, noclone, used))
 UPointer GDTInstall(struct GDTp *p) {
-    __asm__ volatile (
+    VASM (
         "cli\n"
         "lgdt %0\n"
         ".byte 0xEA\n"
-        ".long gdt_govno\n"
+        ".long cs_flush\n"
         ".word 0x08\n"
-        "gdt_govno:\n\t"
+        "cs_flush:\n\t"
         "xorl %%eax, %%eax\n\t"
         "movl $0x10, %%eax\n\t"
         "movl %%eax, %%ds\n\t"
