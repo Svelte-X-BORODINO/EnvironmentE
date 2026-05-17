@@ -29,9 +29,11 @@ boot.o: boot.asm
 
 $(KERNEL): $(OBJ)
 	$(LD) $(LDFLAGS) -o $@ $^
+	./tools/debug-info kernel.elf report.txt
+	@echo "Kernel is ready, see report.txt"
 
 run: $(KERNEL)
-	$(QEMU) -kernel $(KERNEL) -M smm=off -display none -d int,cpu_reset,guest_errors -D emu.log -nographic
+	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors -D emu.log -vga std -serial stdio
 	
 run_debug: $(KERNEL)
 	@echo "Use C-a c to enter QEMU Monitor."

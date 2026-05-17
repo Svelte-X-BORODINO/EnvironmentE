@@ -5,6 +5,7 @@
 #define UNIMPL(s) "unimpl : " str(s)
 
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
+#define ATTR(...) __attribute__(__VA_ARGS__)
 
 #define str(s) xstr(s)
 #define xstr(s) #s

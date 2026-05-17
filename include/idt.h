@@ -16,7 +16,7 @@ struct IDTp {
 } __attribute__((packed));
 
 void IDTInsertGate(Unsig8 num, Unsig32 base, Unsig16 sel, Unsig8 flags);
-void IDTLoad();
+void IDTLoad(void);
 
 
 #endif /* IDT_H_ENVE */

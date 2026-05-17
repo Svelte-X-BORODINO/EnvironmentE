@@ -7,9 +7,11 @@
 struct GDTEntry GDT[SIZE];
 struct GDTp     Gp;
 
-__attribute__((noinline, noclone, used))
-UPointer GDTInstall(struct GDTp *p) {
-    VASM (
+ATTR 
+((noinline, noclone, used)) UPointer GDTInstall
+(struct GDTp *p) {
+    VASM 
+    (
         "cli\n"
         "lgdt %0\n"
         ".byte 0xEA\n"
@@ -28,7 +30,8 @@ UPointer GDTInstall(struct GDTp *p) {
     );
 }
 
-static void InsertEntry(Unsig8 idx, Unsig32 limit, Unsig32 base, Unsig8 access, Unsig8 gran) {
+static UPointer InsertEntry
+(Unsig8 idx, Unsig32 limit, Unsig32 base, Unsig8 access, Unsig8 gran) {
     if (idx > SIZE) {
         OutS("pokolena boroda\n");
         return;
@@ -44,7 +47,8 @@ static void InsertEntry(Unsig8 idx, Unsig32 limit, Unsig32 base, Unsig8 access, 
     entry->access    = access;
 }
 
-UPointer GDTLoad(void) {
+UPointer GDTLoad
+(void) {
     InsertEntry(0, 0, 0, 0, 0);
     InsertEntry(1, 0x3FFF, 0, 0x9A, GR | DB);
     InsertEntry(2, 0x3FFF, 0, 0x92, GR | DB);
