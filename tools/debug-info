@@ -1,0 +1,9 @@
+#!/bin/bash
+if [[ $# -eq 0 ]]; then
+    echo "Usage : $0 [kernel] [out]"
+    exit 1
+fi
+echo -ne "Symbols:\n$(nm $1)\n" > $2
+echo -ne "Sections size:\n$(size $1)\n" >> $2
+echo -ne "Kernel size: $(du -sh $1 | awk '{print $1}')\n" >> $2
+echo -ne "ELF Header:\n $(readelf -a kernel.elf | sed -n '2,18p')\n" >> $2

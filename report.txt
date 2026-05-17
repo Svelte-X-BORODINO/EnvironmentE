@@ -1,0 +1,55 @@
+Symbols:
+001003b0 T EOI
+00105008 B GDT
+00100130 T GDTInstall
+00100160 T GDTLoad
+00105000 B Gp
+00105040 B IDT
+00100200 T IDTCreateGate
+00100250 T IDTLoad
+001003f0 T IRQ32
+00105020 B Ip
+0010000c r MBV1_end
+00100000 r MBV1_header
+00100090 T OutC
+001000c0 T OutS
+00100300 T PICInit
+00100380 T PICMask
+00100350 T PICUnmask
+001002b0 T Remap
+00100260 T Setup
+001003d0 T TimerInit
+00100050 T UARTInit
+00100010 T _start
+0010002d t a
+0010013f t cs_flush
+00100030 T irq0
+001003fc d irq0_msg
+0010003f T irq8
+0010043c d irq8_msg
+0010047f d irqwtf_msg
+00101000 b stack_bottom
+00105000 b stack_top
+0010573c B ticks
+Sections size:
+   text	   data	    bss	    dec	    hex	filename
+   1069	    152	  18240	  19461	   4c05	kernel.elf
+Kernel size: 8.0K
+ELF Header:
+   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Intel 80386
+  Version:                           0x1
+  Entry point address:               0x100010
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          6356 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         3
+  Size of section headers:           40 (bytes)
