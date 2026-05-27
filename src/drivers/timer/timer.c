@@ -3,6 +3,7 @@
 #include <io.h>
 #include <macro.h>
 #include <pic.h>
+#include <serial.h>
 
 Unsig32 ticks = 0;
 
@@ -15,7 +16,9 @@ UPointer TimerInit
     // now we need to insert this shit into IDT and try to not blow the universe
 }
 
-ATTR
-((naked)) UPointer IRQ32(void) {
-    ticks++;
+UPointer IRQ32(void) {
+    VASM ( ".intel_syntax noprefix\npushad\n.att_syntax prefix" );
+    OutC('T');
+    EOI(0);
+    VASM ( ".intel_syntax noprefix\npopad\niret\n.att_syntax prefix" );
 }

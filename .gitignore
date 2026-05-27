@@ -2,5 +2,5 @@ emu.log
 gdt.txt
 kernel.elf
 kernel.bin
-
+dibil.ef
 *.o

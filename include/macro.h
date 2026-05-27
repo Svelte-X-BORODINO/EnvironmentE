@@ -6,6 +6,10 @@
 
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
 #define ATTR(...) __attribute__(__VA_ARGS__)
+#define incode __attribute__((section(".text")))
+
+#define cli VASM ("cli")
+#define sti VASM ("sti")
 
 #define str(s) xstr(s)
 #define xstr(s) #s

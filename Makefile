@@ -2,11 +2,11 @@ AS = nasm -f elf32
 OBJCOPY = objcopy
 QEMU = qemu-system-i386
 GCC = gcc
-CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -O2 -z noexecstack -malign-double -fpack-struct=1 -mno-sse -mno-mmx
+CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -O2 -z noexecstack -mno-sse -mno-mmx -fpack-struct=1
 LD = ld -z noexecstack
 LDFLAGS = -m elf_i386 -T enve.ld
 
-KERNEL = kernel.elf
+KERNEL = NVKern
 
 C_SRC = $(shell find src/ -name "*.c")
 C_OBJ = $(C_SRC:.c=.o)
@@ -33,7 +33,8 @@ $(KERNEL): $(OBJ)
 	@echo "Kernel is ready, see report.txt"
 
 run: $(KERNEL)
-	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors -D emu.log -vga std -serial stdio
+	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors \
+	-D emu.log -nographic
 	
 run_debug: $(KERNEL)
 	@echo "Use C-a c to enter QEMU Monitor."

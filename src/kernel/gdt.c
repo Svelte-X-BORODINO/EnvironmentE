@@ -7,6 +7,13 @@
 struct GDTEntry GDT[SIZE];
 struct GDTp     Gp;
 
+struct {
+        struct GDTp header;     
+        struct GDTEntry entries[3]; 
+} __attribute__((packed)) gdt;
+
+// @fname            : GDTInstall
+// @param *p         : Pointer to GDT (TL;DR: this is the position & size of GDT)
 ATTR 
 ((noinline, noclone, used)) UPointer GDTInstall
 (struct GDTp *p) {
@@ -30,14 +37,22 @@ ATTR
     );
 }
 
+// @fname            : InsertEntry
+// @param idx        : Index of GDT table.
+// @param limit      : Limit of GDT descriptor (end of memory area).
+// @param base       : Base of GDT descriptor(TL;DR: start of memory area).
+// @param access     : Access of the descriptor(TL;DR: this thing tells to CPU how we want to use our descriptor)
+// @param gran       : Granunaliry of the descriptor(TL;DR: this asks the CPU - "yo, do we need to left shift the limit?")
+
 static UPointer InsertEntry
 (Unsig8 idx, Unsig32 limit, Unsig32 base, Unsig8 access, Unsig8 gran) {
+    struct GDTEntry *entry = &GDT[idx];
+
     if (idx > SIZE) {
         OutS("pokolena boroda\n");
         return;
     }
     
-    struct GDTEntry *entry = &GDT[idx];
     
     entry->base_low  = (base & 0xFFFF);
     entry->base_mid  = (base >> 16) & 0xFF;
@@ -47,16 +62,13 @@ static UPointer InsertEntry
     entry->access    = access;
 }
 
+// @fname            : GDTLoad
+// this thing initialize the f*cking GDT (i spent 4 days to fix this shit)
 UPointer GDTLoad
 (void) {
     InsertEntry(0, 0, 0, 0, 0);
     InsertEntry(1, 0x3FFF, 0, 0x9A, GR | DB);
     InsertEntry(2, 0x3FFF, 0, 0x92, GR | DB);
-
-    struct {
-        struct GDTp header;     
-        struct GDTEntry entries[3]; 
-    } __attribute__((packed)) gdt;
 
     gdt.entries[0] = GDT[0];
     gdt.entries[1] = GDT[1];
