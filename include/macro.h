@@ -6,8 +6,7 @@
 
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
 #define ATTR(...) __attribute__(__VA_ARGS__)
-#define incode __attribute__((section(".text")))
-
+#define naked ATTR((naked))
 #define cli VASM ("cli")
 #define sti VASM ("sti")
 

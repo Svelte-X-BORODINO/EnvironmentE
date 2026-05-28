@@ -16,9 +16,17 @@ UPointer TimerInit
     // now we need to insert this shit into IDT and try to not blow the universe
 }
 
-UPointer IRQ32(void) {
-    VASM ( ".intel_syntax noprefix\npushad\n.att_syntax prefix" );
-    OutC('T');
-    EOI(0);
-    VASM ( ".intel_syntax noprefix\npopad\niret\n.att_syntax prefix" );
+naked UPointer IRQ32
+(void) {
+    VASM (
+        "pushal\n"
+        "pushl $0x54\n"
+        "call OutC\n"
+        "pushl $0\n"
+        "call EOI\n"
+        "popal\n"
+        "add $0x8, %%esp\n"
+        "iret"
+        ::: "memory", "esp"
+    );
 }
