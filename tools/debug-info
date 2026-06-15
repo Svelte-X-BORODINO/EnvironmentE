@@ -6,4 +6,6 @@ fi
 echo -ne "Symbols:\n$(nm $1)\n" > $2
 echo -ne "Sections size:\n$(size $1)\n" >> $2
 echo -ne "Kernel size: $(du -sh $1 | awk '{print $1}')\n" >> $2
-echo -ne "ELF Header:\n $(readelf -a $1 | sed -n '2,18p')\n" >> $2
+echo -ne "Readelf:\n $(readelf -a $1)\n" >> $2
+echo -ne "Object dump(WARN: LARGE OUTPUT):\n $(objdump -d $1)\n" >> $2
+echo -ne "Object dump(.data section):\n $(objdump -s -j .data $1)\n" >> $2

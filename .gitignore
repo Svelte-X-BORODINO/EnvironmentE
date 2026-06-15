@@ -4,3 +4,5 @@ kernel.elf
 kernel.bin
 dibil.ef
 *.o
+needed
+sync.sh

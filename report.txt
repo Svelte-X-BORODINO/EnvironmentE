@@ -36,8 +36,9 @@ Sections size:
    text	   data	    bss	    dec	    hex	filename
    3181	    152	  16388	  19721	   4d09	kernel.elf
 Kernel size: 12K
-ELF Header:
-   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+Readelf:
+ ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
   Class:                             ELF32
   Data:                              2's complement, little endian
   Version:                           1 (current)
@@ -54,3 +55,533 @@ ELF Header:
   Size of program headers:           32 (bytes)
   Number of program headers:         3
   Size of section headers:           40 (bytes)
+  Number of section headers:         9
+  Section header string table index: 8
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .boot             PROGBITS        00100000 001000 00000c 00   A  0   0  4
+  [ 2] .text             PROGBITS        00100020 001020 000c19 00  AX  0   0 32
+  [ 3] .data             PROGBITS        00100c3c 001c3c 000098 00  WA  0   0  4
+  [ 4] .rodata.str1.1    PROGBITS        00100cd4 001cd4 000048 01 AMS  0   0  1
+  [ 5] .bss              NOBITS          00101000 002000 004004 00  WA  0   0 16
+  [ 6] .symtab           SYMTAB          00000000 001d1c 0002a0 10      7  18  4
+  [ 7] .strtab           STRTAB          00000000 001fbc 000142 00      0   0  1
+  [ 8] .shstrtab         STRTAB          00000000 0020fe 000041 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x00100000 0x00100000 0x00d1c 0x00d1c RWE 0x1000
+  LOAD           0x001000 0x00101000 0x00101000 0x00000 0x04004 RW  0x1000
+  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .boot .text .data .rodata.str1.1 
+   01     .bss 
+   02     
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+No processor specific unwind information to decode
+
+Symbol table '.symtab' contains 42 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS boot.asm
+     2: 00100000     0 NOTYPE  LOCAL  DEFAULT    1 MBV1_header
+     3: 0010000c     0 NOTYPE  LOCAL  DEFAULT    1 MBV1_end
+     4: 00101000     0 NOTYPE  LOCAL  DEFAULT    5 stack_bottom
+     5: 00105000     0 NOTYPE  LOCAL  DEFAULT    5 stack_top
+     6: 0010003d     0 NOTYPE  LOCAL  DEFAULT    2 a
+     7: 00000000     0 FILE    LOCAL  DEFAULT  ABS src/kernel/lib.asm
+     8: 00100c3c     0 NOTYPE  LOCAL  DEFAULT    3 irq0_msg
+     9: 00100c7c     0 NOTYPE  LOCAL  DEFAULT    3 irq8_msg
+    10: 00100cbf     0 NOTYPE  LOCAL  DEFAULT    3 irqwtf_msg
+    11: 00000000     0 FILE    LOCAL  DEFAULT  ABS serial.c
+    12: 00000000     0 FILE    LOCAL  DEFAULT  ABS gdt.c
+    13: 0010015f     0 NOTYPE  LOCAL  DEFAULT    2 cs_flush
+    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS idt.c
+    15: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    16: 00000000     0 FILE    LOCAL  DEFAULT  ABS pic.c
+    17: 00000000     0 FILE    LOCAL  DEFAULT  ABS timer.c
+    18: 001000b0    33 FUNC    GLOBAL DEFAULT    2 OutC
+    19: 0010004f     0 NOTYPE  GLOBAL DEFAULT    2 irq8
+    20: 00100218     6 OBJECT  GLOBAL DEFAULT    2 Gp
+    21: 00100380  1785 OBJECT  GLOBAL DEFAULT    2 IDT
+    22: 00100b90    34 FUNC    GLOBAL DEFAULT    2 PICUnmask
+    23: 00100b40    72 FUNC    GLOBAL DEFAULT    2 PICInit
+    24: 00100020     0 NOTYPE  GLOBAL DEFAULT    2 _start
+    25: 00100070    61 FUNC    GLOBAL DEFAULT    2 UARTInit
+    26: 00100240    65 FUNC    GLOBAL DEFAULT    2 IDTCreateGate
+    27: 00100bc0    35 FUNC    GLOBAL DEFAULT    2 PICMask
+    28: 00100180   152 FUNC    GLOBAL DEFAULT    2 GDTLoad
+    29: 0010005e     0 NOTYPE  GLOBAL DEFAULT    2 another_irq
+    30: 001000e0   108 FUNC    GLOBAL DEFAULT    2 OutS
+    31: 00100a80    98 FUNC    GLOBAL DEFAULT    2 Setup
+    32: 00100378     6 OBJECT  GLOBAL DEFAULT    2 Ip
+    33: 00105000     4 OBJECT  GLOBAL DEFAULT    5 ticks
+    34: 00100af0    72 FUNC    GLOBAL DEFAULT    2 Remap
+    35: 00100040     0 NOTYPE  GLOBAL DEFAULT    2 irq0
+    36: 00100150    33 FUNC    GLOBAL DEFAULT    2 GDTInstall
+    37: 00100290   230 FUNC    GLOBAL DEFAULT    2 IDTLoad
+    38: 00100220    24 OBJECT  GLOBAL DEFAULT    2 GDT
+    39: 00100c30     9 FUNC    GLOBAL DEFAULT    2 IRQ32
+    40: 00100bf0    22 FUNC    GLOBAL DEFAULT    2 EOI
+    41: 00100c10    22 FUNC    GLOBAL DEFAULT    2 TimerInit
+
+No version information found in this file.
+Object dump(WARN: LARGE OUTPUT):
+ 
+kernel.elf:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00100020 <_start>:
+  100020:	fa                   	cli
+  100021:	bc 00 50 10 00       	mov    $0x105000,%esp
+  100026:	68 00 00 20 00       	push   $0x200000
+  10002b:	9d                   	popf
+  10002c:	66 c7 05 00 80 0b 00 	movw   $0x4f42,0xb8000
+  100033:	42 4f 
+  100035:	e8 46 0a 00 00       	call   100a80 <Setup>
+  10003a:	6a 00                	push   $0x0
+  10003c:	9d                   	popf
+
+0010003d <a>:
+  10003d:	f4                   	hlt
+  10003e:	eb fd                	jmp    10003d <a>
+
+00100040 <irq0>:
+  100040:	68 3c 0c 10 00       	push   $0x100c3c
+  100045:	e8 96 00 00 00       	call   1000e0 <OutS>
+  10004a:	83 c4 04             	add    $0x4,%esp
+  10004d:	fa                   	cli
+  10004e:	f4                   	hlt
+
+0010004f <irq8>:
+  10004f:	68 7c 0c 10 00       	push   $0x100c7c
+  100054:	e8 87 00 00 00       	call   1000e0 <OutS>
+  100059:	83 c4 04             	add    $0x4,%esp
+  10005c:	fa                   	cli
+  10005d:	f4                   	hlt
+
+0010005e <another_irq>:
+  10005e:	68 bf 0c 10 00       	push   $0x100cbf
+  100063:	e8 78 00 00 00       	call   1000e0 <OutS>
+  100068:	83 c4 04             	add    $0x4,%esp
+  10006b:	fa                   	cli
+  10006c:	f4                   	hlt
+  10006d:	66 90                	xchg   %ax,%ax
+  10006f:	90                   	nop
+
+00100070 <UARTInit>:
+  100070:	31 c0                	xor    %eax,%eax
+  100072:	ba f9 03 00 00       	mov    $0x3f9,%edx
+  100077:	ee                   	out    %al,(%dx)
+  100078:	b8 80 ff ff ff       	mov    $0xffffff80,%eax
+  10007d:	ba fb 03 00 00       	mov    $0x3fb,%edx
+  100082:	ee                   	out    %al,(%dx)
+  100083:	b8 01 00 00 00       	mov    $0x1,%eax
+  100088:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  10008d:	ee                   	out    %al,(%dx)
+  10008e:	31 c0                	xor    %eax,%eax
+  100090:	ba f9 03 00 00       	mov    $0x3f9,%edx
+  100095:	ee                   	out    %al,(%dx)
+  100096:	b8 03 00 00 00       	mov    $0x3,%eax
+  10009b:	ba fb 03 00 00       	mov    $0x3fb,%edx
+  1000a0:	ee                   	out    %al,(%dx)
+  1000a1:	b8 c7 ff ff ff       	mov    $0xffffffc7,%eax
+  1000a6:	ba fa 03 00 00       	mov    $0x3fa,%edx
+  1000ab:	ee                   	out    %al,(%dx)
+  1000ac:	c3                   	ret
+  1000ad:	8d 76 00             	lea    0x0(%esi),%esi
+
+001000b0 <OutC>:
+  1000b0:	ba fd 03 00 00       	mov    $0x3fd,%edx
+  1000b5:	8d 76 00             	lea    0x0(%esi),%esi
+  1000b8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1000bf:	00 
+  1000c0:	ec                   	in     (%dx),%al
+  1000c1:	a8 20                	test   $0x20,%al
+  1000c3:	74 fb                	je     1000c0 <OutC+0x10>
+  1000c5:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
+  1000ca:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  1000cf:	ee                   	out    %al,(%dx)
+  1000d0:	c3                   	ret
+  1000d1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  1000d8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1000df:	00 
+
+001000e0 <OutS>:
+  1000e0:	83 ec 0c             	sub    $0xc,%esp
+  1000e3:	89 74 24 04          	mov    %esi,0x4(%esp)
+  1000e7:	8b 74 24 10          	mov    0x10(%esp),%esi
+  1000eb:	89 1c 24             	mov    %ebx,(%esp)
+  1000ee:	0f b6 1e             	movzbl (%esi),%ebx
+  1000f1:	84 db                	test   %bl,%bl
+  1000f3:	74 35                	je     10012a <OutS+0x4a>
+  1000f5:	b9 fd 03 00 00       	mov    $0x3fd,%ecx
+  1000fa:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100100:	80 fb 0a             	cmp    $0xa,%bl
+  100103:	74 33                	je     100138 <OutS+0x58>
+  100105:	8d 76 00             	lea    0x0(%esi),%esi
+  100108:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10010f:	00 
+  100110:	89 ca                	mov    %ecx,%edx
+  100112:	ec                   	in     (%dx),%al
+  100113:	a8 20                	test   $0x20,%al
+  100115:	74 f9                	je     100110 <OutS+0x30>
+  100117:	89 d8                	mov    %ebx,%eax
+  100119:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  10011e:	ee                   	out    %al,(%dx)
+  10011f:	0f b6 5e 01          	movzbl 0x1(%esi),%ebx
+  100123:	83 c6 01             	add    $0x1,%esi
+  100126:	84 db                	test   %bl,%bl
+  100128:	75 d6                	jne    100100 <OutS+0x20>
+  10012a:	8b 1c 24             	mov    (%esp),%ebx
+  10012d:	8b 74 24 04          	mov    0x4(%esp),%esi
+  100131:	83 c4 0c             	add    $0xc,%esp
+  100134:	c3                   	ret
+  100135:	8d 76 00             	lea    0x0(%esi),%esi
+  100138:	89 ca                	mov    %ecx,%edx
+  10013a:	ec                   	in     (%dx),%al
+  10013b:	a8 20                	test   $0x20,%al
+  10013d:	74 f9                	je     100138 <OutS+0x58>
+  10013f:	b8 0d 00 00 00       	mov    $0xd,%eax
+  100144:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  100149:	ee                   	out    %al,(%dx)
+  10014a:	eb c4                	jmp    100110 <OutS+0x30>
+  10014c:	66 90                	xchg   %ax,%ax
+  10014e:	66 90                	xchg   %ax,%ax
+
+00100150 <GDTInstall>:
+  100150:	8b 54 24 04          	mov    0x4(%esp),%edx
+  100154:	fa                   	cli
+  100155:	0f 01 12             	lgdtl  (%edx)
+  100158:	ea 5f 01 10 00 08 00 	ljmp   $0x8,$0x10015f
+
+0010015f <cs_flush>:
+  10015f:	31 c0                	xor    %eax,%eax
+  100161:	b8 10 00 00 00       	mov    $0x10,%eax
+  100166:	8e d8                	mov    %eax,%ds
+  100168:	8e c0                	mov    %eax,%es
+  10016a:	8e d0                	mov    %eax,%ss
+  10016c:	8e e0                	mov    %eax,%fs
+  10016e:	8e e8                	mov    %eax,%gs
+  100170:	c3                   	ret
+  100171:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100178:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10017f:	00 
+
+00100180 <GDTLoad>:
+  100180:	83 ec 20             	sub    $0x20,%esp
+  100183:	c7 05 20 02 10 00 00 	movl   $0x0,0x100220
+  10018a:	00 00 00 
+  10018d:	a1 20 02 10 00       	mov    0x100220,%eax
+  100192:	c7 05 24 02 10 00 00 	movl   $0x0,0x100224
+  100199:	00 00 00 
+  10019c:	8b 15 24 02 10 00    	mov    0x100224,%edx
+  1001a2:	89 44 24 08          	mov    %eax,0x8(%esp)
+  1001a6:	c7 05 28 02 10 00 ff 	movl   $0x3fff,0x100228
+  1001ad:	3f 00 00 
+  1001b0:	a1 28 02 10 00       	mov    0x100228,%eax
+  1001b5:	89 54 24 0c          	mov    %edx,0xc(%esp)
+  1001b9:	c7 05 2c 02 10 00 00 	movl   $0xc09a00,0x10022c
+  1001c0:	9a c0 00 
+  1001c3:	8b 15 2c 02 10 00    	mov    0x10022c,%edx
+  1001c9:	89 44 24 10          	mov    %eax,0x10(%esp)
+  1001cd:	c7 05 30 02 10 00 ff 	movl   $0x3fff,0x100230
+  1001d4:	3f 00 00 
+  1001d7:	a1 30 02 10 00       	mov    0x100230,%eax
+  1001dc:	89 54 24 14          	mov    %edx,0x14(%esp)
+  1001e0:	c7 05 34 02 10 00 00 	movl   $0xc09200,0x100234
+  1001e7:	92 c0 00 
+  1001ea:	8b 15 34 02 10 00    	mov    0x100234,%edx
+  1001f0:	89 44 24 18          	mov    %eax,0x18(%esp)
+  1001f4:	b8 17 00 00 00       	mov    $0x17,%eax
+  1001f9:	89 54 24 1c          	mov    %edx,0x1c(%esp)
+  1001fd:	8d 54 24 08          	lea    0x8(%esp),%edx
+  100201:	66 89 44 24 02       	mov    %ax,0x2(%esp)
+  100206:	8d 44 24 02          	lea    0x2(%esp),%eax
+  10020a:	89 54 24 04          	mov    %edx,0x4(%esp)
+  10020e:	50                   	push   %eax
+  10020f:	e8 3c ff ff ff       	call   100150 <GDTInstall>
+  100214:	83 c4 24             	add    $0x24,%esp
+  100217:	c3                   	ret
+
+00100218 <Gp>:
+  100218:	00 00 00 00 00 00 90 90                             ........
+
+00100220 <GDT>:
+	...
+  100238:	66 90 66 90 66 90 66 90                             f.f.f.f.
+
+00100240 <IDTCreateGate>:
+  100240:	0f b6 4c 24 04       	movzbl 0x4(%esp),%ecx
+  100245:	8b 54 24 08          	mov    0x8(%esp),%edx
+  100249:	8d 04 cd 00 00 00 00 	lea    0x0(,%ecx,8),%eax
+  100250:	29 c8                	sub    %ecx,%eax
+  100252:	0f b7 4c 24 0c       	movzwl 0xc(%esp),%ecx
+  100257:	66 89 90 80 03 10 00 	mov    %dx,0x100380(%eax)
+  10025e:	c1 ea 10             	shr    $0x10,%edx
+  100261:	66 89 88 83 03 10 00 	mov    %cx,0x100383(%eax)
+  100268:	0f b6 4c 24 10       	movzbl 0x10(%esp),%ecx
+  10026d:	c6 80 86 03 10 00 00 	movb   $0x0,0x100386(%eax)
+  100274:	88 88 85 03 10 00    	mov    %cl,0x100385(%eax)
+  10027a:	88 90 82 03 10 00    	mov    %dl,0x100382(%eax)
+  100280:	c3                   	ret
+  100281:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100288:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10028f:	00 
+
+00100290 <IDTLoad>:
+  100290:	53                   	push   %ebx
+  100291:	ba 5e 00 10 00       	mov    $0x10005e,%edx
+  100296:	b8 80 03 10 00       	mov    $0x100380,%eax
+  10029b:	b9 8e 00 00 00       	mov    $0x8e,%ecx
+  1002a0:	89 d3                	mov    %edx,%ebx
+  1002a2:	c1 eb 10             	shr    $0x10,%ebx
+  1002a5:	81 ec 00 07 00 00    	sub    $0x700,%esp
+  1002ab:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1002b0:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1002b7:	00 
+  1002b8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1002bf:	00 
+  1002c0:	66 89 10             	mov    %dx,(%eax)
+  1002c3:	83 c0 07             	add    $0x7,%eax
+  1002c6:	66 c7 40 fc 08 00    	movw   $0x8,-0x4(%eax)
+  1002cc:	66 89 48 fe          	mov    %cx,-0x2(%eax)
+  1002d0:	88 58 fb             	mov    %bl,-0x5(%eax)
+  1002d3:	3d 60 04 10 00       	cmp    $0x100460,%eax
+  1002d8:	75 e6                	jne    1002c0 <IDTLoad+0x30>
+  1002da:	b8 40 00 10 00       	mov    $0x100040,%eax
+  1002df:	8d 94 24 ff 06 00 00 	lea    0x6ff(%esp),%edx
+  1002e6:	c7 05 83 03 10 00 08 	movl   $0x8e0008,0x100383
+  1002ed:	00 8e 00 
+  1002f0:	66 a3 80 03 10 00    	mov    %ax,0x100380
+  1002f6:	c1 e8 10             	shr    $0x10,%eax
+  1002f9:	a2 82 03 10 00       	mov    %al,0x100382
+  1002fe:	b8 4f 00 10 00       	mov    $0x10004f,%eax
+  100303:	c7 05 bb 03 10 00 08 	movl   $0x8e0008,0x1003bb
+  10030a:	00 8e 00 
+  10030d:	66 a3 b8 03 10 00    	mov    %ax,0x1003b8
+  100313:	c1 e8 10             	shr    $0x10,%eax
+  100316:	a2 ba 03 10 00       	mov    %al,0x1003ba
+  10031b:	89 e0                	mov    %esp,%eax
+  10031d:	8d 76 00             	lea    0x0(%esi),%esi
+  100320:	c6 00 00             	movb   $0x0,(%eax)
+  100323:	83 c0 03             	add    $0x3,%eax
+  100326:	c6 40 fe 00          	movb   $0x0,-0x2(%eax)
+  10032a:	c6 40 ff 00          	movb   $0x0,-0x1(%eax)
+  10032e:	39 c2                	cmp    %eax,%edx
+  100330:	75 ee                	jne    100320 <IDTLoad+0x90>
+  100332:	31 c0                	xor    %eax,%eax
+  100334:	8d 5c 24 06          	lea    0x6(%esp),%ebx
+  100338:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10033f:	00 
+  100340:	8b 88 80 03 10 00    	mov    0x100380(%eax),%ecx
+  100346:	89 0c 03             	mov    %ecx,(%ebx,%eax,1)
+  100349:	8b 88 83 03 10 00    	mov    0x100383(%eax),%ecx
+  10034f:	89 4c 03 03          	mov    %ecx,0x3(%ebx,%eax,1)
+  100353:	83 c0 07             	add    $0x7,%eax
+  100356:	3d f9 06 00 00       	cmp    $0x6f9,%eax
+  10035b:	75 e3                	jne    100340 <IDTLoad+0xb0>
+  10035d:	b8 f8 06 00 00       	mov    $0x6f8,%eax
+  100362:	89 5c 24 02          	mov    %ebx,0x2(%esp)
+  100366:	66 89 04 24          	mov    %ax,(%esp)
+  10036a:	0f 01 1c 24          	lidtl  (%esp)
+  10036e:	81 c4 00 07 00 00    	add    $0x700,%esp
+  100374:	5b                   	pop    %ebx
+  100375:	c3                   	ret
+  100376:	66 90                	xchg   %ax,%ax
+
+00100378 <Ip>:
+  100378:	00 00 00 00 00 00 90 90                             ........
+
+00100380 <IDT>:
+	...
+  100a78:	00 66 90 66 90 66 90 90                             .f.f.f..
+
+00100a80 <Setup>:
+  100a80:	83 ec 18             	sub    $0x18,%esp
+  100a83:	68 d4 0c 10 00       	push   $0x100cd4
+  100a88:	e8 53 f6 ff ff       	call   1000e0 <OutS>
+  100a8d:	e8 de f5 ff ff       	call   100070 <UARTInit>
+  100a92:	c7 04 24 e2 0c 10 00 	movl   $0x100ce2,(%esp)
+  100a99:	e8 42 f6 ff ff       	call   1000e0 <OutS>
+  100a9e:	e8 dd f6 ff ff       	call   100180 <GDTLoad>
+  100aa3:	c7 04 24 f2 0c 10 00 	movl   $0x100cf2,(%esp)
+  100aaa:	e8 31 f6 ff ff       	call   1000e0 <OutS>
+  100aaf:	c7 04 24 ff 0c 10 00 	movl   $0x100cff,(%esp)
+  100ab6:	e8 25 f6 ff ff       	call   1000e0 <OutS>
+  100abb:	e8 d0 f7 ff ff       	call   100290 <IDTLoad>
+  100ac0:	c7 04 24 0f 0d 10 00 	movl   $0x100d0f,(%esp)
+  100ac7:	e8 14 f6 ff ff       	call   1000e0 <OutS>
+  100acc:	cd 00                	int    $0x0
+  100ace:	83 c4 10             	add    $0x10,%esp
+  100ad1:	90                   	nop
+  100ad2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100ad8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100adf:	00 
+  100ae0:	eb fe                	jmp    100ae0 <Setup+0x60>
+  100ae2:	66 90                	xchg   %ax,%ax
+  100ae4:	66 90                	xchg   %ax,%ax
+  100ae6:	66 90                	xchg   %ax,%ax
+  100ae8:	66 90                	xchg   %ax,%ax
+  100aea:	66 90                	xchg   %ax,%ax
+  100aec:	66 90                	xchg   %ax,%ax
+  100aee:	66 90                	xchg   %ax,%ax
+
+00100af0 <Remap>:
+  100af0:	b8 11 00 00 00       	mov    $0x11,%eax
+  100af5:	e6 20                	out    %al,$0x20
+  100af7:	e6 a0                	out    %al,$0xa0
+  100af9:	31 c0                	xor    %eax,%eax
+  100afb:	e6 80                	out    %al,$0x80
+  100afd:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
+  100b02:	e6 21                	out    %al,$0x21
+  100b04:	0f b6 44 24 08       	movzbl 0x8(%esp),%eax
+  100b09:	e6 a1                	out    %al,$0xa1
+  100b0b:	31 c0                	xor    %eax,%eax
+  100b0d:	e6 80                	out    %al,$0x80
+  100b0f:	b8 04 00 00 00       	mov    $0x4,%eax
+  100b14:	e6 21                	out    %al,$0x21
+  100b16:	b8 02 00 00 00       	mov    $0x2,%eax
+  100b1b:	e6 a1                	out    %al,$0xa1
+  100b1d:	31 c0                	xor    %eax,%eax
+  100b1f:	e6 80                	out    %al,$0x80
+  100b21:	b8 01 00 00 00       	mov    $0x1,%eax
+  100b26:	e6 21                	out    %al,$0x21
+  100b28:	e6 a1                	out    %al,$0xa1
+  100b2a:	31 c0                	xor    %eax,%eax
+  100b2c:	e6 80                	out    %al,$0x80
+  100b2e:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  100b33:	e6 21                	out    %al,$0x21
+  100b35:	e6 a1                	out    %al,$0xa1
+  100b37:	c3                   	ret
+  100b38:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100b3f:	00 
+
+00100b40 <PICInit>:
+  100b40:	b8 11 00 00 00       	mov    $0x11,%eax
+  100b45:	e6 20                	out    %al,$0x20
+  100b47:	e6 a0                	out    %al,$0xa0
+  100b49:	31 c0                	xor    %eax,%eax
+  100b4b:	e6 80                	out    %al,$0x80
+  100b4d:	b8 20 00 00 00       	mov    $0x20,%eax
+  100b52:	e6 21                	out    %al,$0x21
+  100b54:	b8 28 00 00 00       	mov    $0x28,%eax
+  100b59:	e6 a1                	out    %al,$0xa1
+  100b5b:	31 c0                	xor    %eax,%eax
+  100b5d:	e6 80                	out    %al,$0x80
+  100b5f:	b8 04 00 00 00       	mov    $0x4,%eax
+  100b64:	e6 21                	out    %al,$0x21
+  100b66:	b8 02 00 00 00       	mov    $0x2,%eax
+  100b6b:	e6 a1                	out    %al,$0xa1
+  100b6d:	31 c0                	xor    %eax,%eax
+  100b6f:	e6 80                	out    %al,$0x80
+  100b71:	b8 01 00 00 00       	mov    $0x1,%eax
+  100b76:	e6 21                	out    %al,$0x21
+  100b78:	e6 a1                	out    %al,$0xa1
+  100b7a:	31 c0                	xor    %eax,%eax
+  100b7c:	e6 80                	out    %al,$0x80
+  100b7e:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  100b83:	e6 21                	out    %al,$0x21
+  100b85:	e6 a1                	out    %al,$0xa1
+  100b87:	c3                   	ret
+  100b88:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100b8f:	00 
+
+00100b90 <PICUnmask>:
+  100b90:	53                   	push   %ebx
+  100b91:	0f b6 4c 24 08       	movzbl 0x8(%esp),%ecx
+  100b96:	80 f9 08             	cmp    $0x8,%cl
+  100b99:	19 d2                	sbb    %edx,%edx
+  100b9b:	83 e2 80             	and    $0xffffff80,%edx
+  100b9e:	66 81 c2 a1 00       	add    $0xa1,%dx
+  100ba3:	ec                   	in     (%dx),%al
+  100ba4:	89 c3                	mov    %eax,%ebx
+  100ba6:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+  100bab:	d2 c0                	rol    %cl,%al
+  100bad:	21 d8                	and    %ebx,%eax
+  100baf:	ee                   	out    %al,(%dx)
+  100bb0:	5b                   	pop    %ebx
+  100bb1:	c3                   	ret
+  100bb2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100bb8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100bbf:	00 
+
+00100bc0 <PICMask>:
+  100bc0:	53                   	push   %ebx
+  100bc1:	0f b6 4c 24 08       	movzbl 0x8(%esp),%ecx
+  100bc6:	80 f9 08             	cmp    $0x8,%cl
+  100bc9:	19 d2                	sbb    %edx,%edx
+  100bcb:	83 e2 80             	and    $0xffffff80,%edx
+  100bce:	66 81 c2 a1 00       	add    $0xa1,%dx
+  100bd3:	ec                   	in     (%dx),%al
+  100bd4:	bb 01 00 00 00       	mov    $0x1,%ebx
+  100bd9:	83 e1 07             	and    $0x7,%ecx
+  100bdc:	d3 e3                	shl    %cl,%ebx
+  100bde:	09 d8                	or     %ebx,%eax
+  100be0:	ee                   	out    %al,(%dx)
+  100be1:	5b                   	pop    %ebx
+  100be2:	c3                   	ret
+  100be3:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100be8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100bef:	00 
+
+00100bf0 <EOI>:
+  100bf0:	80 7c 24 04 07       	cmpb   $0x7,0x4(%esp)
+  100bf5:	76 07                	jbe    100bfe <EOI+0xe>
+  100bf7:	b8 20 00 00 00       	mov    $0x20,%eax
+  100bfc:	e6 a0                	out    %al,$0xa0
+  100bfe:	b8 20 00 00 00       	mov    $0x20,%eax
+  100c03:	e6 20                	out    %al,$0x20
+  100c05:	c3                   	ret
+  100c06:	66 90                	xchg   %ax,%ax
+  100c08:	66 90                	xchg   %ax,%ax
+  100c0a:	66 90                	xchg   %ax,%ax
+  100c0c:	66 90                	xchg   %ax,%ax
+  100c0e:	66 90                	xchg   %ax,%ax
+
+00100c10 <TimerInit>:
+  100c10:	b8 36 00 00 00       	mov    $0x36,%eax
+  100c15:	e6 43                	out    %al,$0x43
+  100c17:	b8 9b ff ff ff       	mov    $0xffffff9b,%eax
+  100c1c:	e6 40                	out    %al,$0x40
+  100c1e:	b8 2e 00 00 00       	mov    $0x2e,%eax
+  100c23:	e6 40                	out    %al,$0x40
+  100c25:	c3                   	ret
+  100c26:	66 90                	xchg   %ax,%ax
+  100c28:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100c2f:	00 
+
+00100c30 <IRQ32>:
+  100c30:	83 05 00 50 10 00 01 	addl   $0x1,0x105000
+  100c37:	0f 0b                	ud2
+Object dump(.data section):
+ 
+kernel.elf:     file format elf32-i386
+
+Contents of section .data:
+ 100c3c 4b65726e 656c2050 616e6963 20636175  Kernel Panic cau
+ 100c4c 67687420 3a204469 76697369 6f6e2062  ght : Division b
+ 100c5c 79207a65 726f2120 78383620 6973206e  y zero! x86 is n
+ 100c6c 6f742049 45454520 3735342c 2062726f  ot IEEE 754, bro
+ 100c7c 4b65726e 656c2050 616e6963 20636175  Kernel Panic cau
+ 100c8c 67687420 3a20444f 55424c45 20464155  ght : DOUBLE FAU
+ 100c9c 4c542121 21212120 57484154 20544845  LT!!!!! WHAT THE
+ 100cac 20462a43 4b204953 20474f49 4e27204f   F*CK IS GOIN' O
+ 100cbc 4e3f2173 6f6d6520 696e7465 72727570  N?!some interrup
+ 100ccc 74206361 75676874                    t caught        

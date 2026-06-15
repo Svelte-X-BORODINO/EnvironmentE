@@ -1,11 +1,10 @@
-
 #include <gdt.h>
 #include <type.h>
 #include <serial.h>
 #include <macro.h>
 #define SIZE 3
-struct GDTEntry GDT[SIZE];
-struct GDTp     Gp;
+indata struct GDTEntry GDT[SIZE];
+indata struct GDTp     Gp;
 
 struct {
         struct GDTp header;     
@@ -15,7 +14,7 @@ struct {
 // @fname            : GDTInstall
 // @param *p         : Pointer to GDT (TL;DR: this is the position & size of GDT)
 ATTR 
-((noinline, noclone, used)) UPointer GDTInstall
+((noinline, noclone)) used UPointer GDTInstall
 (struct GDTp *p) {
     VASM 
     (
@@ -31,7 +30,8 @@ ATTR
         "movl %%eax, %%es\n\t"
         "movl %%eax, %%ss\n\t" // ладно ss, заслужил
         "movl %%eax, %%fs\n\t"
-        "movl %%eax, %%gs\n\t" 
+        "movl %%eax, %%gs\n\t"
+        "ret" 
         :: "m"(*p)
         : "eax", "cc", "memory"
     );

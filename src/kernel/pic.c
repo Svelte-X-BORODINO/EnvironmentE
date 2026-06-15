@@ -22,6 +22,7 @@ UPointer Remap(Unsig8 offset1, Unsig8 offset2) {
     outb(PIC1_DATA, 0xFF);
     outb(PIC2_DATA, 0xFF);
     PICUnmask(0);
+    PICUnmask(1);
 }
 
 UPointer PICInit(void) {

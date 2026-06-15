@@ -1,14 +1,15 @@
 #include <idt.h>
 #include <macro.h>
+#include <serial.h>
 #include <timer.h>
+#include <kbd.h>
 #include <type.h>
 #include <pic.h>
-struct IDTGate IDT[0xFF];
-struct IDTp    Ip;
+indata struct IDTGate IDT[0xFF];
+indata struct IDTp    Ip;
 
-extern UPointer irq0();
-extern UPointer irq8();
-extern UPointer another_irq();
+extern UPointer IRQ32();
+extern UPointer IRQ33();
 
 #define LIDT(p) VASM ("lidt %0" : : "m"(*p) : "memory")
 
@@ -25,22 +26,17 @@ void IDTCreateGate
 
 void IDTLoad
 (void) {
-    for (Unsig32 i = 0; i < 0x20; i++) {
-        IDTCreateGate(i, (Unsig32)another_irq, 0x08, 0x8E);
+    for (Unsig32 i = 0; i < 0xFF; i++) {
+        IDTCreateGate(i, (Unsig32)0, 0x08, 0x8E);
     }
-    IDTCreateGate(0x00, (Unsig32)irq0, 0x08, 0x8E);
-    IDTCreateGate(0x08, (Unsig32)irq8, 0x08, 0x8E);
     IDTCreateGate(0x20, (Unsig32)IRQ32, 0x08, 0x8E);
+    IDTCreateGate(0x21, (Unsig32)IRQ33, 0x08, 0x8E);
     
     Ip.size = sizeof(IDT) - 1;  
     Ip.ptr  = (Unsig32)IDT;     
     
-    char msg[] = "IDTGate size: \n";
-    char msg2[] = "IDTp size: \n";
-    msg[13] = '0' + sizeof(struct IDTGate);
-    msg2[10] = '0' + sizeof(struct IDTp);
-    OutS(msg);
-    OutS(msg2);
+    _Static_assert(sizeof(struct IDTGate) == 8, "IDTGate size must be 8 bytes");
+    _Static_assert(sizeof(struct IDTp)    == 6, "IDTp size MUST be 6 bytes");
 
     LIDT(&Ip);
     sti;

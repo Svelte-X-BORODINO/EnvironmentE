@@ -1,6 +1,7 @@
 #include <io.h>
 #include <type.h>
 #include <serial.h>
+#include <macro.h>
 
 UPointer UARTInit
 (void) {
@@ -37,5 +38,25 @@ UPointer OutS
             OutC('\r');
         OutC(*s);
         s++;
+    }
+}
+
+UPointer OutI(Unsig32 n) {
+    JustAChar buf[12];
+    Unsig16 i = 0;
+
+    do {
+        buf[i++] = '0' + n % 10;
+        n /= 10;
+    } while (n > 0);
+    
+    while(i > 0) OutC(buf[--i]);
+}
+
+UPointer OutH(Unsig32 n) {
+    OutS("$0x");
+    String digits = "0123456789abcdef";
+    for(int i = 28; i >= 0; i -= 4) {
+        OutC(digits[(n >> i) & 0xF]);
     }
 }

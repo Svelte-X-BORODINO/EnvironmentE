@@ -6,9 +6,14 @@
 
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
 #define ATTR(...) __attribute__(__VA_ARGS__)
+
 #define naked ATTR((naked))
+#define used ATTR((used))
+#define indata ATTR((section(".data")))
+
 #define cli VASM ("cli")
 #define sti VASM ("sti")
+#define iret VASM ("iret")
 
 #define str(s) xstr(s)
 #define xstr(s) #s

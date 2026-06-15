@@ -1,8 +1,8 @@
-AS = nasm -f elf32
+AS = as --32
 OBJCOPY = objcopy
 QEMU = qemu-system-i386
 GCC = gcc
-CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -O2 -z noexecstack -mno-sse -mno-mmx -fpack-struct=1
+CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -O2 -z noexecstack -mno-sse -mno-mmx -fpack-struct=1 
 LD = ld -z noexecstack
 LDFLAGS = -m elf_i386 -T enve.ld
 
@@ -11,17 +11,17 @@ KERNEL = NVKern
 C_SRC = $(shell find src/ -name "*.c")
 C_OBJ = $(C_SRC:.c=.o)
 
-ASM_SRC = boot.asm $(shell find src/ -name "*.asm")
-ASM_OBJ = boot.o $(ASM_SRC:.asm=.o)
+ASM_SRC = boot.s $(shell find src/ -name "*.s")
+ASM_OBJ = boot.o $(ASM_SRC:.s=.o)
 
 OBJ = $(ASM_OBJ) $(C_OBJ)
 
 all: $(KERNEL)
 
-boot.o: boot.asm
+boot.o: boot.s
 	$(AS) -o $@ $<
 
-%.o: %.asm
+%.o: %.s
 	$(AS) -o $@ $<
 
 %.o: %.c
@@ -34,7 +34,7 @@ $(KERNEL): $(OBJ)
 
 run: $(KERNEL)
 	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors \
-	-D emu.log -nographic
+	-D emu.log -nographic -no-reboot
 	
 run_debug: $(KERNEL)
 	@echo "Use C-a c to enter QEMU Monitor."

@@ -5,7 +5,7 @@
 #include <pic.h>
 #include <serial.h>
 
-Unsig32 ticks = 0;
+indata Unsig32 ticks = 0;
 
 UPointer TimerInit
 (Unsig32 div) {
@@ -19,14 +19,13 @@ UPointer TimerInit
 naked UPointer IRQ32
 (void) {
     VASM (
-        "pushal\n"
-        "pushl $0x54\n"
-        "call OutC\n"
+        "pushal\n"      // saving eax, ebx, ecx, edx, esi, edi, and maybe ebp/esp
+        "incl %0\n"
         "pushl $0\n"
-        "call EOI\n"
-        "popal\n"
-        "add $0x8, %%esp\n"
+        "calll EOI\n"
+        "add $0x4, %%esp\n"
+        "popal\n"    
         "iret"
-        ::: "memory", "esp"
+        :: "m"(ticks) : "memory"
     );
 }
