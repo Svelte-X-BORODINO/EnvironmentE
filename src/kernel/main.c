@@ -13,9 +13,10 @@ void Setup
 (Unsig32 magic, Unsig32 mbinfo) {
     struct {Unsig16 l; Unsig32 b} __attribute__((packed)) gdt;
     struct {Unsig16 l; Unsig32 b} __attribute__((packed)) idt;
+    Unsig32 f = 0;
 
     VASM
-    ( "fninit" );
+    ( "fninit\npushfl\npopl %0" :: "m"(f) : "memory" );
     UARTInit();
     LogF("MAIN", "Environment E version huynya starting");
     LogF("UART", "UART initialized with baud 115200");
@@ -33,10 +34,12 @@ void Setup
     VASM 
     ( "sidt %0\n" : "=m"(idt) :: "memory" );
     LogF("IDT", "Ready, Base : %x; Limit : %x", idt.b, idt.l);
+    LogF("FLG", "Flags : %b", f);
     PICInit();
     OutS("IDT/Timer Ready!\n");
     TimerInit(100);
     KeyboardInit();
     OutS("Keyboard Ready!(vozduh)");
+
     for (;;) VASM ("hlt");
 }

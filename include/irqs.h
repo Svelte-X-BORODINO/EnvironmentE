@@ -5,12 +5,13 @@
 #include <serial.h>
 
 struct RegsFrame {
+    Unsig16 int_no;
     Unsig32 eip;      
     Unsig32 cs;       
     Unsig32 eflags;   
     Unsig32 ss; 
 
-    Unsig16 ds;
+    Unsig16 ds; 
 
     Unsig32 eax;
     Unsig32 ecx;
@@ -50,4 +51,6 @@ struct RegsFrame {
             : "memory"                      \
         );                                  \
     }
+
+void CIRQ(struct RegsFrame *r);
 #endif /* IRQS_H */

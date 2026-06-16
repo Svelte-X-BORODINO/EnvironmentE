@@ -55,8 +55,14 @@ UPointer OutI(Unsig32 n) {
 
 UPointer OutH(Unsig32 n) {
     OutS("$0x");
-    String digits = "0123456789abcdef";
+    String digits = "0123456789ABCDEF";
     for(int i = 28; i >= 0; i -= 4) {
         OutC(digits[(n >> i) & 0xF]);
+    }
+}
+
+UPointer OutB(Unsig32 n) {
+    for(Unsig8 i = 31; i > 0; --i) {
+        OutC((n >> i) & 1? '1': '0');
     }
 }

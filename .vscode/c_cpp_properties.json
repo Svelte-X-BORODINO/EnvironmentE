@@ -3,7 +3,7 @@
     {
       "name": "windows-clang-x64",
       "includePath": [
-        "${workspaceFolder}/**"
+        "include/"
       ],
       "compilerPath": "clang",
       "cStandard": "${default}",

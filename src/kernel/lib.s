@@ -9,26 +9,26 @@ irqwtf_msg:
 .section .text
 .globl IRQMainRoutine
 
-#IRQMainRoutine:
-#    pushl %ds # RegsFrame->ds
-#
-#    pushal # RegsFrame->eax..ebp
-#
-#    movw $0x10, %ax
-#    movw %ax, %ds
-#    movw %ax, %es
-#    movw %ax, %ss
-#    movw %ax, %fs
-#    movw %ax, %gs
-#
-#    pushl %esp # RegsFrame for IRQ
-#    calll CIRQ
-#    popl %esp
-#    popal
-#    popl %ds
-#    add $0x4, %esp
-#
-#    iret
+IRQMainRoutine:
+    pushl %ds # RegsFrame->ds
+
+    pushal # RegsFrame->eax..ebp
+
+    movw $0x10, %ax
+    movw %ax, %ds
+    movw %ax, %es
+    movw %ax, %ss
+    movw %ax, %fs
+    movw %ax, %gs
+
+    pushl %esp # RegsFrame for IRQ
+    calll CIRQ
+    popl %esp
+    popal
+    popl %ds
+    add $0x4, %esp
+
+    iret
 
 
 

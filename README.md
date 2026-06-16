@@ -1,6 +1,6 @@
 # Environment E
 
-Environment E is monolithic kernel for i686 architecture.
+Environment E is monolithic kernel for i386 architecture.
 
 ### Checklist:
 

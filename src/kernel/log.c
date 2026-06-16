@@ -4,8 +4,8 @@
 #include <stdarg.h>
 
 // @fname : LogF
-// blyat its just printf()
-// fmts: [cdsx]
+// its just printf()
+// fmts: [bcdsx]
 UPointer LogF(String tag, String fmt, ...) {
     OutS(tag);
     OutS(" >>> : ");
@@ -17,8 +17,9 @@ UPointer LogF(String tag, String fmt, ...) {
         if (*fmt == '%') {
             fmt++;
             switch (*fmt) {
-                case 'c': OutC(va_arg(args, int)); break;
-                case 'd': OutI(va_arg(args, int)); break;
+                case 'b': OutB(va_arg(args, Unsig32)); break;
+                case 'c': OutC(va_arg(args, Unsig32)); break;
+                case 'd': OutI(va_arg(args, Unsig32)); break;
                 case 's': OutS(va_arg(args, String)); break;
                 case 'x': OutH(va_arg(args, Unsig32)); break;
                 case '%': OutC('%'); break;

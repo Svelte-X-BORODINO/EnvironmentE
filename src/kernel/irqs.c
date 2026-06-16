@@ -1,3 +1,4 @@
+#include <log.h>
 #include <irqs.h>
 
 char *irqs[] = {
@@ -35,4 +36,6 @@ char *irqs[] = {
     "Reserved x13!"
 };
 
-NONERROR(dbz, irqs[0]);
+void CIRQ(struct RegsFrame *r) {
+    LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
+}

@@ -8,6 +8,7 @@
 indata struct IDTGate IDT[0xFF];
 indata struct IDTp    Ip;
 
+extern UPointer IRQMainRoutine();
 extern UPointer IRQ32();
 extern UPointer IRQ33();
 
@@ -27,7 +28,7 @@ void IDTCreateGate
 void IDTLoad
 (void) {
     for (Unsig32 i = 0; i < 0xFF; i++) {
-        IDTCreateGate(i, (Unsig32)0, 0x08, 0x8E);
+        IDTCreateGate(i, IRQMainRoutine, 0x08, 0x8E);
     }
     IDTCreateGate(0x20, (Unsig32)IRQ32, 0x08, 0x8E);
     IDTCreateGate(0x21, (Unsig32)IRQ33, 0x08, 0x8E);

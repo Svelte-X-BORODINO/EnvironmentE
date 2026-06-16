@@ -53,7 +53,6 @@ static UPointer InsertEntry
         return;
     }
     
-    
     entry->base_low  = (base & 0xFFFF);
     entry->base_mid  = (base >> 16) & 0xFF;
     entry->base_high = (base >> 24) & 0xFF;

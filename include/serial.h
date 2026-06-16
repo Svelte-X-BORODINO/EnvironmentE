@@ -8,5 +8,6 @@ UPointer OutC(JustAChar ch);
 UPointer OutS(String s);
 UPointer OutI(Unsig32 n);
 UPointer OutH(Unsig32 n);
+UPointer OutB(Unsig32 n);
 
 #endif /* SERIAL_H_ENVE */
