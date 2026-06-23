@@ -34,7 +34,7 @@ $(KERNEL): $(OBJ)
 
 run: $(KERNEL)
 	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors \
-	-D emu.log -nographic -no-reboot
+	-D emu.log -serial stdio -no-reboot
 	
 run_debug: $(KERNEL)
 	@echo "Use C-a c to enter QEMU Monitor."

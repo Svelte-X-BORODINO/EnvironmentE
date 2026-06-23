@@ -11,8 +11,8 @@
 
 void Setup
 (Unsig32 magic, Unsig32 mbinfo) {
-    struct {Unsig16 l; Unsig32 b} __attribute__((packed)) gdt;
-    struct {Unsig16 l; Unsig32 b} __attribute__((packed)) idt;
+    packed struct {Unsig16 l; Unsig32 b} gdt;
+    packed struct {Unsig16 l; Unsig32 b} idt;
     Unsig32 f = 0;
 
     VASM
@@ -20,11 +20,10 @@ void Setup
     UARTInit();
     LogF("MAIN", "Environment E version huynya starting");
     LogF("UART", "UART initialized with baud 115200");
-
     if(magic != 0x2BADB002) {
         FAULT("Invalid magic!!!");
     }
-
+    
     OutC('\n');
     GDTLoad();
     VASM 
@@ -36,10 +35,10 @@ void Setup
     LogF("IDT", "Ready, Base : %x; Limit : %x", idt.b, idt.l);
     LogF("FLG", "Flags : %b", f);
     PICInit();
-    OutS("IDT/Timer Ready!\n");
-    TimerInit(100);
-    KeyboardInit();
-    OutS("Keyboard Ready!(vozduh)");
-
+    LogF("PIT", "Timer ready.");
+    TimerInit(10);
+    LogF("SLP", "Sleeping for 3000 ms cuz i want");
+    RuchkiNaKolenki(300);
+    LogF("KBD", "Keyboard ready.(no)");
     for (;;) VASM ("hlt");
 }

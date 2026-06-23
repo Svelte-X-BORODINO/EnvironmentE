@@ -3,14 +3,14 @@
     {
       "name": "windows-clang-x64",
       "includePath": [
-        "include/"
+        "C:\\users\\katef\\EnvironmentE\\include\\"
       ],
       "compilerPath": "clang",
       "cStandard": "${default}",
       "cppStandard": "${default}",
       "intelliSenseMode": "windows-clang-x64",
       "compilerArgs": [
-        ""
+        "-Iinclude"
       ]
     }
   ],

@@ -6,10 +6,10 @@
 indata struct GDTEntry GDT[SIZE];
 indata struct GDTp     Gp;
 
-struct {
+packed struct {
         struct GDTp header;     
         struct GDTEntry entries[3]; 
-} __attribute__((packed)) gdt;
+} gdtable;
 
 // @fname            : GDTInstall
 // @param *p         : Pointer to GDT (TL;DR: this is the position & size of GDT)
@@ -69,15 +69,15 @@ UPointer GDTLoad
     InsertEntry(1, 0x3FFF, 0, 0x9A, GR | DB);
     InsertEntry(2, 0x3FFF, 0, 0x92, GR | DB);
 
-    gdt.entries[0] = GDT[0];
-    gdt.entries[1] = GDT[1];
-    gdt.entries[2] = GDT[2];
+    gdtable.entries[0] = GDT[0];
+    gdtable.entries[1] = GDT[1];
+    gdtable.entries[2] = GDT[2];
 
-    gdt.header.size = sizeof(gdt.entries) - 1;
-    gdt.header.ptr  = (Unsig32) &gdt.entries;
+    gdtable.header.size = sizeof(gdtable.entries) - 1;
+    gdtable.header.ptr  = (Unsig32) &gdtable.entries;
 
     _Static_assert(sizeof(struct GDTEntry) == 8, "GDTEntry must be 8 bytes");  // best C99 feature 
     _Static_assert(sizeof(struct GDTp) == 6, "GDTp MUST be 6 bytes");
 
-    GDTInstall(&gdt.header);
+    GDTInstall(&gdtable.header);
 }

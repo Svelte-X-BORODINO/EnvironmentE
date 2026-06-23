@@ -9,6 +9,7 @@
 
 #define naked ATTR((naked))
 #define used ATTR((used))
+#define packed ATTR((packed))
 #define indata ATTR((section(".data")))
 
 #define cli VASM ("cli")

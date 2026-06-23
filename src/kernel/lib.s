@@ -1,16 +1,9 @@
-.section .data
-irq0_msg:
-    .asciz "Kernel Panic caught : Division by zero! x86 is not IEEE 754, bro\n\r"
-irq8_msg:
-    .asciz "Kernel Panic caught : DOUBLE FAULT!!!!! WHAT THE F*CK IS GOIN' ON?! BLYAAAAAAAAA\n\r"
-irqwtf_msg:
-    .asciz "some interrupt caught\n\r"
-
 .section .text
 .globl IRQMainRoutine
+# .globl irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq8, irq9, irq10, irq11, irq12, irq13, irq14, irq15, irq16, irq17, irq18, irq19, irqres
 
 IRQMainRoutine:
-    pushl %ds # RegsFrame->ds
+    pushw %ds # RegsFrame->ds
 
     pushal # RegsFrame->eax..ebp
 
@@ -29,7 +22,3 @@ IRQMainRoutine:
     add $0x4, %esp
 
     iret
-
-
-
-another_irq: iret

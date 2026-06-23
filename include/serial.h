@@ -4,6 +4,9 @@
 #define COM_BASE 0x3F8
 
 UPointer UARTInit(void);
+
+UPointer KBDMainRoutine();
+
 UPointer OutC(JustAChar ch);
 UPointer OutS(String s);
 UPointer OutI(Unsig32 n);

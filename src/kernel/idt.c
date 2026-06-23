@@ -10,7 +10,7 @@ indata struct IDTp    Ip;
 
 extern UPointer IRQMainRoutine();
 extern UPointer IRQ32();
-extern UPointer IRQ33();
+extern UPointer IRQ36();
 
 #define LIDT(p) VASM ("lidt %0" : : "m"(*p) : "memory")
 
@@ -28,10 +28,10 @@ void IDTCreateGate
 void IDTLoad
 (void) {
     for (Unsig32 i = 0; i < 0xFF; i++) {
-        IDTCreateGate(i, IRQMainRoutine, 0x08, 0x8E);
+        IDTCreateGate(i, (Unsig32)0, 0x08, 0x8E); /* zaglushko */
     }
     IDTCreateGate(0x20, (Unsig32)IRQ32, 0x08, 0x8E);
-    IDTCreateGate(0x21, (Unsig32)IRQ33, 0x08, 0x8E);
+    IDTCreateGate(0x24, (Unsig32)IRQ36, 0x08, 0x8E);
     
     Ip.size = sizeof(IDT) - 1;  
     Ip.ptr  = (Unsig32)IDT;     

@@ -20,12 +20,19 @@ naked UPointer IRQ32
 (void) {
     VASM (
         "pushal\n"      // saving eax, ebx, ecx, edx, esi, edi, and maybe ebp/esp
-        "incl %0\n"
+        "incl ticks\n"
         "pushl $0\n"
         "calll EOI\n"
         "add $0x4, %%esp\n"
         "popal\n"    
         "iret"
-        :: "m"(ticks) : "memory"
+        :: : "memory"
     );
+}
+
+UPointer RuchkiNaKolenki // R.I.P Uchi.ru 20xx-2026 :(
+(Unsig32 ms) {
+    Unsig32 target = ticks + ms;
+    while (ticks < target) VASM
+    ("hlt\n");
 }

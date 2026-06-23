@@ -37,5 +37,5 @@ char *irqs[] = {
 };
 
 void CIRQ(struct RegsFrame *r) {
-    LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
+    LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->ebp);
 }

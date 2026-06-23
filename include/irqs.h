@@ -4,23 +4,22 @@
 #include <type.h>
 #include <serial.h>
 
-struct RegsFrame {
+packed struct RegsFrame {
     Unsig16 int_no;
-    Unsig32 eip;      
-    Unsig32 cs;       
-    Unsig32 eflags;   
-    Unsig32 ss; 
-
-    Unsig16 ds; 
-
-    Unsig32 eax;
-    Unsig32 ecx;
-    Unsig32 edx;
-    Unsig32 ebx;
-    Unsig32 esp;      
-    Unsig32 ebp;
-    Unsig32 esi;
+    Unsig16 ds;
+    
     Unsig32 edi;
+    Unsig32 esi;
+    Unsig32 ebp;
+    Unsig32 esp;      
+    Unsig32 ebx;
+    Unsig32 edx;
+    Unsig32 ecx;
+    Unsig32 eax;
+    
+    Unsig16 cs;
+    Unsig32 eip;
+    Unsig32 eflags;
 };
 
 #define NONERROR(name, msg)                 \
