@@ -1,7 +1,7 @@
 #ifndef TIMER_H_ENVE
 #define TIMER_H_ENVE
-#include <type.h>
-#include <macro.h>
+#include "type.h"
+#include "macro.h"
 
 #define FREQ 1193180
 

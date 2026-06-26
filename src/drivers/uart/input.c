@@ -3,5 +3,11 @@
 #include <serial.h>
 
 UPointer KBDMainRoutine() {
-    OutC(inb(COM_BASE));
+    Unsig8 key = inb(COM_BASE);
+    switch (key) {
+        case '\r':
+        case '\n': OutC('\n'); break;
+        case 0x7F: OutS("\b \b"); break; // ОНО РАБОТАЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕТ
+        default: OutC(key); break;
+    }
 }

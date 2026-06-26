@@ -1,7 +1,10 @@
 #include <log.h>
 #include <irqs.h>
+#include <macro.h>
+#include <stddef.h>
+_Static_assert(sizeof(struct RegsFrame) == 56, "RegsFrame F*CKING MUST be 56 bytes"); // da
 
-char *irqs[] = {
+const char *irqs[] = {
     "Division By Zero!",
     "Debug Exception!!",
     "blyat, its NMI",
@@ -36,6 +39,17 @@ char *irqs[] = {
     "Reserved x13!"
 };
 
-void CIRQ(struct RegsFrame *r) {
-    LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->ebp);
+void CIRQErr(struct RegsFrame *r) {
+    LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
+    VASM ("g: jmp g" ::: "memory", "cc");
+}
+
+void CIRQNonErr(struct RegsFrame *r) {
+    LogF("IRQ", "int_no=%d errcode=%d eflags=%x cs=%x eip=%x", 
+        r->int_no, r->errcode, r->eflags, r->cs, r->eip);
+    LogF("IRQ", "ds=%x eax=%x ecx=%x edx=%x ebx=%x", 
+        r->ds, r->eax, r->ecx, r->edx, r->ebx);
+    LogF("IRQ", "esp=%x ebp=%x esi=%x edi=%x", 
+        r->esp, r->ebp, r->esi, r->edi);
+    LogF("IRQ", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
 }

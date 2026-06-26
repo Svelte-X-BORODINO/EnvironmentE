@@ -1,6 +1,6 @@
 #ifndef IO_H_ENVE
 #define IO_H_ENVE
-#include <type.h>
+#include "type.h"
 
 static inline UPointer outb(Unsig16 port, Unsig8 val) {
     __asm__ volatile("outb %0, %1" : : "a"(val), "Nd"(port));

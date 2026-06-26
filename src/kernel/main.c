@@ -18,13 +18,12 @@ void Setup
     VASM
     ( "fninit\npushfl\npopl %0" :: "m"(f) : "memory" );
     UARTInit();
-    LogF("MAIN", "Environment E version huynya starting");
+    LogF("MAIN", "Environment E version kapec starting");
     LogF("UART", "UART initialized with baud 115200");
     if(magic != 0x2BADB002) {
         FAULT("Invalid magic!!!");
     }
     
-    OutC('\n');
     GDTLoad();
     VASM 
     ( "sgdt %0\n" : "=m"(gdt) :: "memory" );
@@ -37,8 +36,7 @@ void Setup
     PICInit();
     LogF("PIT", "Timer ready.");
     TimerInit(10);
-    LogF("SLP", "Sleeping for 3000 ms cuz i want");
-    RuchkiNaKolenki(300);
-    LogF("KBD", "Keyboard ready.(no)");
+    LogF("KBD", "Keyboard ready.");
+    VASM("int $0x15" ::: "memory");
     for (;;) VASM ("hlt");
 }

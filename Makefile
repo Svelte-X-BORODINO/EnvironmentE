@@ -29,23 +29,17 @@ boot.o: boot.s
 
 $(KERNEL): $(OBJ)
 	$(LD) $(LDFLAGS) -o $@ $^
-	./tools/debug-info kernel.elf report.txt
+	./tools/debug-info NVKern report.txt
 	@echo "Kernel is ready, see report.txt"
 
 run: $(KERNEL)
 	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors \
-	-D emu.log -serial stdio -no-reboot
-	
-run_debug: $(KERNEL)
-	@echo "Use C-a c to enter QEMU Monitor."
-	$(QEMU) -kernel $(KERNEL) -M smm=off
+	-D emu.log -nographic -no-reboot
 
 clean:
 	rm -f $(OBJ) $(KERNEL) 
 
 ca: clean all run
 
-cad: clean all run_debug
-
-.PHONY: all clean run runox ca canox
+.PHONY: ca 
 # /execute in minecraft:overworld run tp @s 1400.95 63.00 -2627.30 343.18 69.60 - это мне надо для майна

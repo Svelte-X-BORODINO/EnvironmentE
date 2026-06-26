@@ -7,6 +7,8 @@
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
 #define ATTR(...) __attribute__(__VA_ARGS__)
 
+#define paged ATTR((aligned(4096)))
+#define align(n) ATTR((aligned(n)))
 #define naked ATTR((naked))
 #define used ATTR((used))
 #define packed ATTR((packed))
