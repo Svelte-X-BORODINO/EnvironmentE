@@ -8,6 +8,8 @@
 #include <timer.h>
 #include <kbd.h>
 #include <type.h>
+#include <mb_memmap.h>
+#include <bump.h>
 
 void Setup
 (Unsig32 magic, Unsig32 mbinfo) {
@@ -18,12 +20,12 @@ void Setup
     VASM
     ( "fninit\npushfl\npopl %0" :: "m"(f) : "memory" );
     UARTInit();
+    OutC('\n');
     LogF("MAIN", "Environment E version kapec starting");
-    LogF("UART", "UART initialized with baud 115200");
+    LogF("UART", "UART I/O initialized with baud 115200");
     if(magic != 0x2BADB002) {
         FAULT("Invalid magic!!!");
     }
-    
     GDTLoad();
     VASM 
     ( "sgdt %0\n" : "=m"(gdt) :: "memory" );
@@ -36,7 +38,6 @@ void Setup
     PICInit();
     LogF("PIT", "Timer ready.");
     TimerInit(10);
-    LogF("KBD", "Keyboard ready.");
-    VASM("int $0x15" ::: "memory");
+    DumbPMMInit(mbinfo);
     for (;;) VASM ("hlt");
 }

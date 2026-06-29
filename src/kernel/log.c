@@ -5,7 +5,7 @@
 
 // @fname : LogF
 // its just printf()
-// fmts: [bcdsx]
+// fmts: [bcdlsx]
 UPointer LogF(String tag, String fmt, ...) {
     OutS(tag);
     OutS(" >>> : ");
@@ -22,6 +22,7 @@ UPointer LogF(String tag, String fmt, ...) {
                 case 'd': OutI(va_arg(args, Unsig32)); break;
                 case 's': OutS(va_arg(args, String)); break;
                 case 'x': OutH(va_arg(args, Unsig32)); break;
+                case 'l': OutL(va_arg(args, Unsig64)); break;
                 case '%': OutC('%'); break;
                 default: OutC('%'); break;
             }

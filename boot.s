@@ -13,6 +13,10 @@ MBV1_end:
 # video_ofs: .byte 0
 # test: .asciz "Test!!!"
 
+.section .data
+.globl heap_start
+heap_start: .long .
+
 .section .bss
 .align 16
 stack_bottom:

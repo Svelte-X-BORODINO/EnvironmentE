@@ -1,42 +1,49 @@
 Symbols:
-001008a0 T CIRQErr
-001008d0 T CIRQNonErr
-00100cb0 T EOI
-00100b90 T FAULT
-00100cec D GDT
-00100460 T GDTInstall
-00100490 T GDTLoad
-00100ce4 D Gp
-00100d40 D IDT
-00100530 T IDTCreateGate
-00100570 T IDTLoad
+00100500 T Alloc
+00100960 T CIRQErr
+00100990 T CIRQNonErr
+001017fc r CSWTCH.1
+00100dc0 T DumbPMMInit
+00100da0 T EOI
+00100c80 T FAULT
+00100ed4 D GDT
+00100520 T GDTInstall
+00100550 T GDTLoad
+00100ecc D Gp
+00100f20 D IDT
+001005f0 T IDTCreateGate
+00100630 T IDTLoad
 00100170 T IRQ32
 00100032 T IRQ36
 0010005d t IRQMainRoutineErr
 0010007e T IRQMainRoutineNonErr
-00100d20 D Ip
+00100f00 D Ip
 001001b0 T KBDMainRoutine
-00100960 T LogF
+00100a20 T LogF
 0010000c r MBV1_end
 00100000 r MBV1_header
 00100410 T OutB
 00100260 T OutC
 00100370 T OutH
 001002e0 T OutI
+00100460 T OutL
 00100280 T OutS
-00100c00 T PICInit
-00100c80 T PICMask
-00100c60 T PICUnmask
-00100bb0 T Remap
+00100cf0 T PICInit
+00100d70 T PICMask
+00100d50 T PICUnmask
+00100ca0 T Remap
 00100190 T RuchkiNaKolenki
-00100a90 T Setup
+00100b80 T Setup
 00100150 T TimerInit
 00100210 T UARTInit
 00100010 T _start
 0010002f t a
-0010046f t cs_flush
-001008c6 t g
+00112020 B bitmap
+0010052f t cs_flush
+00100986 t g
 00112000 B gdtable
+00100ec8 d heap_ptr.0
+00100ec0 D heap_start
 0010009f T irq0
 001000a5 T irq1
 001000db T irq10
@@ -60,13 +67,13 @@ Symbols:
 001000cf T irq8
 001000d5 T irq9
 00100147 T irqres
-00101540 D irqs
+00101720 D irqs
 00102000 b stack_bottom
 00112000 b stack_top
-00100ce0 D ticks
+00100ec4 D ticks
 Sections size:
    text	   data	    bss	    dec	    hex	filename
-   4409	   2272	  65566	  72247	  11a37	NVKern
+   5040	   2272	 196640	 203952	  31cb0	NVKern
 Kernel size: 16K
 Readelf:
  ELF Header:
@@ -81,11 +88,11 @@ Readelf:
   Version:                           0x1
   Entry point address:               0x100010
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          12736 (bytes into file)
+  Start of section headers:          13572 (bytes into file)
   Flags:                             0x0
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
-  Number of program headers:         2
+  Number of program headers:         3
   Size of section headers:           40 (bytes)
   Number of section headers:         12
   Section header string table index: 11
@@ -94,16 +101,16 @@ Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
   [ 1] .boot             PROGBITS        00100000 001000 00000c 00   A  0   0  4
-  [ 2] .text             PROGBITS        00100010 001010 000cb6 00  AX  0   0 16
-  [ 3] .data             PROGBITS        00100ce0 001ce0 0008e0 00  WA  0   0 32
-  [ 4] .rodata           PROGBITS        001015c0 0025c0 00005c 00   A  0   0  4
-  [ 5] .rodata.str1.1    PROGBITS        0010161c 00261c 000287 01 AMS  0   0  1
-  [ 6] .rodata.cst2      PROGBITS        001018a4 0028a4 000002 02  AM  0   0  2
-  [ 7] .rodata.str1.4    PROGBITS        001018a8 0028a8 000192 01 AMS  0   0  4
-  [ 8] .bss              NOBITS          00102000 002a3a 01001e 00  WA  0   0 16
-  [ 9] .symtab           SYMTAB          00000000 002a3c 0004f0 10     10  22  4
-  [10] .strtab           STRTAB          00000000 002f2c 00022f 00      0   0  1
-  [11] .shstrtab         STRTAB          00000000 00315b 000065 00      0   0  1
+  [ 2] .text             PROGBITS        00100010 001010 000e9d 00  AX  0   0 16
+  [ 3] .data             PROGBITS        00100ec0 001ec0 0008e0 00  WA  0   0 32
+  [ 4] .rodata           PROGBITS        001017a0 0027a0 000070 00   A  0   0  4
+  [ 5] .rodata.str1.1    PROGBITS        00101810 002810 0002ff 01 AMS  0   0  1
+  [ 6] .rodata.cst2      PROGBITS        00101b10 002b10 000002 02  AM  0   0  2
+  [ 7] .rodata.str1.4    PROGBITS        00101b14 002b14 000196 01 AMS  0   0  4
+  [ 8] .bss              NOBITS          00102000 003000 030020 00  WA  0   0 32
+  [ 9] .symtab           SYMTAB          00000000 002cac 000580 10     10  26  4
+  [10] .strtab           STRTAB          00000000 00322c 000272 00      0   0  1
+  [11] .shstrtab         STRTAB          00000000 00349e 000065 00      0   0  1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -114,20 +121,22 @@ There are no section groups in this file.
 
 Program Headers:
   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
-  LOAD           0x001000 0x00100000 0x00100000 0x01a3a 0x1201e RWE 0x1000
+  LOAD           0x001000 0x00100000 0x00100000 0x01caa 0x01caa RWE 0x1000
+  LOAD           0x000000 0x00102000 0x00102000 0x00000 0x30020 RW  0x1000
   GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10
 
  Section to Segment mapping:
   Segment Sections...
-   00     .boot .text .data .rodata .rodata.str1.1 .rodata.cst2 .rodata.str1.4 .bss 
-   01     
+   00     .boot .text .data .rodata .rodata.str1.1 .rodata.cst2 .rodata.str1.4 
+   01     .bss 
+   02     
 
 There is no dynamic section in this file.
 
 There are no relocations in this file.
 No processor specific unwind information to decode
 
-Symbol table '.symtab' contains 79 entries:
+Symbol table '.symtab' contains 88 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS boot.o
@@ -141,73 +150,82 @@ Symbol table '.symtab' contains 79 entries:
      9: 00000000     0 FILE    LOCAL  DEFAULT  ABS timer.c
     10: 00000000     0 FILE    LOCAL  DEFAULT  ABS input.c
     11: 00000000     0 FILE    LOCAL  DEFAULT  ABS serial.c
-    12: 00000000     0 FILE    LOCAL  DEFAULT  ABS gdt.c
-    13: 0010046f     0 NOTYPE  LOCAL  DEFAULT    2 cs_flush
-    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS idt.c
-    15: 00000000     0 FILE    LOCAL  DEFAULT  ABS irqs.c
-    16: 001008c6     0 NOTYPE  LOCAL  DEFAULT    2 g
-    17: 00000000     0 FILE    LOCAL  DEFAULT  ABS log.c
-    18: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
-    19: 00000000     0 FILE    LOCAL  DEFAULT  ABS paging.c
-    20: 00000000     0 FILE    LOCAL  DEFAULT  ABS panic.c
-    21: 00000000     0 FILE    LOCAL  DEFAULT  ABS pic.c
-    22: 00100b90    28 FUNC    GLOBAL DEFAULT    2 FAULT
-    23: 00100260    30 FUNC    GLOBAL DEFAULT    2 OutC
-    24: 00100410    70 FUNC    GLOBAL DEFAULT    2 OutB
-    25: 001000ed     0 NOTYPE  GLOBAL DEFAULT    2 irq12
-    26: 001000db     0 NOTYPE  GLOBAL DEFAULT    2 irq10
-    27: 001000ff     0 NOTYPE  GLOBAL DEFAULT    2 irq14
-    28: 00100032     0 NOTYPE  GLOBAL DEFAULT    2 IRQ36
-    29: 001000cf     0 NOTYPE  GLOBAL DEFAULT    2 irq8
-    30: 00112000    30 OBJECT  GLOBAL DEFAULT    8 gdtable
-    31: 00101540   128 OBJECT  GLOBAL DEFAULT    3 irqs
-    32: 001000e4     0 NOTYPE  GLOBAL DEFAULT    2 irq11
-    33: 0010007e     0 NOTYPE  GLOBAL DEFAULT    2 IRQMainRoutineNonErr
-    34: 001000bd     0 NOTYPE  GLOBAL DEFAULT    2 irq5
-    35: 00100ce4     6 OBJECT  GLOBAL DEFAULT    3 Gp
-    36: 00100d40  2040 OBJECT  GLOBAL DEFAULT    3 IDT
-    37: 00100c60    31 FUNC    GLOBAL DEFAULT    2 PICUnmask
-    38: 001001b0    89 FUNC    GLOBAL DEFAULT    2 KBDMainRoutine
-    39: 001000c3     0 NOTYPE  GLOBAL DEFAULT    2 irq6
-    40: 001000a5     0 NOTYPE  GLOBAL DEFAULT    2 irq1
-    41: 00100c00    88 FUNC    GLOBAL DEFAULT    2 PICInit
-    42: 00100123     0 NOTYPE  GLOBAL DEFAULT    2 irq18
-    43: 0010011a     0 NOTYPE  GLOBAL DEFAULT    2 irq17
-    44: 00100190    26 FUNC    GLOBAL DEFAULT    2 RuchkiNaKolenki
-    45: 00100111     0 NOTYPE  GLOBAL DEFAULT    2 irq16
-    46: 00100010     0 NOTYPE  GLOBAL DEFAULT    2 _start
-    47: 00100147     0 NOTYPE  GLOBAL DEFAULT    2 irqres
-    48: 00100210    74 FUNC    GLOBAL DEFAULT    2 UARTInit
-    49: 001000d5     0 NOTYPE  GLOBAL DEFAULT    2 irq9
-    50: 00100530    60 FUNC    GLOBAL DEFAULT    2 IDTCreateGate
-    51: 00100c80    34 FUNC    GLOBAL DEFAULT    2 PICMask
-    52: 0010012c     0 NOTYPE  GLOBAL DEFAULT    2 irq19
-    53: 001000f6     0 NOTYPE  GLOBAL DEFAULT    2 irq13
-    54: 001008a0    44 FUNC    GLOBAL DEFAULT    2 CIRQErr
-    55: 00100490   159 FUNC    GLOBAL DEFAULT    2 GDTLoad
-    56: 00100370   153 FUNC    GLOBAL DEFAULT    2 OutH
-    57: 001000ab     0 NOTYPE  GLOBAL DEFAULT    2 irq2
-    58: 00100280    89 FUNC    GLOBAL DEFAULT    2 OutS
-    59: 00100135     0 NOTYPE  GLOBAL DEFAULT    2 irq20
-    60: 00100a90   243 FUNC    GLOBAL DEFAULT    2 Setup
-    61: 00100960   291 FUNC    GLOBAL DEFAULT    2 LogF
-    62: 00100d20     6 OBJECT  GLOBAL DEFAULT    3 Ip
-    63: 00100ce0     4 OBJECT  GLOBAL DEFAULT    3 ticks
-    64: 001000c9     0 NOTYPE  GLOBAL DEFAULT    2 irq7
-    65: 00100bb0    74 FUNC    GLOBAL DEFAULT    2 Remap
-    66: 0010009f     0 NOTYPE  GLOBAL DEFAULT    2 irq0
-    67: 001002e0   136 FUNC    GLOBAL DEFAULT    2 OutI
-    68: 00100460    34 FUNC    GLOBAL DEFAULT    2 GDTInstall
-    69: 00100570   812 FUNC    GLOBAL DEFAULT    2 IDTLoad
-    70: 0010013e     0 NOTYPE  GLOBAL DEFAULT    2 irq21
-    71: 001008d0   139 FUNC    GLOBAL DEFAULT    2 CIRQNonErr
-    72: 00100cec    24 OBJECT  GLOBAL DEFAULT    3 GDT
-    73: 00100170    21 FUNC    GLOBAL DEFAULT    2 IRQ32
-    74: 00100108     0 NOTYPE  GLOBAL DEFAULT    2 irq15
-    75: 00100cb0    22 FUNC    GLOBAL DEFAULT    2 EOI
-    76: 00100150    22 FUNC    GLOBAL DEFAULT    2 TimerInit
-    77: 001000b7     0 NOTYPE  GLOBAL DEFAULT    2 irq4
-    78: 001000b1     0 NOTYPE  GLOBAL DEFAULT    2 irq3
+    12: 00000000     0 FILE    LOCAL  DEFAULT  ABS bump.c
+    13: 00100ec8     4 OBJECT  LOCAL  DEFAULT    3 heap_ptr.0
+    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS gdt.c
+    15: 0010052f     0 NOTYPE  LOCAL  DEFAULT    2 cs_flush
+    16: 00000000     0 FILE    LOCAL  DEFAULT  ABS idt.c
+    17: 00000000     0 FILE    LOCAL  DEFAULT  ABS irqs.c
+    18: 00100986     0 NOTYPE  LOCAL  DEFAULT    2 g
+    19: 00000000     0 FILE    LOCAL  DEFAULT  ABS log.c
+    20: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    21: 00000000     0 FILE    LOCAL  DEFAULT  ABS paging.c
+    22: 00000000     0 FILE    LOCAL  DEFAULT  ABS panic.c
+    23: 00000000     0 FILE    LOCAL  DEFAULT  ABS pic.c
+    24: 00000000     0 FILE    LOCAL  DEFAULT  ABS pmm.c
+    25: 001017fc    20 OBJECT  LOCAL  DEFAULT    4 CSWTCH.1
+    26: 00100c80    28 FUNC    GLOBAL DEFAULT    2 FAULT
+    27: 00100260    30 FUNC    GLOBAL DEFAULT    2 OutC
+    28: 00100410    70 FUNC    GLOBAL DEFAULT    2 OutB
+    29: 001000ed     0 NOTYPE  GLOBAL DEFAULT    2 irq12
+    30: 001000db     0 NOTYPE  GLOBAL DEFAULT    2 irq10
+    31: 00112020 0x20000 OBJECT  GLOBAL DEFAULT    8 bitmap
+    32: 001000ff     0 NOTYPE  GLOBAL DEFAULT    2 irq14
+    33: 00100032     0 NOTYPE  GLOBAL DEFAULT    2 IRQ36
+    34: 001000cf     0 NOTYPE  GLOBAL DEFAULT    2 irq8
+    35: 00112000    30 OBJECT  GLOBAL DEFAULT    8 gdtable
+    36: 00101720   128 OBJECT  GLOBAL DEFAULT    3 irqs
+    37: 001000e4     0 NOTYPE  GLOBAL DEFAULT    2 irq11
+    38: 00100dc0   237 FUNC    GLOBAL DEFAULT    2 DumbPMMInit
+    39: 0010007e     0 NOTYPE  GLOBAL DEFAULT    2 IRQMainRoutineNonErr
+    40: 001000bd     0 NOTYPE  GLOBAL DEFAULT    2 irq5
+    41: 00100ec0     0 NOTYPE  GLOBAL DEFAULT    3 heap_start
+    42: 00100ecc     6 OBJECT  GLOBAL DEFAULT    3 Gp
+    43: 00100f20  2040 OBJECT  GLOBAL DEFAULT    3 IDT
+    44: 00100d50    31 FUNC    GLOBAL DEFAULT    2 PICUnmask
+    45: 001001b0    89 FUNC    GLOBAL DEFAULT    2 KBDMainRoutine
+    46: 001000c3     0 NOTYPE  GLOBAL DEFAULT    2 irq6
+    47: 001000a5     0 NOTYPE  GLOBAL DEFAULT    2 irq1
+    48: 00100cf0    88 FUNC    GLOBAL DEFAULT    2 PICInit
+    49: 00100123     0 NOTYPE  GLOBAL DEFAULT    2 irq18
+    50: 0010011a     0 NOTYPE  GLOBAL DEFAULT    2 irq17
+    51: 00100190    26 FUNC    GLOBAL DEFAULT    2 RuchkiNaKolenki
+    52: 00100111     0 NOTYPE  GLOBAL DEFAULT    2 irq16
+    53: 00100010     0 NOTYPE  GLOBAL DEFAULT    2 _start
+    54: 00100147     0 NOTYPE  GLOBAL DEFAULT    2 irqres
+    55: 00100210    74 FUNC    GLOBAL DEFAULT    2 UARTInit
+    56: 001000d5     0 NOTYPE  GLOBAL DEFAULT    2 irq9
+    57: 00100460   156 FUNC    GLOBAL DEFAULT    2 OutL
+    58: 001005f0    60 FUNC    GLOBAL DEFAULT    2 IDTCreateGate
+    59: 00100d70    34 FUNC    GLOBAL DEFAULT    2 PICMask
+    60: 0010012c     0 NOTYPE  GLOBAL DEFAULT    2 irq19
+    61: 001000f6     0 NOTYPE  GLOBAL DEFAULT    2 irq13
+    62: 00100960    44 FUNC    GLOBAL DEFAULT    2 CIRQErr
+    63: 00100550   159 FUNC    GLOBAL DEFAULT    2 GDTLoad
+    64: 00100370   153 FUNC    GLOBAL DEFAULT    2 OutH
+    65: 001000ab     0 NOTYPE  GLOBAL DEFAULT    2 irq2
+    66: 00100280    89 FUNC    GLOBAL DEFAULT    2 OutS
+    67: 00100135     0 NOTYPE  GLOBAL DEFAULT    2 irq20
+    68: 00100b80   243 FUNC    GLOBAL DEFAULT    2 Setup
+    69: 00100a20   339 FUNC    GLOBAL DEFAULT    2 LogF
+    70: 00100f00     6 OBJECT  GLOBAL DEFAULT    3 Ip
+    71: 00100ec4     4 OBJECT  GLOBAL DEFAULT    3 ticks
+    72: 001000c9     0 NOTYPE  GLOBAL DEFAULT    2 irq7
+    73: 00100500    18 FUNC    GLOBAL DEFAULT    2 Alloc
+    74: 00100ca0    74 FUNC    GLOBAL DEFAULT    2 Remap
+    75: 0010009f     0 NOTYPE  GLOBAL DEFAULT    2 irq0
+    76: 001002e0   136 FUNC    GLOBAL DEFAULT    2 OutI
+    77: 00100520    34 FUNC    GLOBAL DEFAULT    2 GDTInstall
+    78: 00100630   812 FUNC    GLOBAL DEFAULT    2 IDTLoad
+    79: 0010013e     0 NOTYPE  GLOBAL DEFAULT    2 irq21
+    80: 00100990   139 FUNC    GLOBAL DEFAULT    2 CIRQNonErr
+    81: 00100ed4    24 OBJECT  GLOBAL DEFAULT    3 GDT
+    82: 00100170    21 FUNC    GLOBAL DEFAULT    2 IRQ32
+    83: 00100108     0 NOTYPE  GLOBAL DEFAULT    2 irq15
+    84: 00100da0    22 FUNC    GLOBAL DEFAULT    2 EOI
+    85: 00100150    22 FUNC    GLOBAL DEFAULT    2 TimerInit
+    86: 001000b7     0 NOTYPE  GLOBAL DEFAULT    2 irq4
+    87: 001000b1     0 NOTYPE  GLOBAL DEFAULT    2 irq3
 
 No version information found in this file.
 Object dump(WARN: LARGE OUTPUT):
@@ -224,7 +242,7 @@ Disassembly of section .text:
   100017:	50                   	push   %eax
   100018:	68 00 00 20 00       	push   $0x200000
   10001d:	9d                   	popf
-  10001e:	e8 6d 0a 00 00       	call   100a90 <Setup>
+  10001e:	e8 5d 0b 00 00       	call   100b80 <Setup>
   100023:	66 c7 05 00 80 0b 00 	movw   $0x4f42,0xb8000
   10002a:	42 4f 
   10002c:	6a 00                	push   $0x0
@@ -247,7 +265,7 @@ Disassembly of section .text:
   100044:	8e e8                	mov    %eax,%gs
   100046:	e8 65 01 00 00       	call   1001b0 <KBDMainRoutine>
   10004b:	6a 04                	push   $0x4
-  10004d:	e8 5e 0c 00 00       	call   100cb0 <EOI>
+  10004d:	e8 4e 0d 00 00       	call   100da0 <EOI>
   100052:	83 c4 04             	add    $0x4,%esp
   100055:	0f a9                	pop    %gs
   100057:	0f a1                	pop    %fs
@@ -267,7 +285,7 @@ Disassembly of section .text:
   10006b:	8e e8                	mov    %eax,%gs
   10006d:	89 e0                	mov    %esp,%eax
   10006f:	54                   	push   %esp
-  100070:	e8 2b 08 00 00       	call   1008a0 <CIRQErr>
+  100070:	e8 eb 08 00 00       	call   100960 <CIRQErr>
   100075:	83 c4 04             	add    $0x4,%esp
   100078:	61                   	popa
   100079:	1f                   	pop    %ds
@@ -285,7 +303,7 @@ Disassembly of section .text:
   10008c:	8e e8                	mov    %eax,%gs
   10008e:	89 e0                	mov    %esp,%eax
   100090:	54                   	push   %esp
-  100091:	e8 3a 08 00 00       	call   1008d0 <CIRQNonErr>
+  100091:	e8 fa 08 00 00       	call   100990 <CIRQNonErr>
   100096:	83 c4 04             	add    $0x4,%esp
   100099:	61                   	popa
   10009a:	1f                   	pop    %ds
@@ -415,31 +433,31 @@ Disassembly of section .text:
   10015e:	b8 2e 00 00 00       	mov    $0x2e,%eax
   100163:	e6 40                	out    %al,$0x40
   100165:	c3                   	ret
-  100166:	66 90                	xchg   %ax,%ax
-  100168:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  10016f:	00 
+  100166:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10016d:	00 
+  10016e:	66 90                	xchg   %ax,%ax
 
 00100170 <IRQ32>:
   100170:	60                   	pusha
-  100171:	ff 05 e0 0c 10 00    	incl   0x100ce0
+  100171:	ff 05 c4 0e 10 00    	incl   0x100ec4
   100177:	6a 00                	push   $0x0
-  100179:	e8 32 0b 00 00       	call   100cb0 <EOI>
+  100179:	e8 22 0c 00 00       	call   100da0 <EOI>
   10017e:	83 c4 04             	add    $0x4,%esp
   100181:	61                   	popa
   100182:	cf                   	iret
   100183:	0f 0b                	ud2
-  100185:	8d 76 00             	lea    0x0(%esi),%esi
-  100188:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  10018f:	00 
+  100185:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10018c:	00 
+  10018d:	8d 76 00             	lea    0x0(%esi),%esi
 
 00100190 <RuchkiNaKolenki>:
-  100190:	8b 15 e0 0c 10 00    	mov    0x100ce0,%edx
+  100190:	8b 15 c4 0e 10 00    	mov    0x100ec4,%edx
   100196:	8b 44 24 04          	mov    0x4(%esp),%eax
   10019a:	01 d0                	add    %edx,%eax
   10019c:	39 c2                	cmp    %eax,%edx
   10019e:	73 09                	jae    1001a9 <RuchkiNaKolenki+0x19>
   1001a0:	f4                   	hlt
-  1001a1:	39 05 e0 0c 10 00    	cmp    %eax,0x100ce0
+  1001a1:	39 05 c4 0e 10 00    	cmp    %eax,0x100ec4
   1001a7:	72 f7                	jb     1001a0 <RuchkiNaKolenki+0x10>
   1001a9:	c3                   	ret
   1001aa:	66 90                	xchg   %ax,%ax
@@ -466,7 +484,7 @@ Disassembly of section .text:
   1001d8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
   1001df:	00 
   1001e0:	83 ec 0c             	sub    $0xc,%esp
-  1001e3:	68 1c 16 10 00       	push   $0x10161c
+  1001e3:	68 10 18 10 00       	push   $0x101810
   1001e8:	e8 93 00 00 00       	call   100280 <OutS>
   1001ed:	83 c4 10             	add    $0x10,%esp
   1001f0:	83 c4 0c             	add    $0xc,%esp
@@ -618,9 +636,9 @@ Disassembly of section .text:
   100351:	74 0d                	je     100360 <OutI+0x80>
   100353:	89 c3                	mov    %eax,%ebx
   100355:	eb e1                	jmp    100338 <OutI+0x58>
-  100357:	90                   	nop
-  100358:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  10035f:	00 
+  100357:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10035e:	00 
+  10035f:	90                   	nop
   100360:	83 c4 10             	add    $0x10,%esp
   100363:	5b                   	pop    %ebx
   100364:	5e                   	pop    %esi
@@ -636,7 +654,7 @@ Disassembly of section .text:
   100376:	bd f8 03 00 00       	mov    $0x3f8,%ebp
   10037b:	57                   	push   %edi
   10037c:	56                   	push   %esi
-  10037d:	be 20 16 10 00       	mov    $0x101620,%esi
+  10037d:	be 14 18 10 00       	mov    $0x101814,%esi
   100382:	53                   	push   %ebx
   100383:	8b 7c 24 14          	mov    0x14(%esp),%edi
   100387:	bb 24 00 00 00       	mov    $0x24,%ebx
@@ -667,13 +685,13 @@ Disassembly of section .text:
   1003c8:	b9 1c 00 00 00       	mov    $0x1c,%ecx
   1003cd:	bb fd 03 00 00       	mov    $0x3fd,%ebx
   1003d2:	be f8 03 00 00       	mov    $0x3f8,%esi
-  1003d7:	90                   	nop
-  1003d8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  1003df:	00 
+  1003d7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1003de:	00 
+  1003df:	90                   	nop
   1003e0:	89 f8                	mov    %edi,%eax
   1003e2:	d3 e8                	shr    %cl,%eax
   1003e4:	83 e0 0f             	and    $0xf,%eax
-  1003e7:	0f b6 a8 24 16 10 00 	movzbl 0x101624(%eax),%ebp
+  1003e7:	0f b6 a8 18 18 10 00 	movzbl 0x101818(%eax),%ebp
   1003ee:	66 90                	xchg   %ax,%ax
   1003f0:	89 da                	mov    %ebx,%edx
   1003f2:	ec                   	in     (%dx),%al
@@ -694,16 +712,16 @@ Disassembly of section .text:
 
 00100410 <OutB>:
   100410:	55                   	push   %ebp
-  100411:	b9 1f 00 00 00       	mov    $0x1f,%ecx
+  100411:	b9 20 00 00 00       	mov    $0x20,%ecx
   100416:	57                   	push   %edi
   100417:	bf f8 03 00 00       	mov    $0x3f8,%edi
   10041c:	56                   	push   %esi
   10041d:	53                   	push   %ebx
   10041e:	8b 6c 24 14          	mov    0x14(%esp),%ebp
   100422:	bb fd 03 00 00       	mov    $0x3fd,%ebx
-  100427:	90                   	nop
-  100428:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  10042f:	00 
+  100427:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10042e:	00 
+  10042f:	90                   	nop
   100430:	89 ee                	mov    %ebp,%esi
   100432:	d3 ee                	shr    %cl,%esi
   100434:	83 e6 01             	and    $0x1,%esi
@@ -723,651 +741,802 @@ Disassembly of section .text:
   100453:	5f                   	pop    %edi
   100454:	5d                   	pop    %ebp
   100455:	c3                   	ret
-  100456:	66 90                	xchg   %ax,%ax
-  100458:	66 90                	xchg   %ax,%ax
-  10045a:	66 90                	xchg   %ax,%ax
-  10045c:	66 90                	xchg   %ax,%ax
+  100456:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  10045d:	00 
   10045e:	66 90                	xchg   %ax,%ax
 
-00100460 <GDTInstall>:
-  100460:	8b 54 24 04          	mov    0x4(%esp),%edx
-  100464:	fa                   	cli
-  100465:	0f 01 12             	lgdtl  (%edx)
-  100468:	ea 6f 04 10 00 08 00 	ljmp   $0x8,$0x10046f
+00100460 <OutL>:
+  100460:	55                   	push   %ebp
+  100461:	b9 fd 03 00 00       	mov    $0x3fd,%ecx
+  100466:	bd 14 18 10 00       	mov    $0x101814,%ebp
+  10046b:	57                   	push   %edi
+  10046c:	56                   	push   %esi
+  10046d:	53                   	push   %ebx
+  10046e:	8b 74 24 14          	mov    0x14(%esp),%esi
+  100472:	bb 24 00 00 00       	mov    $0x24,%ebx
+  100477:	8b 7c 24 18          	mov    0x18(%esp),%edi
+  10047b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100480:	89 ca                	mov    %ecx,%edx
+  100482:	ec                   	in     (%dx),%al
+  100483:	a8 20                	test   $0x20,%al
+  100485:	74 f9                	je     100480 <OutL+0x20>
+  100487:	89 d8                	mov    %ebx,%eax
+  100489:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  10048e:	ee                   	out    %al,(%dx)
+  10048f:	0f b6 5d 01          	movzbl 0x1(%ebp),%ebx
+  100493:	83 c5 01             	add    $0x1,%ebp
+  100496:	84 db                	test   %bl,%bl
+  100498:	74 1a                	je     1004b4 <OutL+0x54>
+  10049a:	80 fb 0a             	cmp    $0xa,%bl
+  10049d:	75 e1                	jne    100480 <OutL+0x20>
+  10049f:	90                   	nop
+  1004a0:	89 ca                	mov    %ecx,%edx
+  1004a2:	ec                   	in     (%dx),%al
+  1004a3:	a8 20                	test   $0x20,%al
+  1004a5:	74 f9                	je     1004a0 <OutL+0x40>
+  1004a7:	b8 0d 00 00 00       	mov    $0xd,%eax
+  1004ac:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  1004b1:	ee                   	out    %al,(%dx)
+  1004b2:	eb cc                	jmp    100480 <OutL+0x20>
+  1004b4:	b9 3c 00 00 00       	mov    $0x3c,%ecx
+  1004b9:	bb fd 03 00 00       	mov    $0x3fd,%ebx
+  1004be:	66 90                	xchg   %ax,%ax
+  1004c0:	89 f0                	mov    %esi,%eax
+  1004c2:	89 fa                	mov    %edi,%edx
+  1004c4:	0f ad f8             	shrd   %cl,%edi,%eax
+  1004c7:	d3 ea                	shr    %cl,%edx
+  1004c9:	f6 c1 20             	test   $0x20,%cl
+  1004cc:	0f 45 c2             	cmovne %edx,%eax
+  1004cf:	83 e0 0f             	and    $0xf,%eax
+  1004d2:	0f b6 a8 18 18 10 00 	movzbl 0x101818(%eax),%ebp
+  1004d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  1004e0:	89 da                	mov    %ebx,%edx
+  1004e2:	ec                   	in     (%dx),%al
+  1004e3:	a8 20                	test   $0x20,%al
+  1004e5:	74 f9                	je     1004e0 <OutL+0x80>
+  1004e7:	89 e8                	mov    %ebp,%eax
+  1004e9:	ba f8 03 00 00       	mov    $0x3f8,%edx
+  1004ee:	ee                   	out    %al,(%dx)
+  1004ef:	83 e9 04             	sub    $0x4,%ecx
+  1004f2:	83 f9 fc             	cmp    $0xfffffffc,%ecx
+  1004f5:	75 c9                	jne    1004c0 <OutL+0x60>
+  1004f7:	5b                   	pop    %ebx
+  1004f8:	5e                   	pop    %esi
+  1004f9:	5f                   	pop    %edi
+  1004fa:	5d                   	pop    %ebp
+  1004fb:	c3                   	ret
+  1004fc:	66 90                	xchg   %ax,%ax
+  1004fe:	66 90                	xchg   %ax,%ax
 
-0010046f <cs_flush>:
-  10046f:	31 c0                	xor    %eax,%eax
-  100471:	b8 10 00 00 00       	mov    $0x10,%eax
-  100476:	8e d8                	mov    %eax,%ds
-  100478:	8e c0                	mov    %eax,%es
-  10047a:	8e d0                	mov    %eax,%ss
-  10047c:	8e e0                	mov    %eax,%fs
-  10047e:	8e e8                	mov    %eax,%gs
-  100480:	c3                   	ret
-  100481:	c3                   	ret
-  100482:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  100488:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  10048f:	00 
+00100500 <Alloc>:
+  100500:	a1 c8 0e 10 00       	mov    0x100ec8,%eax
+  100505:	8b 54 24 04          	mov    0x4(%esp),%edx
+  100509:	01 c2                	add    %eax,%edx
+  10050b:	89 15 c8 0e 10 00    	mov    %edx,0x100ec8
+  100511:	c3                   	ret
+  100512:	66 90                	xchg   %ax,%ax
+  100514:	66 90                	xchg   %ax,%ax
+  100516:	66 90                	xchg   %ax,%ax
+  100518:	66 90                	xchg   %ax,%ax
+  10051a:	66 90                	xchg   %ax,%ax
+  10051c:	66 90                	xchg   %ax,%ax
+  10051e:	66 90                	xchg   %ax,%ax
 
-00100490 <GDTLoad>:
-  100490:	c7 05 ec 0c 10 00 00 	movl   $0x0,0x100cec
-  100497:	00 00 00 
-  10049a:	a1 ec 0c 10 00       	mov    0x100cec,%eax
-  10049f:	c7 05 f0 0c 10 00 00 	movl   $0x0,0x100cf0
-  1004a6:	00 00 00 
-  1004a9:	8b 15 f0 0c 10 00    	mov    0x100cf0,%edx
-  1004af:	c7 05 f4 0c 10 00 ff 	movl   $0x3fff,0x100cf4
-  1004b6:	3f 00 00 
-  1004b9:	a3 06 20 11 00       	mov    %eax,0x112006
-  1004be:	a1 f4 0c 10 00       	mov    0x100cf4,%eax
-  1004c3:	c7 05 f8 0c 10 00 00 	movl   $0xc09a00,0x100cf8
-  1004ca:	9a c0 00 
-  1004cd:	89 15 0a 20 11 00    	mov    %edx,0x11200a
-  1004d3:	8b 15 f8 0c 10 00    	mov    0x100cf8,%edx
-  1004d9:	c7 05 fc 0c 10 00 ff 	movl   $0x3fff,0x100cfc
-  1004e0:	3f 00 00 
-  1004e3:	a3 0e 20 11 00       	mov    %eax,0x11200e
-  1004e8:	a1 fc 0c 10 00       	mov    0x100cfc,%eax
-  1004ed:	68 00 20 11 00       	push   $0x112000
-  1004f2:	c7 05 00 0d 10 00 00 	movl   $0xc09200,0x100d00
-  1004f9:	92 c0 00 
-  1004fc:	89 15 12 20 11 00    	mov    %edx,0x112012
-  100502:	8b 15 00 0d 10 00    	mov    0x100d00,%edx
-  100508:	a3 16 20 11 00       	mov    %eax,0x112016
-  10050d:	b8 17 00 00 00       	mov    $0x17,%eax
-  100512:	89 15 1a 20 11 00    	mov    %edx,0x11201a
-  100518:	66 a3 00 20 11 00    	mov    %ax,0x112000
-  10051e:	c7 05 02 20 11 00 06 	movl   $0x112006,0x112002
-  100525:	20 11 00 
-  100528:	e8 33 ff ff ff       	call   100460 <GDTInstall>
-  10052d:	5a                   	pop    %edx
-  10052e:	c3                   	ret
-  10052f:	90                   	nop
+00100520 <GDTInstall>:
+  100520:	8b 54 24 04          	mov    0x4(%esp),%edx
+  100524:	fa                   	cli
+  100525:	0f 01 12             	lgdtl  (%edx)
+  100528:	ea 2f 05 10 00 08 00 	ljmp   $0x8,$0x10052f
 
-00100530 <IDTCreateGate>:
-  100530:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
-  100535:	8b 4c 24 0c          	mov    0xc(%esp),%ecx
-  100539:	8b 54 24 08          	mov    0x8(%esp),%edx
-  10053d:	66 89 0c c5 42 0d 10 	mov    %cx,0x100d42(,%eax,8)
-  100544:	00 
-  100545:	8b 4c 24 10          	mov    0x10(%esp),%ecx
-  100549:	66 89 14 c5 40 0d 10 	mov    %dx,0x100d40(,%eax,8)
-  100550:	00 
-  100551:	c1 ea 10             	shr    $0x10,%edx
-  100554:	c6 04 c5 44 0d 10 00 	movb   $0x0,0x100d44(,%eax,8)
-  10055b:	00 
-  10055c:	88 0c c5 45 0d 10 00 	mov    %cl,0x100d45(,%eax,8)
-  100563:	66 89 14 c5 46 0d 10 	mov    %dx,0x100d46(,%eax,8)
-  10056a:	00 
-  10056b:	c3                   	ret
-  10056c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+0010052f <cs_flush>:
+  10052f:	31 c0                	xor    %eax,%eax
+  100531:	b8 10 00 00 00       	mov    $0x10,%eax
+  100536:	8e d8                	mov    %eax,%ds
+  100538:	8e c0                	mov    %eax,%es
+  10053a:	8e d0                	mov    %eax,%ss
+  10053c:	8e e0                	mov    %eax,%fs
+  10053e:	8e e8                	mov    %eax,%gs
+  100540:	c3                   	ret
+  100541:	c3                   	ret
+  100542:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100549:	00 
+  10054a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-00100570 <IDTLoad>:
-  100570:	b8 9f 00 10 00       	mov    $0x10009f,%eax
-  100575:	56                   	push   %esi
-  100576:	ba 47 01 10 00       	mov    $0x100147,%edx
-  10057b:	53                   	push   %ebx
-  10057c:	bb 38 15 10 00       	mov    $0x101538,%ebx
-  100581:	66 a3 40 0d 10 00    	mov    %ax,0x100d40
-  100587:	c1 e8 10             	shr    $0x10,%eax
-  10058a:	66 a3 46 0d 10 00    	mov    %ax,0x100d46
-  100590:	b8 a5 00 10 00       	mov    $0x1000a5,%eax
-  100595:	66 a3 48 0d 10 00    	mov    %ax,0x100d48
-  10059b:	c1 e8 10             	shr    $0x10,%eax
-  10059e:	66 a3 4e 0d 10 00    	mov    %ax,0x100d4e
-  1005a4:	b8 ab 00 10 00       	mov    $0x1000ab,%eax
-  1005a9:	66 a3 50 0d 10 00    	mov    %ax,0x100d50
-  1005af:	c1 e8 10             	shr    $0x10,%eax
-  1005b2:	66 a3 56 0d 10 00    	mov    %ax,0x100d56
-  1005b8:	b8 b1 00 10 00       	mov    $0x1000b1,%eax
-  1005bd:	66 a3 58 0d 10 00    	mov    %ax,0x100d58
-  1005c3:	c1 e8 10             	shr    $0x10,%eax
-  1005c6:	66 a3 5e 0d 10 00    	mov    %ax,0x100d5e
-  1005cc:	b8 b7 00 10 00       	mov    $0x1000b7,%eax
-  1005d1:	66 a3 60 0d 10 00    	mov    %ax,0x100d60
-  1005d7:	c1 e8 10             	shr    $0x10,%eax
-  1005da:	66 a3 66 0d 10 00    	mov    %ax,0x100d66
-  1005e0:	b8 bd 00 10 00       	mov    $0x1000bd,%eax
-  1005e5:	66 a3 68 0d 10 00    	mov    %ax,0x100d68
-  1005eb:	c1 e8 10             	shr    $0x10,%eax
-  1005ee:	66 a3 6e 0d 10 00    	mov    %ax,0x100d6e
-  1005f4:	b8 c3 00 10 00       	mov    $0x1000c3,%eax
-  1005f9:	66 a3 70 0d 10 00    	mov    %ax,0x100d70
-  1005ff:	c1 e8 10             	shr    $0x10,%eax
-  100602:	66 a3 76 0d 10 00    	mov    %ax,0x100d76
-  100608:	b8 c9 00 10 00       	mov    $0x1000c9,%eax
-  10060d:	66 a3 78 0d 10 00    	mov    %ax,0x100d78
-  100613:	c1 e8 10             	shr    $0x10,%eax
-  100616:	66 a3 7e 0d 10 00    	mov    %ax,0x100d7e
-  10061c:	b8 cf 00 10 00       	mov    $0x1000cf,%eax
-  100621:	66 a3 80 0d 10 00    	mov    %ax,0x100d80
-  100627:	c1 e8 10             	shr    $0x10,%eax
-  10062a:	66 a3 86 0d 10 00    	mov    %ax,0x100d86
-  100630:	b8 d5 00 10 00       	mov    $0x1000d5,%eax
-  100635:	66 a3 88 0d 10 00    	mov    %ax,0x100d88
-  10063b:	c1 e8 10             	shr    $0x10,%eax
-  10063e:	c7 05 42 0d 10 00 08 	movl   $0x8e000008,0x100d42
-  100645:	00 00 8e 
-  100648:	c7 05 4a 0d 10 00 08 	movl   $0x8e000008,0x100d4a
-  10064f:	00 00 8e 
-  100652:	c7 05 52 0d 10 00 08 	movl   $0x8e000008,0x100d52
-  100659:	00 00 8e 
-  10065c:	c7 05 5a 0d 10 00 08 	movl   $0x8e000008,0x100d5a
-  100663:	00 00 8e 
-  100666:	c7 05 62 0d 10 00 08 	movl   $0x8e000008,0x100d62
-  10066d:	00 00 8e 
-  100670:	c7 05 6a 0d 10 00 08 	movl   $0x8e000008,0x100d6a
-  100677:	00 00 8e 
-  10067a:	c7 05 72 0d 10 00 08 	movl   $0x8e000008,0x100d72
-  100681:	00 00 8e 
-  100684:	c7 05 7a 0d 10 00 08 	movl   $0x8e000008,0x100d7a
-  10068b:	00 00 8e 
-  10068e:	c7 05 82 0d 10 00 08 	movl   $0x8e000008,0x100d82
-  100695:	00 00 8e 
-  100698:	c7 05 8a 0d 10 00 08 	movl   $0x8e000008,0x100d8a
-  10069f:	00 00 8e 
-  1006a2:	66 a3 8e 0d 10 00    	mov    %ax,0x100d8e
-  1006a8:	b8 db 00 10 00       	mov    $0x1000db,%eax
-  1006ad:	66 a3 90 0d 10 00    	mov    %ax,0x100d90
-  1006b3:	c1 e8 10             	shr    $0x10,%eax
-  1006b6:	66 a3 96 0d 10 00    	mov    %ax,0x100d96
-  1006bc:	b8 e4 00 10 00       	mov    $0x1000e4,%eax
-  1006c1:	66 a3 98 0d 10 00    	mov    %ax,0x100d98
-  1006c7:	c1 e8 10             	shr    $0x10,%eax
-  1006ca:	66 a3 9e 0d 10 00    	mov    %ax,0x100d9e
-  1006d0:	b8 ed 00 10 00       	mov    $0x1000ed,%eax
-  1006d5:	66 a3 a0 0d 10 00    	mov    %ax,0x100da0
-  1006db:	c1 e8 10             	shr    $0x10,%eax
-  1006de:	66 a3 a6 0d 10 00    	mov    %ax,0x100da6
-  1006e4:	b8 f6 00 10 00       	mov    $0x1000f6,%eax
-  1006e9:	66 a3 a8 0d 10 00    	mov    %ax,0x100da8
-  1006ef:	c1 e8 10             	shr    $0x10,%eax
-  1006f2:	66 a3 ae 0d 10 00    	mov    %ax,0x100dae
-  1006f8:	b8 ff 00 10 00       	mov    $0x1000ff,%eax
-  1006fd:	66 a3 b0 0d 10 00    	mov    %ax,0x100db0
-  100703:	c1 e8 10             	shr    $0x10,%eax
-  100706:	66 a3 b6 0d 10 00    	mov    %ax,0x100db6
-  10070c:	b8 08 01 10 00       	mov    $0x100108,%eax
-  100711:	66 a3 b8 0d 10 00    	mov    %ax,0x100db8
-  100717:	c1 e8 10             	shr    $0x10,%eax
-  10071a:	66 a3 be 0d 10 00    	mov    %ax,0x100dbe
-  100720:	b8 11 01 10 00       	mov    $0x100111,%eax
-  100725:	66 a3 c0 0d 10 00    	mov    %ax,0x100dc0
-  10072b:	c1 e8 10             	shr    $0x10,%eax
-  10072e:	66 a3 c6 0d 10 00    	mov    %ax,0x100dc6
-  100734:	b8 1a 01 10 00       	mov    $0x10011a,%eax
-  100739:	66 a3 c8 0d 10 00    	mov    %ax,0x100dc8
-  10073f:	c1 e8 10             	shr    $0x10,%eax
-  100742:	66 a3 ce 0d 10 00    	mov    %ax,0x100dce
-  100748:	b8 23 01 10 00       	mov    $0x100123,%eax
-  10074d:	66 a3 d0 0d 10 00    	mov    %ax,0x100dd0
-  100753:	c1 e8 10             	shr    $0x10,%eax
-  100756:	66 a3 d6 0d 10 00    	mov    %ax,0x100dd6
-  10075c:	b8 2c 01 10 00       	mov    $0x10012c,%eax
-  100761:	66 a3 d8 0d 10 00    	mov    %ax,0x100dd8
-  100767:	c1 e8 10             	shr    $0x10,%eax
-  10076a:	66 a3 de 0d 10 00    	mov    %ax,0x100dde
-  100770:	b8 35 01 10 00       	mov    $0x100135,%eax
-  100775:	66 a3 e0 0d 10 00    	mov    %ax,0x100de0
-  10077b:	c1 e8 10             	shr    $0x10,%eax
-  10077e:	c7 05 92 0d 10 00 08 	movl   $0x8e000008,0x100d92
-  100785:	00 00 8e 
-  100788:	c7 05 9a 0d 10 00 08 	movl   $0x8e000008,0x100d9a
-  10078f:	00 00 8e 
-  100792:	c7 05 a2 0d 10 00 08 	movl   $0x8e000008,0x100da2
-  100799:	00 00 8e 
-  10079c:	c7 05 aa 0d 10 00 08 	movl   $0x8e000008,0x100daa
-  1007a3:	00 00 8e 
-  1007a6:	c7 05 b2 0d 10 00 08 	movl   $0x8e000008,0x100db2
-  1007ad:	00 00 8e 
-  1007b0:	c7 05 ba 0d 10 00 08 	movl   $0x8e000008,0x100dba
-  1007b7:	00 00 8e 
-  1007ba:	c7 05 c2 0d 10 00 08 	movl   $0x8e000008,0x100dc2
-  1007c1:	00 00 8e 
-  1007c4:	c7 05 ca 0d 10 00 08 	movl   $0x8e000008,0x100dca
-  1007cb:	00 00 8e 
-  1007ce:	c7 05 d2 0d 10 00 08 	movl   $0x8e000008,0x100dd2
-  1007d5:	00 00 8e 
-  1007d8:	c7 05 da 0d 10 00 08 	movl   $0x8e000008,0x100dda
-  1007df:	00 00 8e 
-  1007e2:	c7 05 e2 0d 10 00 08 	movl   $0x8e000008,0x100de2
-  1007e9:	00 00 8e 
-  1007ec:	0f b7 0d a4 18 10 00 	movzwl 0x1018a4,%ecx
-  1007f3:	66 a3 e6 0d 10 00    	mov    %ax,0x100de6
-  1007f9:	b8 3e 01 10 00       	mov    $0x10013e,%eax
-  1007fe:	66 a3 e8 0d 10 00    	mov    %ax,0x100de8
-  100804:	c1 e8 10             	shr    $0x10,%eax
-  100807:	66 a3 ee 0d 10 00    	mov    %ax,0x100dee
-  10080d:	89 d0                	mov    %edx,%eax
-  10080f:	c7 05 ea 0d 10 00 08 	movl   $0x8e000008,0x100dea
-  100816:	00 00 8e 
-  100819:	c1 e8 10             	shr    $0x10,%eax
-  10081c:	89 c6                	mov    %eax,%esi
-  10081e:	b8 f0 0d 10 00       	mov    $0x100df0,%eax
-  100823:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-  100828:	66 89 10             	mov    %dx,(%eax)
-  10082b:	83 c0 08             	add    $0x8,%eax
-  10082e:	66 c7 40 fa 08 00    	movw   $0x8,-0x6(%eax)
-  100834:	66 89 48 fc          	mov    %cx,-0x4(%eax)
-  100838:	66 89 70 fe          	mov    %si,-0x2(%eax)
-  10083c:	39 c3                	cmp    %eax,%ebx
-  10083e:	75 e8                	jne    100828 <IDTLoad+0x2b8>
-  100840:	c7 05 42 0e 10 00 08 	movl   $0x8e000008,0x100e42
-  100847:	00 00 8e 
-  10084a:	b8 70 01 10 00       	mov    $0x100170,%eax
-  10084f:	66 a3 40 0e 10 00    	mov    %ax,0x100e40
-  100855:	c1 e8 10             	shr    $0x10,%eax
-  100858:	66 a3 46 0e 10 00    	mov    %ax,0x100e46
-  10085e:	b8 32 00 10 00       	mov    $0x100032,%eax
-  100863:	66 a3 60 0e 10 00    	mov    %ax,0x100e60
-  100869:	c1 e8 10             	shr    $0x10,%eax
-  10086c:	66 a3 66 0e 10 00    	mov    %ax,0x100e66
-  100872:	b8 f7 07 00 00       	mov    $0x7f7,%eax
-  100877:	c7 05 62 0e 10 00 08 	movl   $0x8e000008,0x100e62
-  10087e:	00 00 8e 
-  100881:	66 a3 20 0d 10 00    	mov    %ax,0x100d20
-  100887:	c7 05 22 0d 10 00 40 	movl   $0x100d40,0x100d22
-  10088e:	0d 10 00 
-  100891:	0f 01 1d 20 0d 10 00 	lidtl  0x100d20
-  100898:	fb                   	sti
-  100899:	5b                   	pop    %ebx
-  10089a:	5e                   	pop    %esi
-  10089b:	c3                   	ret
-  10089c:	66 90                	xchg   %ax,%ax
-  10089e:	66 90                	xchg   %ax,%ax
+00100550 <GDTLoad>:
+  100550:	c7 05 d4 0e 10 00 00 	movl   $0x0,0x100ed4
+  100557:	00 00 00 
+  10055a:	a1 d4 0e 10 00       	mov    0x100ed4,%eax
+  10055f:	c7 05 d8 0e 10 00 00 	movl   $0x0,0x100ed8
+  100566:	00 00 00 
+  100569:	8b 15 d8 0e 10 00    	mov    0x100ed8,%edx
+  10056f:	c7 05 dc 0e 10 00 ff 	movl   $0x3fff,0x100edc
+  100576:	3f 00 00 
+  100579:	a3 06 20 11 00       	mov    %eax,0x112006
+  10057e:	a1 dc 0e 10 00       	mov    0x100edc,%eax
+  100583:	c7 05 e0 0e 10 00 00 	movl   $0xc09a00,0x100ee0
+  10058a:	9a c0 00 
+  10058d:	89 15 0a 20 11 00    	mov    %edx,0x11200a
+  100593:	8b 15 e0 0e 10 00    	mov    0x100ee0,%edx
+  100599:	c7 05 e4 0e 10 00 ff 	movl   $0x3fff,0x100ee4
+  1005a0:	3f 00 00 
+  1005a3:	a3 0e 20 11 00       	mov    %eax,0x11200e
+  1005a8:	a1 e4 0e 10 00       	mov    0x100ee4,%eax
+  1005ad:	68 00 20 11 00       	push   $0x112000
+  1005b2:	c7 05 e8 0e 10 00 00 	movl   $0xc09200,0x100ee8
+  1005b9:	92 c0 00 
+  1005bc:	89 15 12 20 11 00    	mov    %edx,0x112012
+  1005c2:	8b 15 e8 0e 10 00    	mov    0x100ee8,%edx
+  1005c8:	a3 16 20 11 00       	mov    %eax,0x112016
+  1005cd:	b8 17 00 00 00       	mov    $0x17,%eax
+  1005d2:	89 15 1a 20 11 00    	mov    %edx,0x11201a
+  1005d8:	66 a3 00 20 11 00    	mov    %ax,0x112000
+  1005de:	c7 05 02 20 11 00 06 	movl   $0x112006,0x112002
+  1005e5:	20 11 00 
+  1005e8:	e8 33 ff ff ff       	call   100520 <GDTInstall>
+  1005ed:	5a                   	pop    %edx
+  1005ee:	c3                   	ret
+  1005ef:	90                   	nop
 
-001008a0 <CIRQErr>:
-  1008a0:	83 ec 18             	sub    $0x18,%esp
-  1008a3:	8b 44 24 1c          	mov    0x1c(%esp),%eax
-  1008a7:	ff 70 2c             	push   0x2c(%eax)
-  1008aa:	ff 70 20             	push   0x20(%eax)
-  1008ad:	8b 40 28             	mov    0x28(%eax),%eax
-  1008b0:	ff 34 85 40 15 10 00 	push   0x101540(,%eax,4)
-  1008b7:	68 a8 18 10 00       	push   $0x1018a8
-  1008bc:	68 35 16 10 00       	push   $0x101635
-  1008c1:	e8 9a 00 00 00       	call   100960 <LogF>
+001005f0 <IDTCreateGate>:
+  1005f0:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
+  1005f5:	8b 4c 24 0c          	mov    0xc(%esp),%ecx
+  1005f9:	8b 54 24 08          	mov    0x8(%esp),%edx
+  1005fd:	66 89 0c c5 22 0f 10 	mov    %cx,0x100f22(,%eax,8)
+  100604:	00 
+  100605:	8b 4c 24 10          	mov    0x10(%esp),%ecx
+  100609:	66 89 14 c5 20 0f 10 	mov    %dx,0x100f20(,%eax,8)
+  100610:	00 
+  100611:	c1 ea 10             	shr    $0x10,%edx
+  100614:	c6 04 c5 24 0f 10 00 	movb   $0x0,0x100f24(,%eax,8)
+  10061b:	00 
+  10061c:	88 0c c5 25 0f 10 00 	mov    %cl,0x100f25(,%eax,8)
+  100623:	66 89 14 c5 26 0f 10 	mov    %dx,0x100f26(,%eax,8)
+  10062a:	00 
+  10062b:	c3                   	ret
+  10062c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-001008c6 <g>:
-  1008c6:	eb fe                	jmp    1008c6 <g>
-  1008c8:	83 c4 2c             	add    $0x2c,%esp
-  1008cb:	c3                   	ret
-  1008cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-
-001008d0 <CIRQNonErr>:
-  1008d0:	53                   	push   %ebx
-  1008d1:	83 ec 0c             	sub    $0xc,%esp
-  1008d4:	8b 5c 24 14          	mov    0x14(%esp),%ebx
-  1008d8:	ff 73 2c             	push   0x2c(%ebx)
-  1008db:	ff 73 30             	push   0x30(%ebx)
-  1008de:	ff 73 34             	push   0x34(%ebx)
-  1008e1:	ff 73 24             	push   0x24(%ebx)
-  1008e4:	ff 73 28             	push   0x28(%ebx)
-  1008e7:	68 cc 18 10 00       	push   $0x1018cc
-  1008ec:	68 3b 16 10 00       	push   $0x10163b
-  1008f1:	e8 6a 00 00 00       	call   100960 <LogF>
-  1008f6:	83 c4 1c             	add    $0x1c,%esp
-  1008f9:	ff 73 10             	push   0x10(%ebx)
-  1008fc:	ff 73 14             	push   0x14(%ebx)
-  1008ff:	ff 73 18             	push   0x18(%ebx)
-  100902:	ff 73 1c             	push   0x1c(%ebx)
-  100905:	ff 73 20             	push   0x20(%ebx)
-  100908:	68 f8 18 10 00       	push   $0x1018f8
-  10090d:	68 3b 16 10 00       	push   $0x10163b
-  100912:	e8 49 00 00 00       	call   100960 <LogF>
-  100917:	83 c4 18             	add    $0x18,%esp
-  10091a:	ff 33                	push   (%ebx)
-  10091c:	ff 73 04             	push   0x4(%ebx)
-  10091f:	ff 73 08             	push   0x8(%ebx)
-  100922:	ff 73 0c             	push   0xc(%ebx)
-  100925:	68 3f 16 10 00       	push   $0x10163f
-  10092a:	68 3b 16 10 00       	push   $0x10163b
-  10092f:	e8 2c 00 00 00       	call   100960 <LogF>
-  100934:	83 c4 14             	add    $0x14,%esp
-  100937:	ff 73 2c             	push   0x2c(%ebx)
-  10093a:	ff 73 20             	push   0x20(%ebx)
-  10093d:	8b 43 28             	mov    0x28(%ebx),%eax
-  100940:	ff 34 85 40 15 10 00 	push   0x101540(,%eax,4)
-  100947:	68 a8 18 10 00       	push   $0x1018a8
-  10094c:	68 3b 16 10 00       	push   $0x10163b
-  100951:	e8 0a 00 00 00       	call   100960 <LogF>
-  100956:	83 c4 28             	add    $0x28,%esp
+00100630 <IDTLoad>:
+  100630:	b8 9f 00 10 00       	mov    $0x10009f,%eax
+  100635:	56                   	push   %esi
+  100636:	ba 47 01 10 00       	mov    $0x100147,%edx
+  10063b:	53                   	push   %ebx
+  10063c:	bb 18 17 10 00       	mov    $0x101718,%ebx
+  100641:	66 a3 20 0f 10 00    	mov    %ax,0x100f20
+  100647:	c1 e8 10             	shr    $0x10,%eax
+  10064a:	66 a3 26 0f 10 00    	mov    %ax,0x100f26
+  100650:	b8 a5 00 10 00       	mov    $0x1000a5,%eax
+  100655:	66 a3 28 0f 10 00    	mov    %ax,0x100f28
+  10065b:	c1 e8 10             	shr    $0x10,%eax
+  10065e:	66 a3 2e 0f 10 00    	mov    %ax,0x100f2e
+  100664:	b8 ab 00 10 00       	mov    $0x1000ab,%eax
+  100669:	66 a3 30 0f 10 00    	mov    %ax,0x100f30
+  10066f:	c1 e8 10             	shr    $0x10,%eax
+  100672:	66 a3 36 0f 10 00    	mov    %ax,0x100f36
+  100678:	b8 b1 00 10 00       	mov    $0x1000b1,%eax
+  10067d:	66 a3 38 0f 10 00    	mov    %ax,0x100f38
+  100683:	c1 e8 10             	shr    $0x10,%eax
+  100686:	66 a3 3e 0f 10 00    	mov    %ax,0x100f3e
+  10068c:	b8 b7 00 10 00       	mov    $0x1000b7,%eax
+  100691:	66 a3 40 0f 10 00    	mov    %ax,0x100f40
+  100697:	c1 e8 10             	shr    $0x10,%eax
+  10069a:	66 a3 46 0f 10 00    	mov    %ax,0x100f46
+  1006a0:	b8 bd 00 10 00       	mov    $0x1000bd,%eax
+  1006a5:	66 a3 48 0f 10 00    	mov    %ax,0x100f48
+  1006ab:	c1 e8 10             	shr    $0x10,%eax
+  1006ae:	66 a3 4e 0f 10 00    	mov    %ax,0x100f4e
+  1006b4:	b8 c3 00 10 00       	mov    $0x1000c3,%eax
+  1006b9:	66 a3 50 0f 10 00    	mov    %ax,0x100f50
+  1006bf:	c1 e8 10             	shr    $0x10,%eax
+  1006c2:	66 a3 56 0f 10 00    	mov    %ax,0x100f56
+  1006c8:	b8 c9 00 10 00       	mov    $0x1000c9,%eax
+  1006cd:	66 a3 58 0f 10 00    	mov    %ax,0x100f58
+  1006d3:	c1 e8 10             	shr    $0x10,%eax
+  1006d6:	66 a3 5e 0f 10 00    	mov    %ax,0x100f5e
+  1006dc:	b8 cf 00 10 00       	mov    $0x1000cf,%eax
+  1006e1:	66 a3 60 0f 10 00    	mov    %ax,0x100f60
+  1006e7:	c1 e8 10             	shr    $0x10,%eax
+  1006ea:	66 a3 66 0f 10 00    	mov    %ax,0x100f66
+  1006f0:	b8 d5 00 10 00       	mov    $0x1000d5,%eax
+  1006f5:	66 a3 68 0f 10 00    	mov    %ax,0x100f68
+  1006fb:	c1 e8 10             	shr    $0x10,%eax
+  1006fe:	c7 05 22 0f 10 00 08 	movl   $0x8e000008,0x100f22
+  100705:	00 00 8e 
+  100708:	c7 05 2a 0f 10 00 08 	movl   $0x8e000008,0x100f2a
+  10070f:	00 00 8e 
+  100712:	c7 05 32 0f 10 00 08 	movl   $0x8e000008,0x100f32
+  100719:	00 00 8e 
+  10071c:	c7 05 3a 0f 10 00 08 	movl   $0x8e000008,0x100f3a
+  100723:	00 00 8e 
+  100726:	c7 05 42 0f 10 00 08 	movl   $0x8e000008,0x100f42
+  10072d:	00 00 8e 
+  100730:	c7 05 4a 0f 10 00 08 	movl   $0x8e000008,0x100f4a
+  100737:	00 00 8e 
+  10073a:	c7 05 52 0f 10 00 08 	movl   $0x8e000008,0x100f52
+  100741:	00 00 8e 
+  100744:	c7 05 5a 0f 10 00 08 	movl   $0x8e000008,0x100f5a
+  10074b:	00 00 8e 
+  10074e:	c7 05 62 0f 10 00 08 	movl   $0x8e000008,0x100f62
+  100755:	00 00 8e 
+  100758:	c7 05 6a 0f 10 00 08 	movl   $0x8e000008,0x100f6a
+  10075f:	00 00 8e 
+  100762:	66 a3 6e 0f 10 00    	mov    %ax,0x100f6e
+  100768:	b8 db 00 10 00       	mov    $0x1000db,%eax
+  10076d:	66 a3 70 0f 10 00    	mov    %ax,0x100f70
+  100773:	c1 e8 10             	shr    $0x10,%eax
+  100776:	66 a3 76 0f 10 00    	mov    %ax,0x100f76
+  10077c:	b8 e4 00 10 00       	mov    $0x1000e4,%eax
+  100781:	66 a3 78 0f 10 00    	mov    %ax,0x100f78
+  100787:	c1 e8 10             	shr    $0x10,%eax
+  10078a:	66 a3 7e 0f 10 00    	mov    %ax,0x100f7e
+  100790:	b8 ed 00 10 00       	mov    $0x1000ed,%eax
+  100795:	66 a3 80 0f 10 00    	mov    %ax,0x100f80
+  10079b:	c1 e8 10             	shr    $0x10,%eax
+  10079e:	66 a3 86 0f 10 00    	mov    %ax,0x100f86
+  1007a4:	b8 f6 00 10 00       	mov    $0x1000f6,%eax
+  1007a9:	66 a3 88 0f 10 00    	mov    %ax,0x100f88
+  1007af:	c1 e8 10             	shr    $0x10,%eax
+  1007b2:	66 a3 8e 0f 10 00    	mov    %ax,0x100f8e
+  1007b8:	b8 ff 00 10 00       	mov    $0x1000ff,%eax
+  1007bd:	66 a3 90 0f 10 00    	mov    %ax,0x100f90
+  1007c3:	c1 e8 10             	shr    $0x10,%eax
+  1007c6:	66 a3 96 0f 10 00    	mov    %ax,0x100f96
+  1007cc:	b8 08 01 10 00       	mov    $0x100108,%eax
+  1007d1:	66 a3 98 0f 10 00    	mov    %ax,0x100f98
+  1007d7:	c1 e8 10             	shr    $0x10,%eax
+  1007da:	66 a3 9e 0f 10 00    	mov    %ax,0x100f9e
+  1007e0:	b8 11 01 10 00       	mov    $0x100111,%eax
+  1007e5:	66 a3 a0 0f 10 00    	mov    %ax,0x100fa0
+  1007eb:	c1 e8 10             	shr    $0x10,%eax
+  1007ee:	66 a3 a6 0f 10 00    	mov    %ax,0x100fa6
+  1007f4:	b8 1a 01 10 00       	mov    $0x10011a,%eax
+  1007f9:	66 a3 a8 0f 10 00    	mov    %ax,0x100fa8
+  1007ff:	c1 e8 10             	shr    $0x10,%eax
+  100802:	66 a3 ae 0f 10 00    	mov    %ax,0x100fae
+  100808:	b8 23 01 10 00       	mov    $0x100123,%eax
+  10080d:	66 a3 b0 0f 10 00    	mov    %ax,0x100fb0
+  100813:	c1 e8 10             	shr    $0x10,%eax
+  100816:	66 a3 b6 0f 10 00    	mov    %ax,0x100fb6
+  10081c:	b8 2c 01 10 00       	mov    $0x10012c,%eax
+  100821:	66 a3 b8 0f 10 00    	mov    %ax,0x100fb8
+  100827:	c1 e8 10             	shr    $0x10,%eax
+  10082a:	66 a3 be 0f 10 00    	mov    %ax,0x100fbe
+  100830:	b8 35 01 10 00       	mov    $0x100135,%eax
+  100835:	66 a3 c0 0f 10 00    	mov    %ax,0x100fc0
+  10083b:	c1 e8 10             	shr    $0x10,%eax
+  10083e:	c7 05 72 0f 10 00 08 	movl   $0x8e000008,0x100f72
+  100845:	00 00 8e 
+  100848:	c7 05 7a 0f 10 00 08 	movl   $0x8e000008,0x100f7a
+  10084f:	00 00 8e 
+  100852:	c7 05 82 0f 10 00 08 	movl   $0x8e000008,0x100f82
+  100859:	00 00 8e 
+  10085c:	c7 05 8a 0f 10 00 08 	movl   $0x8e000008,0x100f8a
+  100863:	00 00 8e 
+  100866:	c7 05 92 0f 10 00 08 	movl   $0x8e000008,0x100f92
+  10086d:	00 00 8e 
+  100870:	c7 05 9a 0f 10 00 08 	movl   $0x8e000008,0x100f9a
+  100877:	00 00 8e 
+  10087a:	c7 05 a2 0f 10 00 08 	movl   $0x8e000008,0x100fa2
+  100881:	00 00 8e 
+  100884:	c7 05 aa 0f 10 00 08 	movl   $0x8e000008,0x100faa
+  10088b:	00 00 8e 
+  10088e:	c7 05 b2 0f 10 00 08 	movl   $0x8e000008,0x100fb2
+  100895:	00 00 8e 
+  100898:	c7 05 ba 0f 10 00 08 	movl   $0x8e000008,0x100fba
+  10089f:	00 00 8e 
+  1008a2:	c7 05 c2 0f 10 00 08 	movl   $0x8e000008,0x100fc2
+  1008a9:	00 00 8e 
+  1008ac:	0f b7 0d 10 1b 10 00 	movzwl 0x101b10,%ecx
+  1008b3:	66 a3 c6 0f 10 00    	mov    %ax,0x100fc6
+  1008b9:	b8 3e 01 10 00       	mov    $0x10013e,%eax
+  1008be:	66 a3 c8 0f 10 00    	mov    %ax,0x100fc8
+  1008c4:	c1 e8 10             	shr    $0x10,%eax
+  1008c7:	66 a3 ce 0f 10 00    	mov    %ax,0x100fce
+  1008cd:	89 d0                	mov    %edx,%eax
+  1008cf:	c7 05 ca 0f 10 00 08 	movl   $0x8e000008,0x100fca
+  1008d6:	00 00 8e 
+  1008d9:	c1 e8 10             	shr    $0x10,%eax
+  1008dc:	89 c6                	mov    %eax,%esi
+  1008de:	b8 d0 0f 10 00       	mov    $0x100fd0,%eax
+  1008e3:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  1008e8:	66 89 10             	mov    %dx,(%eax)
+  1008eb:	83 c0 08             	add    $0x8,%eax
+  1008ee:	66 c7 40 fa 08 00    	movw   $0x8,-0x6(%eax)
+  1008f4:	66 89 48 fc          	mov    %cx,-0x4(%eax)
+  1008f8:	66 89 70 fe          	mov    %si,-0x2(%eax)
+  1008fc:	39 c3                	cmp    %eax,%ebx
+  1008fe:	75 e8                	jne    1008e8 <IDTLoad+0x2b8>
+  100900:	c7 05 22 10 10 00 08 	movl   $0x8e000008,0x101022
+  100907:	00 00 8e 
+  10090a:	b8 70 01 10 00       	mov    $0x100170,%eax
+  10090f:	66 a3 20 10 10 00    	mov    %ax,0x101020
+  100915:	c1 e8 10             	shr    $0x10,%eax
+  100918:	66 a3 26 10 10 00    	mov    %ax,0x101026
+  10091e:	b8 32 00 10 00       	mov    $0x100032,%eax
+  100923:	66 a3 40 10 10 00    	mov    %ax,0x101040
+  100929:	c1 e8 10             	shr    $0x10,%eax
+  10092c:	66 a3 46 10 10 00    	mov    %ax,0x101046
+  100932:	b8 f7 07 00 00       	mov    $0x7f7,%eax
+  100937:	c7 05 42 10 10 00 08 	movl   $0x8e000008,0x101042
+  10093e:	00 00 8e 
+  100941:	66 a3 00 0f 10 00    	mov    %ax,0x100f00
+  100947:	c7 05 02 0f 10 00 20 	movl   $0x100f20,0x100f02
+  10094e:	0f 10 00 
+  100951:	0f 01 1d 00 0f 10 00 	lidtl  0x100f00
+  100958:	fb                   	sti
   100959:	5b                   	pop    %ebx
-  10095a:	c3                   	ret
-  10095b:	66 90                	xchg   %ax,%ax
-  10095d:	66 90                	xchg   %ax,%ax
-  10095f:	90                   	nop
+  10095a:	5e                   	pop    %esi
+  10095b:	c3                   	ret
+  10095c:	66 90                	xchg   %ax,%ax
+  10095e:	66 90                	xchg   %ax,%ax
 
-00100960 <LogF>:
-  100960:	56                   	push   %esi
-  100961:	53                   	push   %ebx
-  100962:	83 ec 10             	sub    $0x10,%esp
-  100965:	8b 5c 24 20          	mov    0x20(%esp),%ebx
-  100969:	ff 74 24 1c          	push   0x1c(%esp)
-  10096d:	e8 0e f9 ff ff       	call   100280 <OutS>
-  100972:	c7 04 24 08 18 10 00 	movl   $0x101808,(%esp)
-  100979:	8d 74 24 28          	lea    0x28(%esp),%esi
-  10097d:	e8 fe f8 ff ff       	call   100280 <OutS>
-  100982:	0f be 03             	movsbl (%ebx),%eax
-  100985:	83 c4 10             	add    $0x10,%esp
-  100988:	84 c0                	test   %al,%al
-  10098a:	74 4f                	je     1009db <LogF+0x7b>
+00100960 <CIRQErr>:
+  100960:	83 ec 18             	sub    $0x18,%esp
+  100963:	8b 44 24 1c          	mov    0x1c(%esp),%eax
+  100967:	ff 70 2c             	push   0x2c(%eax)
+  10096a:	ff 70 20             	push   0x20(%eax)
+  10096d:	8b 40 28             	mov    0x28(%eax),%eax
+  100970:	ff 34 85 20 17 10 00 	push   0x101720(,%eax,4)
+  100977:	68 14 1b 10 00       	push   $0x101b14
+  10097c:	68 29 18 10 00       	push   $0x101829
+  100981:	e8 9a 00 00 00       	call   100a20 <LogF>
+
+00100986 <g>:
+  100986:	eb fe                	jmp    100986 <g>
+  100988:	83 c4 2c             	add    $0x2c,%esp
+  10098b:	c3                   	ret
   10098c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  100990:	3c 25                	cmp    $0x25,%al
-  100992:	0f 85 d8 00 00 00    	jne    100a70 <LogF+0x110>
-  100998:	0f b6 43 01          	movzbl 0x1(%ebx),%eax
-  10099c:	3c 25                	cmp    $0x25,%al
-  10099e:	74 18                	je     1009b8 <LogF+0x58>
-  1009a0:	83 e8 62             	sub    $0x62,%eax
-  1009a3:	3c 16                	cmp    $0x16,%al
-  1009a5:	77 11                	ja     1009b8 <LogF+0x58>
-  1009a7:	0f b6 c0             	movzbl %al,%eax
-  1009aa:	ff 24 85 c0 15 10 00 	jmp    *0x1015c0(,%eax,4)
-  1009b1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-  1009b8:	83 ec 0c             	sub    $0xc,%esp
-  1009bb:	6a 25                	push   $0x25
-  1009bd:	e8 9e f8 ff ff       	call   100260 <OutC>
-  1009c2:	83 c4 10             	add    $0x10,%esp
-  1009c5:	8d 43 01             	lea    0x1(%ebx),%eax
-  1009c8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  1009cf:	00 
-  1009d0:	8d 58 01             	lea    0x1(%eax),%ebx
-  1009d3:	0f be 40 01          	movsbl 0x1(%eax),%eax
-  1009d7:	84 c0                	test   %al,%al
-  1009d9:	75 b5                	jne    100990 <LogF+0x30>
-  1009db:	83 ec 0c             	sub    $0xc,%esp
-  1009de:	6a 0a                	push   $0xa
-  1009e0:	e8 7b f8 ff ff       	call   100260 <OutC>
-  1009e5:	83 c4 14             	add    $0x14,%esp
-  1009e8:	5b                   	pop    %ebx
-  1009e9:	5e                   	pop    %esi
-  1009ea:	c3                   	ret
-  1009eb:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-  1009f0:	89 f0                	mov    %esi,%eax
-  1009f2:	83 ec 0c             	sub    $0xc,%esp
-  1009f5:	83 c6 04             	add    $0x4,%esi
-  1009f8:	ff 30                	push   (%eax)
-  1009fa:	e8 71 f9 ff ff       	call   100370 <OutH>
-  1009ff:	83 c4 10             	add    $0x10,%esp
-  100a02:	eb c1                	jmp    1009c5 <LogF+0x65>
-  100a04:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  100a08:	89 f0                	mov    %esi,%eax
-  100a0a:	83 ec 0c             	sub    $0xc,%esp
-  100a0d:	83 c6 04             	add    $0x4,%esi
-  100a10:	ff 30                	push   (%eax)
-  100a12:	e8 69 f8 ff ff       	call   100280 <OutS>
-  100a17:	83 c4 10             	add    $0x10,%esp
-  100a1a:	eb a9                	jmp    1009c5 <LogF+0x65>
-  100a1c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  100a20:	89 f0                	mov    %esi,%eax
-  100a22:	83 ec 0c             	sub    $0xc,%esp
-  100a25:	83 c6 04             	add    $0x4,%esi
-  100a28:	ff 30                	push   (%eax)
-  100a2a:	e8 b1 f8 ff ff       	call   1002e0 <OutI>
-  100a2f:	83 c4 10             	add    $0x10,%esp
-  100a32:	eb 91                	jmp    1009c5 <LogF+0x65>
-  100a34:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  100a38:	89 f0                	mov    %esi,%eax
-  100a3a:	83 ec 0c             	sub    $0xc,%esp
-  100a3d:	83 c6 04             	add    $0x4,%esi
-  100a40:	0f be 00             	movsbl (%eax),%eax
-  100a43:	50                   	push   %eax
-  100a44:	e8 17 f8 ff ff       	call   100260 <OutC>
-  100a49:	83 c4 10             	add    $0x10,%esp
-  100a4c:	e9 74 ff ff ff       	jmp    1009c5 <LogF+0x65>
-  100a51:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-  100a58:	89 f0                	mov    %esi,%eax
-  100a5a:	83 ec 0c             	sub    $0xc,%esp
-  100a5d:	83 c6 04             	add    $0x4,%esi
-  100a60:	ff 30                	push   (%eax)
-  100a62:	e8 a9 f9 ff ff       	call   100410 <OutB>
-  100a67:	83 c4 10             	add    $0x10,%esp
-  100a6a:	e9 56 ff ff ff       	jmp    1009c5 <LogF+0x65>
-  100a6f:	90                   	nop
-  100a70:	83 ec 0c             	sub    $0xc,%esp
-  100a73:	50                   	push   %eax
-  100a74:	e8 e7 f7 ff ff       	call   100260 <OutC>
-  100a79:	83 c4 10             	add    $0x10,%esp
-  100a7c:	89 d8                	mov    %ebx,%eax
-  100a7e:	e9 4d ff ff ff       	jmp    1009d0 <LogF+0x70>
-  100a83:	66 90                	xchg   %ax,%ax
-  100a85:	66 90                	xchg   %ax,%ax
-  100a87:	66 90                	xchg   %ax,%ax
-  100a89:	66 90                	xchg   %ax,%ax
-  100a8b:	66 90                	xchg   %ax,%ax
-  100a8d:	66 90                	xchg   %ax,%ax
-  100a8f:	90                   	nop
 
-00100a90 <Setup>:
-  100a90:	56                   	push   %esi
-  100a91:	5e                   	pop    %esi
-  100a92:	83 ec 1c             	sub    $0x1c,%esp
-  100a95:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
-  100a9c:	db e3                	fninit
-  100a9e:	9c                   	pushf
-  100a9f:	8f 04 24             	pop    (%esp)
-  100aa2:	e8 69 f7 ff ff       	call   100210 <UARTInit>
-  100aa7:	83 ec 08             	sub    $0x8,%esp
-  100aaa:	68 f0 19 10 00       	push   $0x1019f0
-  100aaf:	68 10 18 10 00       	push   $0x101810
-  100ab4:	e8 a7 fe ff ff       	call   100960 <LogF>
-  100ab9:	58                   	pop    %eax
-  100aba:	5a                   	pop    %edx
-  100abb:	68 18 1a 10 00       	push   $0x101a18
-  100ac0:	68 15 18 10 00       	push   $0x101815
-  100ac5:	e8 96 fe ff ff       	call   100960 <LogF>
-  100aca:	83 c4 10             	add    $0x10,%esp
-  100acd:	81 7c 24 20 02 b0 ad 	cmpl   $0x2badb002,0x20(%esp)
-  100ad4:	2b 
-  100ad5:	74 10                	je     100ae7 <Setup+0x57>
-  100ad7:	83 ec 0c             	sub    $0xc,%esp
-  100ada:	68 1a 18 10 00       	push   $0x10181a
-  100adf:	e8 ac 00 00 00       	call   100b90 <FAULT>
-  100ae4:	83 c4 10             	add    $0x10,%esp
-  100ae7:	e8 a4 f9 ff ff       	call   100490 <GDTLoad>
-  100aec:	0f 01 44 24 04       	sgdtl  0x4(%esp)
-  100af1:	0f b7 44 24 04       	movzwl 0x4(%esp),%eax
-  100af6:	50                   	push   %eax
-  100af7:	ff 74 24 0a          	push   0xa(%esp)
-  100afb:	68 2b 18 10 00       	push   $0x10182b
-  100b00:	68 48 18 10 00       	push   $0x101848
-  100b05:	e8 56 fe ff ff       	call   100960 <LogF>
-  100b0a:	e8 61 fa ff ff       	call   100570 <IDTLoad>
-  100b0f:	0f 01 4c 24 1a       	sidtl  0x1a(%esp)
-  100b14:	0f b7 44 24 1a       	movzwl 0x1a(%esp),%eax
-  100b19:	50                   	push   %eax
-  100b1a:	ff 74 24 20          	push   0x20(%esp)
-  100b1e:	68 2b 18 10 00       	push   $0x10182b
-  100b23:	68 4c 18 10 00       	push   $0x10184c
-  100b28:	e8 33 fe ff ff       	call   100960 <LogF>
-  100b2d:	83 c4 1c             	add    $0x1c,%esp
-  100b30:	ff 74 24 04          	push   0x4(%esp)
-  100b34:	68 50 18 10 00       	push   $0x101850
-  100b39:	68 5b 18 10 00       	push   $0x10185b
-  100b3e:	e8 1d fe ff ff       	call   100960 <LogF>
-  100b43:	e8 b8 00 00 00       	call   100c00 <PICInit>
-  100b48:	58                   	pop    %eax
-  100b49:	5a                   	pop    %edx
-  100b4a:	68 5f 18 10 00       	push   $0x10185f
-  100b4f:	68 6c 18 10 00       	push   $0x10186c
-  100b54:	e8 07 fe ff ff       	call   100960 <LogF>
-  100b59:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
-  100b60:	e8 eb f5 ff ff       	call   100150 <TimerInit>
-  100b65:	59                   	pop    %ecx
-  100b66:	5e                   	pop    %esi
-  100b67:	68 70 18 10 00       	push   $0x101870
-  100b6c:	68 80 18 10 00       	push   $0x101880
-  100b71:	e8 ea fd ff ff       	call   100960 <LogF>
-  100b76:	cd 15                	int    $0x15
-  100b78:	83 c4 10             	add    $0x10,%esp
-  100b7b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-  100b80:	f4                   	hlt
-  100b81:	eb fd                	jmp    100b80 <Setup+0xf0>
-  100b83:	66 90                	xchg   %ax,%ax
-  100b85:	66 90                	xchg   %ax,%ax
-  100b87:	66 90                	xchg   %ax,%ax
-  100b89:	66 90                	xchg   %ax,%ax
-  100b8b:	66 90                	xchg   %ax,%ax
-  100b8d:	66 90                	xchg   %ax,%ax
-  100b8f:	90                   	nop
+00100990 <CIRQNonErr>:
+  100990:	53                   	push   %ebx
+  100991:	83 ec 0c             	sub    $0xc,%esp
+  100994:	8b 5c 24 14          	mov    0x14(%esp),%ebx
+  100998:	ff 73 2c             	push   0x2c(%ebx)
+  10099b:	ff 73 30             	push   0x30(%ebx)
+  10099e:	ff 73 34             	push   0x34(%ebx)
+  1009a1:	ff 73 24             	push   0x24(%ebx)
+  1009a4:	ff 73 28             	push   0x28(%ebx)
+  1009a7:	68 38 1b 10 00       	push   $0x101b38
+  1009ac:	68 2f 18 10 00       	push   $0x10182f
+  1009b1:	e8 6a 00 00 00       	call   100a20 <LogF>
+  1009b6:	83 c4 1c             	add    $0x1c,%esp
+  1009b9:	ff 73 10             	push   0x10(%ebx)
+  1009bc:	ff 73 14             	push   0x14(%ebx)
+  1009bf:	ff 73 18             	push   0x18(%ebx)
+  1009c2:	ff 73 1c             	push   0x1c(%ebx)
+  1009c5:	ff 73 20             	push   0x20(%ebx)
+  1009c8:	68 64 1b 10 00       	push   $0x101b64
+  1009cd:	68 2f 18 10 00       	push   $0x10182f
+  1009d2:	e8 49 00 00 00       	call   100a20 <LogF>
+  1009d7:	83 c4 18             	add    $0x18,%esp
+  1009da:	ff 33                	push   (%ebx)
+  1009dc:	ff 73 04             	push   0x4(%ebx)
+  1009df:	ff 73 08             	push   0x8(%ebx)
+  1009e2:	ff 73 0c             	push   0xc(%ebx)
+  1009e5:	68 33 18 10 00       	push   $0x101833
+  1009ea:	68 2f 18 10 00       	push   $0x10182f
+  1009ef:	e8 2c 00 00 00       	call   100a20 <LogF>
+  1009f4:	83 c4 14             	add    $0x14,%esp
+  1009f7:	ff 73 2c             	push   0x2c(%ebx)
+  1009fa:	ff 73 20             	push   0x20(%ebx)
+  1009fd:	8b 43 28             	mov    0x28(%ebx),%eax
+  100a00:	ff 34 85 20 17 10 00 	push   0x101720(,%eax,4)
+  100a07:	68 14 1b 10 00       	push   $0x101b14
+  100a0c:	68 2f 18 10 00       	push   $0x10182f
+  100a11:	e8 0a 00 00 00       	call   100a20 <LogF>
+  100a16:	83 c4 28             	add    $0x28,%esp
+  100a19:	5b                   	pop    %ebx
+  100a1a:	c3                   	ret
+  100a1b:	66 90                	xchg   %ax,%ax
+  100a1d:	66 90                	xchg   %ax,%ax
+  100a1f:	90                   	nop
 
-00100b90 <FAULT>:
-  100b90:	83 ec 10             	sub    $0x10,%esp
-  100b93:	ff 74 24 14          	push   0x14(%esp)
-  100b97:	68 84 18 10 00       	push   $0x101884
-  100b9c:	68 9d 18 10 00       	push   $0x10189d
-  100ba1:	e8 ba fd ff ff       	call   100960 <LogF>
-  100ba6:	eb fe                	jmp    100ba6 <FAULT+0x16>
-  100ba8:	83 c4 1c             	add    $0x1c,%esp
-  100bab:	c3                   	ret
-  100bac:	66 90                	xchg   %ax,%ax
-  100bae:	66 90                	xchg   %ax,%ax
+00100a20 <LogF>:
+  100a20:	56                   	push   %esi
+  100a21:	53                   	push   %ebx
+  100a22:	83 ec 10             	sub    $0x10,%esp
+  100a25:	8b 5c 24 20          	mov    0x20(%esp),%ebx
+  100a29:	ff 74 24 1c          	push   0x1c(%esp)
+  100a2d:	e8 4e f8 ff ff       	call   100280 <OutS>
+  100a32:	c7 04 24 fc 19 10 00 	movl   $0x1019fc,(%esp)
+  100a39:	8d 74 24 28          	lea    0x28(%esp),%esi
+  100a3d:	e8 3e f8 ff ff       	call   100280 <OutS>
+  100a42:	0f be 03             	movsbl (%ebx),%eax
+  100a45:	83 c4 10             	add    $0x10,%esp
+  100a48:	84 c0                	test   %al,%al
+  100a4a:	74 4f                	je     100a9b <LogF+0x7b>
+  100a4c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  100a50:	3c 25                	cmp    $0x25,%al
+  100a52:	0f 85 08 01 00 00    	jne    100b60 <LogF+0x140>
+  100a58:	0f b6 43 01          	movzbl 0x1(%ebx),%eax
+  100a5c:	3c 25                	cmp    $0x25,%al
+  100a5e:	74 18                	je     100a78 <LogF+0x58>
+  100a60:	83 e8 62             	sub    $0x62,%eax
+  100a63:	3c 16                	cmp    $0x16,%al
+  100a65:	77 11                	ja     100a78 <LogF+0x58>
+  100a67:	0f b6 c0             	movzbl %al,%eax
+  100a6a:	ff 24 85 a0 17 10 00 	jmp    *0x1017a0(,%eax,4)
+  100a71:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100a78:	83 ec 0c             	sub    $0xc,%esp
+  100a7b:	6a 25                	push   $0x25
+  100a7d:	e8 de f7 ff ff       	call   100260 <OutC>
+  100a82:	83 c4 10             	add    $0x10,%esp
+  100a85:	8d 43 01             	lea    0x1(%ebx),%eax
+  100a88:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100a8f:	00 
+  100a90:	8d 58 01             	lea    0x1(%eax),%ebx
+  100a93:	0f be 40 01          	movsbl 0x1(%eax),%eax
+  100a97:	84 c0                	test   %al,%al
+  100a99:	75 b5                	jne    100a50 <LogF+0x30>
+  100a9b:	83 ec 0c             	sub    $0xc,%esp
+  100a9e:	6a 0a                	push   $0xa
+  100aa0:	e8 bb f7 ff ff       	call   100260 <OutC>
+  100aa5:	83 c4 14             	add    $0x14,%esp
+  100aa8:	5b                   	pop    %ebx
+  100aa9:	5e                   	pop    %esi
+  100aaa:	c3                   	ret
+  100aab:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100ab0:	89 f0                	mov    %esi,%eax
+  100ab2:	83 ec 0c             	sub    $0xc,%esp
+  100ab5:	83 c6 04             	add    $0x4,%esi
+  100ab8:	ff 30                	push   (%eax)
+  100aba:	e8 b1 f8 ff ff       	call   100370 <OutH>
+  100abf:	83 c4 10             	add    $0x10,%esp
+  100ac2:	eb c1                	jmp    100a85 <LogF+0x65>
+  100ac4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  100ac8:	89 f0                	mov    %esi,%eax
+  100aca:	83 ec 0c             	sub    $0xc,%esp
+  100acd:	83 c6 04             	add    $0x4,%esi
+  100ad0:	ff 30                	push   (%eax)
+  100ad2:	e8 a9 f7 ff ff       	call   100280 <OutS>
+  100ad7:	83 c4 10             	add    $0x10,%esp
+  100ada:	eb a9                	jmp    100a85 <LogF+0x65>
+  100adc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  100ae0:	89 f0                	mov    %esi,%eax
+  100ae2:	83 ec 08             	sub    $0x8,%esp
+  100ae5:	83 c6 08             	add    $0x8,%esi
+  100ae8:	ff 70 04             	push   0x4(%eax)
+  100aeb:	ff 30                	push   (%eax)
+  100aed:	e8 6e f9 ff ff       	call   100460 <OutL>
+  100af2:	83 c4 10             	add    $0x10,%esp
+  100af5:	eb 8e                	jmp    100a85 <LogF+0x65>
+  100af7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100afe:	00 
+  100aff:	90                   	nop
+  100b00:	89 f0                	mov    %esi,%eax
+  100b02:	83 ec 0c             	sub    $0xc,%esp
+  100b05:	83 c6 04             	add    $0x4,%esi
+  100b08:	ff 30                	push   (%eax)
+  100b0a:	e8 d1 f7 ff ff       	call   1002e0 <OutI>
+  100b0f:	83 c4 10             	add    $0x10,%esp
+  100b12:	e9 6e ff ff ff       	jmp    100a85 <LogF+0x65>
+  100b17:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100b1e:	00 
+  100b1f:	90                   	nop
+  100b20:	89 f0                	mov    %esi,%eax
+  100b22:	83 ec 0c             	sub    $0xc,%esp
+  100b25:	83 c6 04             	add    $0x4,%esi
+  100b28:	0f be 00             	movsbl (%eax),%eax
+  100b2b:	50                   	push   %eax
+  100b2c:	e8 2f f7 ff ff       	call   100260 <OutC>
+  100b31:	83 c4 10             	add    $0x10,%esp
+  100b34:	e9 4c ff ff ff       	jmp    100a85 <LogF+0x65>
+  100b39:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100b40:	89 f0                	mov    %esi,%eax
+  100b42:	83 ec 0c             	sub    $0xc,%esp
+  100b45:	83 c6 04             	add    $0x4,%esi
+  100b48:	ff 30                	push   (%eax)
+  100b4a:	e8 c1 f8 ff ff       	call   100410 <OutB>
+  100b4f:	83 c4 10             	add    $0x10,%esp
+  100b52:	e9 2e ff ff ff       	jmp    100a85 <LogF+0x65>
+  100b57:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100b5e:	00 
+  100b5f:	90                   	nop
+  100b60:	83 ec 0c             	sub    $0xc,%esp
+  100b63:	50                   	push   %eax
+  100b64:	e8 f7 f6 ff ff       	call   100260 <OutC>
+  100b69:	83 c4 10             	add    $0x10,%esp
+  100b6c:	89 d8                	mov    %ebx,%eax
+  100b6e:	e9 1d ff ff ff       	jmp    100a90 <LogF+0x70>
+  100b73:	66 90                	xchg   %ax,%ax
+  100b75:	66 90                	xchg   %ax,%ax
+  100b77:	66 90                	xchg   %ax,%ax
+  100b79:	66 90                	xchg   %ax,%ax
+  100b7b:	66 90                	xchg   %ax,%ax
+  100b7d:	66 90                	xchg   %ax,%ax
+  100b7f:	90                   	nop
 
-00100bb0 <Remap>:
-  100bb0:	b8 11 00 00 00       	mov    $0x11,%eax
-  100bb5:	e6 20                	out    %al,$0x20
-  100bb7:	e6 a0                	out    %al,$0xa0
-  100bb9:	31 d2                	xor    %edx,%edx
-  100bbb:	89 d0                	mov    %edx,%eax
-  100bbd:	e6 80                	out    %al,$0x80
-  100bbf:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
-  100bc4:	e6 21                	out    %al,$0x21
-  100bc6:	0f b6 44 24 08       	movzbl 0x8(%esp),%eax
-  100bcb:	e6 a1                	out    %al,$0xa1
-  100bcd:	89 d0                	mov    %edx,%eax
-  100bcf:	e6 80                	out    %al,$0x80
-  100bd1:	b8 04 00 00 00       	mov    $0x4,%eax
-  100bd6:	e6 21                	out    %al,$0x21
-  100bd8:	b8 02 00 00 00       	mov    $0x2,%eax
-  100bdd:	e6 a1                	out    %al,$0xa1
-  100bdf:	89 d0                	mov    %edx,%eax
-  100be1:	e6 80                	out    %al,$0x80
-  100be3:	b8 01 00 00 00       	mov    $0x1,%eax
-  100be8:	e6 21                	out    %al,$0x21
-  100bea:	e6 a1                	out    %al,$0xa1
-  100bec:	89 d0                	mov    %edx,%eax
-  100bee:	e6 80                	out    %al,$0x80
-  100bf0:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-  100bf5:	e6 21                	out    %al,$0x21
-  100bf7:	e6 a1                	out    %al,$0xa1
-  100bf9:	c3                   	ret
-  100bfa:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-
-00100c00 <PICInit>:
-  100c00:	b8 11 00 00 00       	mov    $0x11,%eax
-  100c05:	e6 20                	out    %al,$0x20
-  100c07:	e6 a0                	out    %al,$0xa0
-  100c09:	31 d2                	xor    %edx,%edx
-  100c0b:	89 d0                	mov    %edx,%eax
-  100c0d:	e6 80                	out    %al,$0x80
-  100c0f:	b8 20 00 00 00       	mov    $0x20,%eax
-  100c14:	e6 21                	out    %al,$0x21
-  100c16:	b8 28 00 00 00       	mov    $0x28,%eax
-  100c1b:	e6 a1                	out    %al,$0xa1
-  100c1d:	89 d0                	mov    %edx,%eax
-  100c1f:	e6 80                	out    %al,$0x80
-  100c21:	b8 04 00 00 00       	mov    $0x4,%eax
-  100c26:	e6 21                	out    %al,$0x21
-  100c28:	b8 02 00 00 00       	mov    $0x2,%eax
-  100c2d:	e6 a1                	out    %al,$0xa1
-  100c2f:	89 d0                	mov    %edx,%eax
-  100c31:	e6 80                	out    %al,$0x80
-  100c33:	b8 01 00 00 00       	mov    $0x1,%eax
-  100c38:	e6 21                	out    %al,$0x21
-  100c3a:	e6 a1                	out    %al,$0xa1
-  100c3c:	89 d0                	mov    %edx,%eax
-  100c3e:	e6 80                	out    %al,$0x80
-  100c40:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-  100c45:	e6 21                	out    %al,$0x21
-  100c47:	e6 a1                	out    %al,$0xa1
-  100c49:	e4 21                	in     $0x21,%al
-  100c4b:	83 e0 fe             	and    $0xfffffffe,%eax
-  100c4e:	e6 21                	out    %al,$0x21
-  100c50:	e4 21                	in     $0x21,%al
-  100c52:	83 e0 ef             	and    $0xffffffef,%eax
-  100c55:	e6 21                	out    %al,$0x21
-  100c57:	c3                   	ret
-  100c58:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  100c5f:	00 
-
-00100c60 <PICUnmask>:
-  100c60:	53                   	push   %ebx
-  100c61:	8b 4c 24 08          	mov    0x8(%esp),%ecx
-  100c65:	80 f9 08             	cmp    $0x8,%cl
-  100c68:	19 d2                	sbb    %edx,%edx
-  100c6a:	83 e2 80             	and    $0xffffff80,%edx
-  100c6d:	66 81 c2 a1 00       	add    $0xa1,%dx
-  100c72:	ec                   	in     (%dx),%al
-  100c73:	bb fe ff ff ff       	mov    $0xfffffffe,%ebx
-  100c78:	d2 c3                	rol    %cl,%bl
-  100c7a:	21 d8                	and    %ebx,%eax
-  100c7c:	ee                   	out    %al,(%dx)
-  100c7d:	5b                   	pop    %ebx
-  100c7e:	c3                   	ret
+00100b80 <Setup>:
+  100b80:	56                   	push   %esi
+  100b81:	5e                   	pop    %esi
+  100b82:	83 ec 1c             	sub    $0x1c,%esp
+  100b85:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  100b8c:	db e3                	fninit
+  100b8e:	9c                   	pushf
+  100b8f:	8f 04 24             	pop    (%esp)
+  100b92:	e8 79 f6 ff ff       	call   100210 <UARTInit>
+  100b97:	83 ec 0c             	sub    $0xc,%esp
+  100b9a:	6a 0a                	push   $0xa
+  100b9c:	e8 bf f6 ff ff       	call   100260 <OutC>
+  100ba1:	5e                   	pop    %esi
+  100ba2:	58                   	pop    %eax
+  100ba3:	68 5c 1c 10 00       	push   $0x101c5c
+  100ba8:	68 04 1a 10 00       	push   $0x101a04
+  100bad:	e8 6e fe ff ff       	call   100a20 <LogF>
+  100bb2:	58                   	pop    %eax
+  100bb3:	5a                   	pop    %edx
+  100bb4:	68 84 1c 10 00       	push   $0x101c84
+  100bb9:	68 09 1a 10 00       	push   $0x101a09
+  100bbe:	e8 5d fe ff ff       	call   100a20 <LogF>
+  100bc3:	83 c4 10             	add    $0x10,%esp
+  100bc6:	81 7c 24 20 02 b0 ad 	cmpl   $0x2badb002,0x20(%esp)
+  100bcd:	2b 
+  100bce:	74 10                	je     100be0 <Setup+0x60>
+  100bd0:	83 ec 0c             	sub    $0xc,%esp
+  100bd3:	68 0e 1a 10 00       	push   $0x101a0e
+  100bd8:	e8 a3 00 00 00       	call   100c80 <FAULT>
+  100bdd:	83 c4 10             	add    $0x10,%esp
+  100be0:	e8 6b f9 ff ff       	call   100550 <GDTLoad>
+  100be5:	0f 01 44 24 04       	sgdtl  0x4(%esp)
+  100bea:	0f b7 44 24 04       	movzwl 0x4(%esp),%eax
+  100bef:	50                   	push   %eax
+  100bf0:	ff 74 24 0a          	push   0xa(%esp)
+  100bf4:	68 1f 1a 10 00       	push   $0x101a1f
+  100bf9:	68 3c 1a 10 00       	push   $0x101a3c
+  100bfe:	e8 1d fe ff ff       	call   100a20 <LogF>
+  100c03:	e8 28 fa ff ff       	call   100630 <IDTLoad>
+  100c08:	0f 01 4c 24 1a       	sidtl  0x1a(%esp)
+  100c0d:	0f b7 44 24 1a       	movzwl 0x1a(%esp),%eax
+  100c12:	50                   	push   %eax
+  100c13:	ff 74 24 20          	push   0x20(%esp)
+  100c17:	68 1f 1a 10 00       	push   $0x101a1f
+  100c1c:	68 40 1a 10 00       	push   $0x101a40
+  100c21:	e8 fa fd ff ff       	call   100a20 <LogF>
+  100c26:	83 c4 1c             	add    $0x1c,%esp
+  100c29:	ff 74 24 04          	push   0x4(%esp)
+  100c2d:	68 44 1a 10 00       	push   $0x101a44
+  100c32:	68 4f 1a 10 00       	push   $0x101a4f
+  100c37:	e8 e4 fd ff ff       	call   100a20 <LogF>
+  100c3c:	e8 af 00 00 00       	call   100cf0 <PICInit>
+  100c41:	58                   	pop    %eax
+  100c42:	5a                   	pop    %edx
+  100c43:	68 53 1a 10 00       	push   $0x101a53
+  100c48:	68 60 1a 10 00       	push   $0x101a60
+  100c4d:	e8 ce fd ff ff       	call   100a20 <LogF>
+  100c52:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  100c59:	e8 f2 f4 ff ff       	call   100150 <TimerInit>
+  100c5e:	59                   	pop    %ecx
+  100c5f:	ff 74 24 30          	push   0x30(%esp)
+  100c63:	e8 58 01 00 00       	call   100dc0 <DumbPMMInit>
+  100c68:	83 c4 10             	add    $0x10,%esp
+  100c6b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100c70:	f4                   	hlt
+  100c71:	eb fd                	jmp    100c70 <Setup+0xf0>
+  100c73:	66 90                	xchg   %ax,%ax
+  100c75:	66 90                	xchg   %ax,%ax
+  100c77:	66 90                	xchg   %ax,%ax
+  100c79:	66 90                	xchg   %ax,%ax
+  100c7b:	66 90                	xchg   %ax,%ax
+  100c7d:	66 90                	xchg   %ax,%ax
   100c7f:	90                   	nop
 
-00100c80 <PICMask>:
-  100c80:	53                   	push   %ebx
-  100c81:	8b 4c 24 08          	mov    0x8(%esp),%ecx
-  100c85:	80 f9 08             	cmp    $0x8,%cl
-  100c88:	19 d2                	sbb    %edx,%edx
-  100c8a:	83 e2 80             	and    $0xffffff80,%edx
-  100c8d:	66 81 c2 a1 00       	add    $0xa1,%dx
-  100c92:	ec                   	in     (%dx),%al
-  100c93:	bb 01 00 00 00       	mov    $0x1,%ebx
-  100c98:	83 e1 07             	and    $0x7,%ecx
-  100c9b:	d3 e3                	shl    %cl,%ebx
-  100c9d:	09 d8                	or     %ebx,%eax
-  100c9f:	ee                   	out    %al,(%dx)
-  100ca0:	5b                   	pop    %ebx
-  100ca1:	c3                   	ret
-  100ca2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  100ca8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-  100caf:	00 
+00100c80 <FAULT>:
+  100c80:	83 ec 10             	sub    $0x10,%esp
+  100c83:	ff 74 24 14          	push   0x14(%esp)
+  100c87:	68 64 1a 10 00       	push   $0x101a64
+  100c8c:	68 7d 1a 10 00       	push   $0x101a7d
+  100c91:	e8 8a fd ff ff       	call   100a20 <LogF>
+  100c96:	eb fe                	jmp    100c96 <FAULT+0x16>
+  100c98:	83 c4 1c             	add    $0x1c,%esp
+  100c9b:	c3                   	ret
+  100c9c:	66 90                	xchg   %ax,%ax
+  100c9e:	66 90                	xchg   %ax,%ax
 
-00100cb0 <EOI>:
-  100cb0:	80 7c 24 04 07       	cmpb   $0x7,0x4(%esp)
-  100cb5:	76 07                	jbe    100cbe <EOI+0xe>
-  100cb7:	b8 20 00 00 00       	mov    $0x20,%eax
-  100cbc:	e6 a0                	out    %al,$0xa0
-  100cbe:	b8 20 00 00 00       	mov    $0x20,%eax
-  100cc3:	e6 20                	out    %al,$0x20
-  100cc5:	c3                   	ret
+00100ca0 <Remap>:
+  100ca0:	b8 11 00 00 00       	mov    $0x11,%eax
+  100ca5:	e6 20                	out    %al,$0x20
+  100ca7:	e6 a0                	out    %al,$0xa0
+  100ca9:	31 d2                	xor    %edx,%edx
+  100cab:	89 d0                	mov    %edx,%eax
+  100cad:	e6 80                	out    %al,$0x80
+  100caf:	0f b6 44 24 04       	movzbl 0x4(%esp),%eax
+  100cb4:	e6 21                	out    %al,$0x21
+  100cb6:	0f b6 44 24 08       	movzbl 0x8(%esp),%eax
+  100cbb:	e6 a1                	out    %al,$0xa1
+  100cbd:	89 d0                	mov    %edx,%eax
+  100cbf:	e6 80                	out    %al,$0x80
+  100cc1:	b8 04 00 00 00       	mov    $0x4,%eax
+  100cc6:	e6 21                	out    %al,$0x21
+  100cc8:	b8 02 00 00 00       	mov    $0x2,%eax
+  100ccd:	e6 a1                	out    %al,$0xa1
+  100ccf:	89 d0                	mov    %edx,%eax
+  100cd1:	e6 80                	out    %al,$0x80
+  100cd3:	b8 01 00 00 00       	mov    $0x1,%eax
+  100cd8:	e6 21                	out    %al,$0x21
+  100cda:	e6 a1                	out    %al,$0xa1
+  100cdc:	89 d0                	mov    %edx,%eax
+  100cde:	e6 80                	out    %al,$0x80
+  100ce0:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  100ce5:	e6 21                	out    %al,$0x21
+  100ce7:	e6 a1                	out    %al,$0xa1
+  100ce9:	c3                   	ret
+  100cea:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+00100cf0 <PICInit>:
+  100cf0:	b8 11 00 00 00       	mov    $0x11,%eax
+  100cf5:	e6 20                	out    %al,$0x20
+  100cf7:	e6 a0                	out    %al,$0xa0
+  100cf9:	31 d2                	xor    %edx,%edx
+  100cfb:	89 d0                	mov    %edx,%eax
+  100cfd:	e6 80                	out    %al,$0x80
+  100cff:	b8 20 00 00 00       	mov    $0x20,%eax
+  100d04:	e6 21                	out    %al,$0x21
+  100d06:	b8 28 00 00 00       	mov    $0x28,%eax
+  100d0b:	e6 a1                	out    %al,$0xa1
+  100d0d:	89 d0                	mov    %edx,%eax
+  100d0f:	e6 80                	out    %al,$0x80
+  100d11:	b8 04 00 00 00       	mov    $0x4,%eax
+  100d16:	e6 21                	out    %al,$0x21
+  100d18:	b8 02 00 00 00       	mov    $0x2,%eax
+  100d1d:	e6 a1                	out    %al,$0xa1
+  100d1f:	89 d0                	mov    %edx,%eax
+  100d21:	e6 80                	out    %al,$0x80
+  100d23:	b8 01 00 00 00       	mov    $0x1,%eax
+  100d28:	e6 21                	out    %al,$0x21
+  100d2a:	e6 a1                	out    %al,$0xa1
+  100d2c:	89 d0                	mov    %edx,%eax
+  100d2e:	e6 80                	out    %al,$0x80
+  100d30:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  100d35:	e6 21                	out    %al,$0x21
+  100d37:	e6 a1                	out    %al,$0xa1
+  100d39:	e4 21                	in     $0x21,%al
+  100d3b:	83 e0 fe             	and    $0xfffffffe,%eax
+  100d3e:	e6 21                	out    %al,$0x21
+  100d40:	e4 21                	in     $0x21,%al
+  100d42:	83 e0 ef             	and    $0xffffffef,%eax
+  100d45:	e6 21                	out    %al,$0x21
+  100d47:	c3                   	ret
+  100d48:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100d4f:	00 
+
+00100d50 <PICUnmask>:
+  100d50:	53                   	push   %ebx
+  100d51:	8b 4c 24 08          	mov    0x8(%esp),%ecx
+  100d55:	80 f9 08             	cmp    $0x8,%cl
+  100d58:	19 d2                	sbb    %edx,%edx
+  100d5a:	83 e2 80             	and    $0xffffff80,%edx
+  100d5d:	66 81 c2 a1 00       	add    $0xa1,%dx
+  100d62:	ec                   	in     (%dx),%al
+  100d63:	bb fe ff ff ff       	mov    $0xfffffffe,%ebx
+  100d68:	d2 c3                	rol    %cl,%bl
+  100d6a:	21 d8                	and    %ebx,%eax
+  100d6c:	ee                   	out    %al,(%dx)
+  100d6d:	5b                   	pop    %ebx
+  100d6e:	c3                   	ret
+  100d6f:	90                   	nop
+
+00100d70 <PICMask>:
+  100d70:	53                   	push   %ebx
+  100d71:	8b 4c 24 08          	mov    0x8(%esp),%ecx
+  100d75:	80 f9 08             	cmp    $0x8,%cl
+  100d78:	19 d2                	sbb    %edx,%edx
+  100d7a:	83 e2 80             	and    $0xffffff80,%edx
+  100d7d:	66 81 c2 a1 00       	add    $0xa1,%dx
+  100d82:	ec                   	in     (%dx),%al
+  100d83:	bb 01 00 00 00       	mov    $0x1,%ebx
+  100d88:	83 e1 07             	and    $0x7,%ecx
+  100d8b:	d3 e3                	shl    %cl,%ebx
+  100d8d:	09 d8                	or     %ebx,%eax
+  100d8f:	ee                   	out    %al,(%dx)
+  100d90:	5b                   	pop    %ebx
+  100d91:	c3                   	ret
+  100d92:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100d99:	00 
+  100d9a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+00100da0 <EOI>:
+  100da0:	80 7c 24 04 07       	cmpb   $0x7,0x4(%esp)
+  100da5:	76 07                	jbe    100dae <EOI+0xe>
+  100da7:	b8 20 00 00 00       	mov    $0x20,%eax
+  100dac:	e6 a0                	out    %al,$0xa0
+  100dae:	b8 20 00 00 00       	mov    $0x20,%eax
+  100db3:	e6 20                	out    %al,$0x20
+  100db5:	c3                   	ret
+  100db6:	66 90                	xchg   %ax,%ax
+  100db8:	66 90                	xchg   %ax,%ax
+  100dba:	66 90                	xchg   %ax,%ax
+  100dbc:	66 90                	xchg   %ax,%ax
+  100dbe:	66 90                	xchg   %ax,%ax
+
+00100dc0 <DumbPMMInit>:
+  100dc0:	55                   	push   %ebp
+  100dc1:	57                   	push   %edi
+  100dc2:	56                   	push   %esi
+  100dc3:	53                   	push   %ebx
+  100dc4:	83 ec 1c             	sub    $0x1c,%esp
+  100dc7:	8b 44 24 30          	mov    0x30(%esp),%eax
+  100dcb:	f6 00 40             	testb  $0x40,(%eax)
+  100dce:	0f 84 bc 00 00 00    	je     100e90 <DumbPMMInit+0xd0>
+  100dd4:	8b 58 30             	mov    0x30(%eax),%ebx
+  100dd7:	8b 78 2c             	mov    0x2c(%eax),%edi
+  100dda:	01 df                	add    %ebx,%edi
+  100ddc:	89 7c 24 0c          	mov    %edi,0xc(%esp)
+  100de0:	39 fb                	cmp    %edi,%ebx
+  100de2:	0f 83 97 00 00 00    	jae    100e7f <DumbPMMInit+0xbf>
+  100de8:	31 ed                	xor    %ebp,%ebp
+  100dea:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100df0:	8b 73 04             	mov    0x4(%ebx),%esi
+  100df3:	8b 7b 08             	mov    0x8(%ebx),%edi
+  100df6:	b9 ff ff 03 00       	mov    $0x3ffff,%ecx
+  100dfb:	89 f0                	mov    %esi,%eax
+  100dfd:	89 fa                	mov    %edi,%edx
+  100dff:	05 00 00 04 00       	add    $0x40000,%eax
+  100e04:	83 d2 ff             	adc    $0xffffffff,%edx
+  100e07:	39 c1                	cmp    %eax,%ecx
+  100e09:	89 e9                	mov    %ebp,%ecx
+  100e0b:	b8 83 1a 10 00       	mov    $0x101a83,%eax
+  100e10:	19 d1                	sbb    %edx,%ecx
+  100e12:	73 35                	jae    100e49 <DumbPMMInit+0x89>
+  100e14:	89 f0                	mov    %esi,%eax
+  100e16:	b9 00 00 00 30       	mov    $0x30000000,%ecx
+  100e1b:	89 fa                	mov    %edi,%edx
+  100e1d:	05 00 00 00 40       	add    $0x40000000,%eax
+  100e22:	83 d2 ff             	adc    $0xffffffff,%edx
+  100e25:	39 c1                	cmp    %eax,%ecx
+  100e27:	89 e9                	mov    %ebp,%ecx
+  100e29:	b8 94 1a 10 00       	mov    $0x101a94,%eax
+  100e2e:	19 d1                	sbb    %edx,%ecx
+  100e30:	73 17                	jae    100e49 <DumbPMMInit+0x89>
+  100e32:	8b 43 14             	mov    0x14(%ebx),%eax
+  100e35:	8d 50 ff             	lea    -0x1(%eax),%edx
+  100e38:	b8 ae 1a 10 00       	mov    $0x101aae,%eax
+  100e3d:	83 fa 04             	cmp    $0x4,%edx
+  100e40:	77 07                	ja     100e49 <DumbPMMInit+0x89>
+  100e42:	8b 04 95 fc 17 10 00 	mov    0x1017fc(,%edx,4),%eax
+  100e49:	83 ec 04             	sub    $0x4,%esp
+  100e4c:	89 fa                	mov    %edi,%edx
+  100e4e:	50                   	push   %eax
+  100e4f:	89 f0                	mov    %esi,%eax
+  100e51:	03 43 0c             	add    0xc(%ebx),%eax
+  100e54:	13 53 10             	adc    0x10(%ebx),%edx
+  100e57:	52                   	push   %edx
+  100e58:	50                   	push   %eax
+  100e59:	57                   	push   %edi
+  100e5a:	56                   	push   %esi
+  100e5b:	68 d0 1a 10 00       	push   $0x101ad0
+  100e60:	68 cc 1a 10 00       	push   $0x101acc
+  100e65:	e8 b6 fb ff ff       	call   100a20 <LogF>
+  100e6a:	8b 03                	mov    (%ebx),%eax
+  100e6c:	83 c4 20             	add    $0x20,%esp
+  100e6f:	8d 5c 03 04          	lea    0x4(%ebx,%eax,1),%ebx
+  100e73:	8b 44 24 0c          	mov    0xc(%esp),%eax
+  100e77:	39 c3                	cmp    %eax,%ebx
+  100e79:	0f 82 71 ff ff ff    	jb     100df0 <DumbPMMInit+0x30>
+  100e7f:	83 c4 1c             	add    $0x1c,%esp
+  100e82:	5b                   	pop    %ebx
+  100e83:	5e                   	pop    %esi
+  100e84:	5f                   	pop    %edi
+  100e85:	5d                   	pop    %ebp
+  100e86:	c3                   	ret
+  100e87:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+  100e8e:	00 
+  100e8f:	90                   	nop
+  100e90:	83 ec 08             	sub    $0x8,%esp
+  100e93:	68 b6 1a 10 00       	push   $0x101ab6
+  100e98:	68 cc 1a 10 00       	push   $0x101acc
+  100e9d:	e8 7e fb ff ff       	call   100a20 <LogF>
+  100ea2:	83 c4 10             	add    $0x10,%esp
+  100ea5:	83 c4 1c             	add    $0x1c,%esp
+  100ea8:	5b                   	pop    %ebx
+  100ea9:	5e                   	pop    %esi
+  100eaa:	5f                   	pop    %edi
+  100eab:	5d                   	pop    %ebp
+  100eac:	c3                   	ret
 Object dump(.data section):
  
 NVKern:     file format elf32-i386
 
 Contents of section .data:
- 100ce0 00000000 00000000 00000000 00000000  ................
- 100cf0 00000000 00000000 00000000 00000000  ................
- 100d00 00000000 00000000 00000000 00000000  ................
- 100d10 00000000 00000000 00000000 00000000  ................
- 100d20 00000000 00000000 00000000 00000000  ................
- 100d30 00000000 00000000 00000000 00000000  ................
- 100d40 00000000 00000000 00000000 00000000  ................
- 100d50 00000000 00000000 00000000 00000000  ................
- 100d60 00000000 00000000 00000000 00000000  ................
- 100d70 00000000 00000000 00000000 00000000  ................
- 100d80 00000000 00000000 00000000 00000000  ................
- 100d90 00000000 00000000 00000000 00000000  ................
- 100da0 00000000 00000000 00000000 00000000  ................
- 100db0 00000000 00000000 00000000 00000000  ................
- 100dc0 00000000 00000000 00000000 00000000  ................
- 100dd0 00000000 00000000 00000000 00000000  ................
- 100de0 00000000 00000000 00000000 00000000  ................
- 100df0 00000000 00000000 00000000 00000000  ................
- 100e00 00000000 00000000 00000000 00000000  ................
- 100e10 00000000 00000000 00000000 00000000  ................
- 100e20 00000000 00000000 00000000 00000000  ................
- 100e30 00000000 00000000 00000000 00000000  ................
- 100e40 00000000 00000000 00000000 00000000  ................
- 100e50 00000000 00000000 00000000 00000000  ................
- 100e60 00000000 00000000 00000000 00000000  ................
- 100e70 00000000 00000000 00000000 00000000  ................
- 100e80 00000000 00000000 00000000 00000000  ................
- 100e90 00000000 00000000 00000000 00000000  ................
- 100ea0 00000000 00000000 00000000 00000000  ................
- 100eb0 00000000 00000000 00000000 00000000  ................
- 100ec0 00000000 00000000 00000000 00000000  ................
+ 100ec0 c00e1000 00000000 c00e1000 00000000  ................
  100ed0 00000000 00000000 00000000 00000000  ................
  100ee0 00000000 00000000 00000000 00000000  ................
  100ef0 00000000 00000000 00000000 00000000  ................
@@ -1471,11 +1640,41 @@ Contents of section .data:
  101510 00000000 00000000 00000000 00000000  ................
  101520 00000000 00000000 00000000 00000000  ................
  101530 00000000 00000000 00000000 00000000  ................
- 101540 5b161000 6d161000 7f161000 8e161000  [...m...........
- 101550 9a161000 b4161000 cc161000 e3161000  ................
- 101560 00171000 1c171000 26171000 1c191000  ........&.......
- 101570 2d171000 48191000 3a171000 47171000  -...H...:...G...
- 101580 6c191000 51171000 94191000 b4191000  l...Q...........
- 101590 68171000 75171000 82171000 8f171000  h...u...........
- 1015a0 9c171000 a9171000 b6171000 c3171000  ................
- 1015b0 d0171000 de171000 ec171000 fa171000  ................
+ 101540 00000000 00000000 00000000 00000000  ................
+ 101550 00000000 00000000 00000000 00000000  ................
+ 101560 00000000 00000000 00000000 00000000  ................
+ 101570 00000000 00000000 00000000 00000000  ................
+ 101580 00000000 00000000 00000000 00000000  ................
+ 101590 00000000 00000000 00000000 00000000  ................
+ 1015a0 00000000 00000000 00000000 00000000  ................
+ 1015b0 00000000 00000000 00000000 00000000  ................
+ 1015c0 00000000 00000000 00000000 00000000  ................
+ 1015d0 00000000 00000000 00000000 00000000  ................
+ 1015e0 00000000 00000000 00000000 00000000  ................
+ 1015f0 00000000 00000000 00000000 00000000  ................
+ 101600 00000000 00000000 00000000 00000000  ................
+ 101610 00000000 00000000 00000000 00000000  ................
+ 101620 00000000 00000000 00000000 00000000  ................
+ 101630 00000000 00000000 00000000 00000000  ................
+ 101640 00000000 00000000 00000000 00000000  ................
+ 101650 00000000 00000000 00000000 00000000  ................
+ 101660 00000000 00000000 00000000 00000000  ................
+ 101670 00000000 00000000 00000000 00000000  ................
+ 101680 00000000 00000000 00000000 00000000  ................
+ 101690 00000000 00000000 00000000 00000000  ................
+ 1016a0 00000000 00000000 00000000 00000000  ................
+ 1016b0 00000000 00000000 00000000 00000000  ................
+ 1016c0 00000000 00000000 00000000 00000000  ................
+ 1016d0 00000000 00000000 00000000 00000000  ................
+ 1016e0 00000000 00000000 00000000 00000000  ................
+ 1016f0 00000000 00000000 00000000 00000000  ................
+ 101700 00000000 00000000 00000000 00000000  ................
+ 101710 00000000 00000000 00000000 00000000  ................
+ 101720 4f181000 61181000 73181000 82181000  O...a...s.......
+ 101730 8e181000 a8181000 c0181000 d7181000  ................
+ 101740 f4181000 10191000 1a191000 881b1000  ................
+ 101750 21191000 b41b1000 2e191000 3b191000  !...........;...
+ 101760 d81b1000 45191000 001c1000 201c1000  ....E....... ...
+ 101770 5c191000 69191000 76191000 83191000  \...i...v.......
+ 101780 90191000 9d191000 aa191000 b7191000  ................
+ 101790 c4191000 d2191000 e0191000 ee191000  ................
