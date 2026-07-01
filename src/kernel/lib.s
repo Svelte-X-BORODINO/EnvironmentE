@@ -1,7 +1,7 @@
 .section .text
 .globl IRQMainRoutine
 .globl IRQMainRoutineNonErr
-.globl irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq7, irq8, irq9, irq10, irq11, irq12, irq13, irq14, irq15, irq16, irq17, irq18, irq19, irq20, irq21, irqres
+.globl irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq7, irq8, irq9, irq10, irq11, irq12, irq13, Page, irq15, irq16, irq17, irq18, irq19, irq20, irq21, irqres
 
 # RegsFrame is:
 #   INT-saved regs:
@@ -21,11 +21,16 @@
 #   ebp    
 #   esi    
 #   edi    
+# And...
+# Here's the message to GNU C Compiler:
+# DELETE THIS FUCKING LIFO, OR I WILL KILL Y'ALL!
 
 IRQMainRoutineErr:
+    pushl $0 # RegsFrame->cr2 (useless in default error handler)
     pushl %ds # RegsFrame->ds
 
     pushal # RegsFrame->eax..ebp
+
 
     movw $0x10, %ax
     movw %ax, %ds
@@ -34,7 +39,6 @@ IRQMainRoutineErr:
     movw %ax, %fs
     movw %ax, %gs
 
-    movl %esp, %eax
     pushl %esp # RegsFrame for IRQ
     calll CIRQErr
     add $0x4, %esp
@@ -45,6 +49,7 @@ IRQMainRoutineErr:
     iret
 
 IRQMainRoutineNonErr:
+    pushl $0 # RegsFrame->cr2 (useless too)
     pushl %ds # RegsFrame->ds
 
     pushal # RegsFrame->eax..ebp
@@ -56,9 +61,31 @@ IRQMainRoutineNonErr:
     movw %ax, %fs
     movw %ax, %gs
 
-    movl %esp, %eax
     pushl %esp # RegsFrame for IRQ
     calll CIRQNonErr
+    add $0x4, %esp
+    popal
+    popl %ds
+    add $0x8, %esp
+
+    iret
+
+Page:
+    pushl %ds # RegsFrame->ds
+
+    pushal # RegsFrame->eax..ebp
+    movl %cr2, %edx
+    pushl %edx
+
+    movw $0x10, %ax
+    movw %ax, %ds
+    movw %ax, %es
+    movw %ax, %ss
+    movw %ax, %fs
+    movw %ax, %gs
+
+    pushl %esp # RegsFrame for IRQ
+    calll CPage
     add $0x4, %esp
     popal
     popl %ds
@@ -153,8 +180,7 @@ irq13:
 # Page Fault (kapec x4)
 irq14:
     pushl $14
-    pushl $0
-    jmp IRQMainRoutineErr
+    jmp Page
 
 # Reserved (do not use, please)
 irq15:

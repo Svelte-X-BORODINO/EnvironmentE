@@ -12,5 +12,6 @@ UPointer OutS(String s);
 UPointer OutI(Unsig32 n);
 UPointer OutH(Unsig32 n);
 UPointer OutB(Unsig32 n);
+UPointer OutL(Unsig64 n);
 
 #endif /* SERIAL_H_ENVE */

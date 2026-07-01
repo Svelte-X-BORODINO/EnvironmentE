@@ -5,20 +5,21 @@
 #include "serial.h"
 
 struct RegsFrame {
-    Unsig32 edi;      
-    Unsig32 esi;      
-    Unsig32 ebp;      
-    Unsig32 esp;      
-    Unsig32 ebx;      
-    Unsig32 edx;      
-    Unsig32 ecx;      
-    Unsig32 eax;      
-    Unsig32 ds;       
-    Unsig32 errcode;  
-    Unsig32 int_no;   
-    Unsig32 eip;      
-    Unsig32 cs;       
-    Unsig32 eflags;   
+    Unsig32 cr2;        // ESP+56
+    Unsig32 edi;        // ESP+52
+    Unsig32 esi;        // ESP+48
+    Unsig32 ebp;        // ESP+44
+    Unsig32 esp;        // ESP+40
+    Unsig32 ebx;        // ESP+36
+    Unsig32 edx;        // ESP+32
+    Unsig32 ecx;        // ESP+28
+    Unsig32 eax;        // ESP+24
+    Unsig32 ds;         // ESP+20
+    Unsig32 errcode;    // ESP+16
+    Unsig32 int_no;     // ESP+12
+    Unsig32 eip;        // ESP+8
+    Unsig32 cs;         // ESP+4
+    Unsig32 eflags;     // ESP+0
 } align(4);
 void CIRQErr(struct RegsFrame *r);
 void CIRQNonErr(struct RegsFrame *r);

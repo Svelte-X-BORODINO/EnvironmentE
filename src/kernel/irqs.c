@@ -2,7 +2,7 @@
 #include <irqs.h>
 #include <macro.h>
 #include <stddef.h>
-_Static_assert(sizeof(struct RegsFrame) == 56, "RegsFrame F*CKING MUST be 56 bytes"); // da
+_Static_assert(sizeof(struct RegsFrame) == 60, "RegsFrame F*CKING MUST be 56 bytes"); // da
 
 const char *irqs[] = {
     "Division By Zero!",
@@ -52,4 +52,9 @@ void CIRQNonErr(struct RegsFrame *r) {
     LogF("IRQ", "esp=%x ebp=%x esi=%x edi=%x", 
         r->esp, r->ebp, r->esi, r->edi);
     LogF("IRQ", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
+}
+
+void CPage(struct RegsFrame *r) {
+    LogF("ZHOPA", "Its %s ds=%x, eip=%x, cr2=%x", irqs[r->int_no], r->ds, r->eip, r->cr2);
+    VASM ("p: jmp p" ::: "memory", "cc");
 }

@@ -2,7 +2,7 @@ AS = as --32
 OBJCOPY = objcopy
 QEMU = qemu-system-i386
 GCC = gcc
-CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -O2 -z noexecstack -mno-sse -mno-mmx -fpack-struct=1 
+CFLAGS = -m32 -ffreestanding -fno-stack-protector -fno-pie -fno-pic -Iinclude -z noexecstack -mno-sse -mno-mmx -fpack-struct=1 -O2
 LD = ld -z noexecstack
 LDFLAGS = -m elf_i386 -T enve.ld
 
@@ -34,7 +34,7 @@ $(KERNEL): $(OBJ)
 
 run: $(KERNEL)
 	$(QEMU) -kernel $(KERNEL) -M smm=off -d int,cpu_reset,guest_errors \
-	-D emu.log -nographic -no-reboot
+	-D emu.log -nographic -no-reboot 
 
 clean:
 	rm -f $(OBJ) $(KERNEL) 

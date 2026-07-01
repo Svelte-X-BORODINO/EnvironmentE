@@ -7,6 +7,22 @@
 #define VASM(...) __asm__ volatile (__VA_ARGS__)
 #define ATTR(...) __attribute__(__VA_ARGS__)
 
+#define CR0(bit) \
+    do { \
+        Unsig32 cr0; \
+        VASM ("mov %%cr0, %0" : "=r"(cr0)); \
+        cr0 |= (1 << (bit)); \
+        VASM ("mov %0, %%cr0" : : "r"(cr0)); \
+    } while(0)
+
+#define CR4(bit) \
+    do { \
+        Unsig32 cr0; \
+        VASM ("mov %%cr0, %0" : "=r"(cr0)); \
+        cr0 |= (1 << (bit)); \
+        VASM ("mov %0, %%cr0" : : "r"(cr0)); \
+    } while(0)
+
 #define paged ATTR((aligned(4096)))
 #define align(n) ATTR((aligned(n)))
 #define naked ATTR((naked))
@@ -17,6 +33,7 @@
 #define cli VASM ("cli")
 #define sti VASM ("sti")
 #define iret VASM ("iret")
+#define int3 VASM ("int $0x3")
 
 #define str(s) xstr(s)
 #define xstr(s) #s

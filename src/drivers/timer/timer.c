@@ -9,7 +9,7 @@ indata Unsig32 ticks = 0;
 
 UPointer TimerInit
 (Unsig32 div) {
-    Unsig32 new_freq = FREQ / 100;
+    Unsig32 new_freq = FREQ / div;
     outb(0x43, 0x36);                    // channel 0, both bytes (idk what is this), mode 3
     outb(0x40, new_freq &0xFF);          // new_freq lo byte
     outb(0x40, (new_freq >> 8) &0xFF);   // new_freq hi byte

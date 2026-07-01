@@ -17,7 +17,7 @@ MBV1_end:
 .globl heap_start
 heap_start: .long .
 
-.section .bss
+.section .bss, "a", @nobits
 .align 16
 stack_bottom:
     .skip 65536         
@@ -36,7 +36,7 @@ _start:
     pushl $(1 << 21)   # CPUID
     popf       
     call Setup
-             
+
 
     movw $0x4F42, 0xB8000
     # movl $test, %esi

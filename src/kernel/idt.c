@@ -22,7 +22,7 @@ extern UPointer irq10();
 extern UPointer irq11();
 extern UPointer irq12();
 extern UPointer irq13();
-extern UPointer irq14();
+extern UPointer Page();
 extern UPointer irq15();
 extern UPointer irq16();
 extern UPointer irq17();
@@ -63,7 +63,7 @@ void IDTLoad
     IDTCreateGate(0x0B, (Unsig32)irq11, 0x08, 0x8E);
     IDTCreateGate(0x0C, (Unsig32)irq12, 0x08, 0x8E);
     IDTCreateGate(0x0D, (Unsig32)irq13, 0x08, 0x8E);
-    IDTCreateGate(0x0E, (Unsig32)irq14, 0x08, 0x8E);
+    IDTCreateGate(0x0E, (Unsig32)Page, 0x08, 0x8E);
     IDTCreateGate(0x0F, (Unsig32)irq15, 0x08, 0x8E);
     IDTCreateGate(0x10, (Unsig32)irq16, 0x08, 0x8E);
     IDTCreateGate(0x11, (Unsig32)irq17, 0x08, 0x8E);

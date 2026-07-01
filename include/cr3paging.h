@@ -4,18 +4,9 @@
 #include "type.h"
 #include "macro.h"
 
-packed struct PageTableEntry {
-    Unsig16 flags : 9; // bit 8 - PAT
-    Unsig8  avl   : 3;
-    Unsig32 frame : 20;
-};
-
-
-packed struct PageDirectoryEntry {
-    Unsig16 flags : 9; // bit 8 - page size
-    Unsig8  avl   : 3;
-    Unsig32 frame : 20;
-};
+#define PG_PRESENT 0x1
+#define PG_RW 0x2
+#define PG_USR 0x4
 
 UPointer PagingInit();
 UPointer MapAPage(Unsig32 virtaddr, Unsig32 physaddr, Unsig32 flags);

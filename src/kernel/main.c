@@ -9,6 +9,7 @@
 #include <kbd.h>
 #include <type.h>
 #include <mb_memmap.h>
+#include <cr3paging.h>
 #include <bump.h>
 
 void Setup
@@ -39,5 +40,13 @@ void Setup
     LogF("PIT", "Timer ready.");
     TimerInit(10);
     DumbPMMInit(mbinfo);
+
+    LogF("PMM", "Testing PMM allocator!");
+    Unsig32 addr = DumbPMMAlloc(0x1000);
+    LogF("PMM", "Allocated 0x1000 bytes at %x", addr);
+    DumbPMMFree((UPointer *)addr);
+    LogF("PMM", "Freed 0x1000 bytes");
+    PagingInit();
+    LogF("CR3", "Identity-mapped some memory for you (256 MB)");
     for (;;) VASM ("hlt");
 }

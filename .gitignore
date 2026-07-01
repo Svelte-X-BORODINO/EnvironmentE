@@ -1,6 +1,6 @@
 emu.log
 gdt.txt
-kernel.elf
+NVKern
 kernel.bin
 dibil.ef
 *.o

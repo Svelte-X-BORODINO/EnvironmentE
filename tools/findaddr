@@ -1,0 +1,2 @@
+#!/bin/bash
+grep "$1" report.txt -A100 -B100 --color=auto

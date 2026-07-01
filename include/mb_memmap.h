@@ -24,7 +24,7 @@ packed struct MBInfo {
 };
 
 UPointer DumbPMMInit(Unsig32 mbinfo);
-//UPointer DumbPMMAlloc(size_t size);
-//UPointer DumbPMMFree(UPointer *ptr);
+Unsig32  DumbPMMAlloc(Unsig32 size);
+UPointer DumbPMMFree(UPointer *ptr);
 
 #endif /* MB_MEMMAP_H_ENVE */
