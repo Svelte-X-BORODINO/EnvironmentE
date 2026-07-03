@@ -20,19 +20,19 @@ static inline Unsig32 Test(Unsig32 frame) {
 }
 
 static String EntryType(struct MBMapEntry *e) {
-    if (e->base_addr >= 0xFFFC0000 && e->base_addr <= 0xFFFFFFFF) {
-        return "SeaBIOS Firmware";
-    }
+    if (e->base_addr >= 0xFFFC0000 && e->base_addr <= 0xFFFFFFFF) return "BIOS Firmware";
 
-    if (e->base_addr >= 0xC0000000 && e->base_addr <= 0xF0000000) {
-        return "Higher Half Kernel (soon)";
-    }
+    if (e->base_addr == 0x100000) return "System RAM";
+
+    if ((e->base_addr + e->length) == 0x0009FC00) return "640K Low RAM";
+    if ((e->base_addr + e->length) == 0x000A0000) return "ACPI/BIOS";
+    
     switch (e->type) {
         case 1: return "Available";
         case 2: return "Reserved";
         case 3: return "ACPI Reclaim";
         case 4: return "ACPI NVS";
-        case 5: return "Bad Memory";
+        case 5: return "Corrupted RAM";
         default: return "Unknown";
     }
 }

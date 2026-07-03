@@ -24,7 +24,7 @@ const char *irqs[] = {
     "FPU error blyat, u are real krivozhop",
     "Alignment Check Fault!",
     "R.I.P Your CPU (some year)-2026",
-    "if you see this, your CPU is dumb, cuz i turned off the SSE",
+    "Ok, SSE is not ideal, and u are krivozhop!",
     "Reserved x2!",
     "Reserved x3!",
     "Reserved x4!",
