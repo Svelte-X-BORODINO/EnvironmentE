@@ -7,19 +7,23 @@
 Unsig8 bitmap[BM_SIZE]; 
 
 
-static inline UPointer Set(Unsig32 frame) {
+static inline UPointer Set
+(Unsig32 frame) {
     bitmap[frame / 8] |= (1 << (frame % 8));
 }
 
-static inline UPointer Clear(Unsig32 frame) {
+static inline UPointer Clear
+(Unsig32 frame) {
     bitmap[frame / 8] &= ~(1 << (frame % 8));
 }
 
-static inline Unsig32 Test(Unsig32 frame) {
+static inline Unsig32 Test
+(Unsig32 frame) {
     return bitmap[frame / 8] & (1 << (frame % 8));
 }
 
-static String EntryType(struct MBMapEntry *e) {
+static String EntryType
+(struct MBMapEntry *e) {
     if (e->base_addr >= 0xFFFC0000 && e->base_addr <= 0xFFFFFFFF) return "BIOS Firmware";
 
     if (e->base_addr == 0x100000) return "System RAM";
@@ -37,7 +41,9 @@ static String EntryType(struct MBMapEntry *e) {
     }
 }
 
-void DumbPMMInit(Unsig32 mbinfo) {
+void DumbPMMInit
+(Unsig32 mbinfo) {
+
     struct MBInfo *mb = (struct MBInfo *)mbinfo;
     if (!(mb->flags &(1 << 6))) {
         LogF("PMM", "Oh.. No memory map :(");
@@ -58,7 +64,8 @@ void DumbPMMInit(Unsig32 mbinfo) {
     }
 }
 
-Unsig32 DumbPMMAlloc(Unsig32 size) {
+Unsig32 DumbPMMAlloc
+(Unsig32 size) {
     for (int i = 0; i < BM_SIZE; i++) {
         if (bitmap[i] == 0xFF) continue;
         for (Unsig8 j = 7; j >= 0; j--) {
@@ -73,7 +80,8 @@ Unsig32 DumbPMMAlloc(Unsig32 size) {
 } 
 
 
-UPointer DumbPMMFree(UPointer *ptr) {
+UPointer DumbPMMFree
+(UPointer *ptr) {
     if (ptr == 0) return;
     Unsig32 frame = (Unsig32)ptr /4096;
     if (frame < BM_SIZE *8 && Test(frame)) {

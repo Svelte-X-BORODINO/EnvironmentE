@@ -39,12 +39,14 @@ const char *irqs[] = {
     "Reserved x13!"
 };
 
-void CIRQErr(struct RegsFrame *r) {
+void CIRQErr
+(struct RegsFrame *r) {
     LogF("PANIC", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
     VASM ("g: jmp g" ::: "memory", "cc");
 }
 
-void CIRQNonErr(struct RegsFrame *r) {
+void CIRQNonErr
+(struct RegsFrame *r) {
     LogF("IRQ", "int_no=%d errcode=%d eflags=%x cs=%x eip=%x", 
         r->int_no, r->errcode, r->eflags, r->cs, r->eip);
     LogF("IRQ", "ds=%x eax=%x ecx=%x edx=%x ebx=%x", 
@@ -54,7 +56,8 @@ void CIRQNonErr(struct RegsFrame *r) {
     LogF("IRQ", "Exception caught: %s; ds=%x, eip=%x", irqs[r->int_no], r->ds, r->eip);
 }
 
-void CPage(struct RegsFrame *r) {
+void CPage
+(struct RegsFrame *r) {
     LogF("ZHOPA", "Its %s ds=%x, eip=%x, cr2=%x", irqs[r->int_no], r->ds, r->eip, r->cr2);
     VASM ("p: jmp p" ::: "memory", "cc");
 }

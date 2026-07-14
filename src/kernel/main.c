@@ -15,10 +15,12 @@
 extern UPointer FPUInit();
 extern UPointer SSEInit();
 
+extern UPointer GoToR3() ATTR((noreturn));
+
 void Setup
 (Unsig32 magic, Unsig32 mbinfo) {
-    packed struct {Unsig16 l; Unsig32 b} gdt;
-    packed struct {Unsig16 l; Unsig32 b} idt;
+    packed struct { Unsig16 l; Unsig32 b; } gdt;
+    packed struct { Unsig16 l; Unsig32 b; } idt;
     Unsig32 f = 0;
 
     VASM
@@ -34,17 +36,12 @@ void Setup
     VASM 
     ( "sgdt %0\n" : "=m"(gdt) :: "memory" );
     LogF("GDT", "Ready, Base : %x; Limit : %x", gdt.b, gdt.l);    
-
+    LogF("TSS", "Ring 3 is ready (wtf??)");
     IDTLoad();
     VASM 
     ( "sidt %0\n" : "=m"(idt) :: "memory" );
     LogF("IDT", "Ready, Base : %x; Limit : %x", idt.b, idt.l);
     
-    FPUInit();
-    LogF("FPU", "FPU is ready. Now u can run DeepSeek-V4 Full (dont try it, please)");
-    SSEInit();
-    LogF("SSE", "SSE is ready. Now u can run sectorLLM in EnvE");
-
     LogF("FLG", "Flags : %b", f);
 
     PICInit();
@@ -52,6 +49,11 @@ void Setup
 
     TimerInit(10);
     LogF("PIT", "Timer ready.");
+
+    FPUInit();
+    LogF("FPU", "FPU is ready. Now u can run DeepSeek-V4 Full (don't try it, please)");
+    SSEInit();
+    LogF("SSE", "SSE is ready. Now u can run sectorLLM in EnvE");
 
     DumbPMMInit(mbinfo);
     LogF("PMM", "Testing PMM allocator!");
@@ -62,6 +64,6 @@ void Setup
 
     PagingInit();
     LogF("CR3", "Identity-mapped some memory for you (256 MB)");
-
+    GoToR3();
     for (;;) VASM ("hlt");
 }

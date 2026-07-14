@@ -25,6 +25,11 @@ SECTIONS
         *(.rodata)
     }
 
+    . = 0x1C0000;
+    .ring3 : {
+        *(.ring3)
+    }
+
     .bss ALIGN(4K) : {
         *(.bss)
     }

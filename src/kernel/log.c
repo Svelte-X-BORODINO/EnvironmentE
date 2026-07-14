@@ -6,7 +6,8 @@
 // @fname : LogF
 // its just printf()
 // fmts: [bcdlsx]
-UPointer LogF(String tag, String fmt, ...) {
+UPointer LogF
+(String tag, String fmt, ...) {
     OutS(tag);
     OutS(" >>> : ");
 

@@ -2,7 +2,8 @@
 #include <io.h>
 #include <serial.h>
 
-UPointer KBDMainRoutine() {
+UPointer KBDMainRoutine
+() {
     Unsig8 key = inb(COM_BASE);
     switch (key) {
         case '\r':

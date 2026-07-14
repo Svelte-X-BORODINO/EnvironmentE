@@ -12,6 +12,7 @@
 #   interrupt number
 #   error code (zero)   
 #   IRQMainRoutine(Err/NonErr)-saved regs:
+#   cr2
 #   ds    
 #   eax    
 #   ecx    
@@ -71,11 +72,11 @@ IRQMainRoutineNonErr:
     iret
 
 Page:
+    movl %cr2, %edx
+    pushl %edx
     pushl %ds # RegsFrame->ds
 
     pushal # RegsFrame->eax..ebp
-    movl %cr2, %edx
-    pushl %edx
 
     movw $0x10, %ax
     movw %ax, %ds

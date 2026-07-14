@@ -5,4 +5,8 @@ kernel.bin
 dibil.ef
 *.o
 needed
-sync.sh
+1FRAG_awp_rooftops.dem
+qemu.log
+report.txt
+a.out
+kapec.md

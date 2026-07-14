@@ -1,14 +1,17 @@
-#include <gdt.h>
 #include <type.h>
 #include <serial.h>
 #include <macro.h>
-#define SIZE 3
-indata struct GDTEntry GDT[SIZE];
-indata struct GDTp     Gp;
+#include <log.h>
+#include <ring3.h>
+#include <gdt.h>
+#define SIZE 6
+align(16) indata struct GDTEntry GDT[SIZE];
+align(16) indata struct GDTp     Gp;
+align(16) indata struct TSS      TSS;
 
 packed struct {
         struct GDTp header;     
-        struct GDTEntry entries[3]; 
+        struct GDTEntry entries[6]; 
 } gdtable;
 
 // @fname            : GDTInstall
@@ -20,6 +23,8 @@ ATTR
     (
         "cli\n"
         "lgdt %0\n"
+        "movw $0x28, %%ax\n"
+        "ltr %%ax\n"
         ".byte 0xEA\n"
         ".long cs_flush\n"
         ".word 0x08\n"
@@ -62,17 +67,34 @@ static UPointer InsertEntry
 }
 
 // @fname            : GDTLoad
-// this thing initialize the f*cking GDT (i spent 4 days to fix this shit)
+// this thing initialize that f*cking GDT (i spent 4 days to fix this shit)
 UPointer GDTLoad
 (void) {
     InsertEntry(0, 0, 0, 0, 0);
     InsertEntry(1, 0x3FFF, 0, 0x9A, GR | DB);
     InsertEntry(2, 0x3FFF, 0, 0x92, GR | DB);
+    InsertEntry(3, 0x3FFF, 0, 0x9A | R3, GR | DB);
+    InsertEntry(4, 0x3FFF, 0, 0x92 | R3, GR | DB);
+    
+    Unsig32 tssbase = (Unsig32)&TSS;    
+    Unsig32 tssz = sizeof(TSS)-1;
 
+    for (int i = 0; i < sizeof(TSS); i++) {
+        ((Unsig8*)&TSS)[i] = 0;
+    }
+
+    TSS.ss0 = 0x10;
+    TSS.iobitmap = sizeof(TSS);
+
+    InsertEntry(5, tssz, tssbase, 0x89, 0x00);    
+    LogF("GDT", "TSS base: %x, size: %x", tssbase, tssz);
+    
     gdtable.entries[0] = GDT[0];
     gdtable.entries[1] = GDT[1];
     gdtable.entries[2] = GDT[2];
-
+    gdtable.entries[3] = GDT[3];
+    gdtable.entries[4] = GDT[4];
+    gdtable.entries[5] = GDT[5];
     gdtable.header.size = sizeof(gdtable.entries) - 1;
     gdtable.header.ptr  = (Unsig32) &gdtable.entries;
 
@@ -81,3 +103,4 @@ UPointer GDTLoad
 
     GDTInstall(&gdtable.header);
 }
+

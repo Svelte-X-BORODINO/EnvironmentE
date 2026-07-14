@@ -15,6 +15,7 @@ MBV1_end:
 
 .section .data
 .globl heap_start
+.align 16
 heap_start: .long .
 
 .section .bss, "a", @nobits

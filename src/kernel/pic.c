@@ -6,15 +6,15 @@ UPointer Remap(Unsig8 offset1, Unsig8 offset2) {
     outb(PIC1_CMD, 0x11);
     outb(PIC2_CMD, 0x11);
     io_wait();
-    
+
     outb(PIC1_DATA, offset1);
     outb(PIC2_DATA, offset2);
     io_wait();
-    
+
     outb(PIC1_DATA, 0x04);
     outb(PIC2_DATA, 0x02);
     io_wait();
-    
+
     outb(PIC1_DATA, 0x01);
     outb(PIC2_DATA, 0x01);
     io_wait();

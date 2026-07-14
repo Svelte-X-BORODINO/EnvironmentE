@@ -5,6 +5,7 @@
 
 #define GR (1 << 7)
 #define DB (1 << 6)
+#define R3 (1 << 5) | (1 << 4)
 
 packed struct GDTp {
     Unsig16  size;

@@ -1,6 +1,6 @@
 # Environment E
 
-Environment E is monolithic kernel for i386 architecture.
+Environment E is monolithic kernel for i686 architecture.
 
 ### Checklist:
 
@@ -12,9 +12,13 @@ Environment E is monolithic kernel for i386 architecture.
 
 - IDT - working
 
-- Ring 3 GDT - NO
+- Ring 3 GDT - DONE (i think no)
 
-- E1000 - NO
+- Preemptive Multitasking - NO
+
+- M-call - NO (THIS WILL BLOW YOUR BRAIN(I not promise))
+
+- E1000 driver - NO
 
 - IDE driver - NO
 

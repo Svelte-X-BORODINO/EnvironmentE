@@ -5,8 +5,8 @@
 #include <kbd.h>
 #include <type.h>
 #include <pic.h>
-indata struct IDTGate IDT[0xFF];
-indata struct IDTp    Ip;
+align(4096) indata struct IDTGate IDT[0x100];
+align(4096) indata struct IDTp    Ip;
 
 extern UPointer irq0();
 extern UPointer irq1();
